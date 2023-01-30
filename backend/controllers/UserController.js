@@ -125,4 +125,28 @@ const setBalance = async (req, res) => {
   }
 };
 
-export { register, login, getMe, setBalance };
+const getBalance = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({
+        message: 'User not found',
+      });
+    }
+
+    const balance = user._doc.balance;
+
+    if (!balance) {
+      return res.status(404).json({
+        message: 'Balance not determined',
+      });
+    }
+
+    res.json(user._doc.balance);
+  } catch (err) {
+    return console.log(err);
+  }
+};
+
+export { register, login, getMe, setBalance, getBalance };
