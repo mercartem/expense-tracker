@@ -35,7 +35,7 @@ const register = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: 'Failed to register',
+      message: 'Failed to register, user already exists',
     });
   }
 };
@@ -102,4 +102,27 @@ const getMe = async (req, res) => {
   }
 };
 
-export { register, login, getMe };
+const setBalance = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    await User.updateOne(
+      {
+        _id: userId,
+      },
+      {
+        $set: {
+          balance: req.body.balance,
+        }
+      },
+    );
+
+    res.json({
+      success: true,
+    });
+  } catch (err) {
+    return console.log(err);
+  }
+};
+
+export { register, login, getMe, setBalance };
