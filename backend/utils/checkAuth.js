@@ -7,12 +7,12 @@ export default (req, res, next) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, 'secret123');
-
+      console.log(req.userId);
       req.userId = decoded._id;
       next();
     } catch (e) {
       return res.status(403).json({
-        message: 'Unavailable',
+        message: 'Auth token error',
       });
     }
   } else {

@@ -14,6 +14,10 @@ const User = new Schema(
     passwordHash: {
       type: String,
       required: true,
+    },
+    balance: {
+      type: Number,
+      required: false,
     }
   },
   {
