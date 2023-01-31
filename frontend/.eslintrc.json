@@ -25,7 +25,8 @@
     "camelcase": "error",
     "spaced-comment": "error",
     "quotes": ["error", "single"],
-    "no-duplicate-imports": "error"
+    "no-duplicate-imports": "error",
+    "react/jsx-no-constructed-context-values": "off"
   },
   "settings": {
     "import/resolver": {
