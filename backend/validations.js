@@ -19,13 +19,13 @@ const transactionCreateValidation = [
   body('category', 'Category should be string').isString(),
   body('paymentMode', 'Payment mode should be string').isString(),
   body('date', 'Date mode should be string').isString(),
+  body('amount', 'There should be amount').exists(),
   body('time', 'Time mode should be string').isString(),
   body('description')
     .isString()
     .withMessage('Description should be string')
     .isLength({ min: 3 })
     .withMessage('Description is too short'),
-  // body('amount').isNumeric().withMessage('Amount should be number'),
   body('transactionType')
     .isString()
     .withMessage('Description should be string')
@@ -33,4 +33,8 @@ const transactionCreateValidation = [
     .withMessage('Valid types of transaction: income/outcome'),
 ];
 
-export { registerValidation, loginValidation, transactionCreateValidation };
+export {
+  registerValidation,
+  loginValidation,
+  transactionCreateValidation,
+};
