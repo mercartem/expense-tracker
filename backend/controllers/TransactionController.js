@@ -9,7 +9,7 @@ const getAll = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: 'Failed to get users',
+      message: 'Failed to get transactions',
     });
   }
 };
@@ -86,18 +86,14 @@ const create = async (req, res) => {
   try {
     const doc = new Transaction({
       category: req.body.category,
-      text: req.body.text,
-      tags: req.body.tags,
+      description: req.body.description,
+      amount: req.body.amount,
+      paymentMode: req.body.paymentMode,
+      transactionType: req.body.transactionType,
+      date: req.body.date,
+      time: req.body.time,
       user: req.userId,
     });
-
-    // const user = await User.findOne({ _id: req.userId });
-
-    // const userUpd = await User.findByIdAndUpdate(
-    //   req.userId,
-    //   { transactions: [...user.transactions, doc] },
-    //   { new: true }
-    // );
 
     const addTransaction = await doc.save();
 
@@ -106,6 +102,7 @@ const create = async (req, res) => {
     console.log(err);
     res.status(500).json({
       message: 'Failed to create Transaction',
+      error: err,
     });
   }
 };
