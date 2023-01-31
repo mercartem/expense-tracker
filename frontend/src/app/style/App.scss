@@ -1,0 +1,7 @@
+@import "variables";
+
+.App {
+  @include mainText;
+  text-align: center;
+  font-size: 2rem;
+}
