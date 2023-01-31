@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanuman:wght@400;700&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
+//backgrounds
+
+$basic-blue: #5886F6;
+$bg-grey: #DEDDED; 
+$bg-light: #EEF5F8;
+$wh: white;
+
+//text
+
+$text-color: #303030;
+$basic-font: 'Hanuman', serif;
+$second-font: 'Roboto',  sans-serif;
+
+@mixin mainText {
+  font-family: $basic-font;
+  color: $text-color;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2em;
+}
+
