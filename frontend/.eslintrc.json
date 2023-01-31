@@ -26,6 +26,7 @@
     "spaced-comment": "error",
     "quotes": ["error", "single"],
     "no-duplicate-imports": "error",
+    "react/jsx-no-constructed-context-values": "off"
     "@typescript-eslint/no-explicit-any": "error"
   },
   "settings": {
