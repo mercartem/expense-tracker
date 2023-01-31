@@ -101,13 +101,12 @@ const update = async (req, res) => {
   try {
     const transactionId = req.params.id;
 
-    for (const key in req.body) {
-      await Transaction.findByIdAndUpdate(transactionId, {
-        $set: {
-          key: req.body[key],
-        }
-      })
-    }
+    await Transaction.updateOne(
+      {
+        _id: transactionId,
+      },
+      transaction(req),
+    );
 
     res.json({
       success: true,

@@ -36,5 +36,5 @@ const transactionCreateValidation = [
 export {
   registerValidation,
   loginValidation,
-  transactionCreateValidation,
+  transactionCreateValidation
 };

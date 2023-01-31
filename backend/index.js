@@ -51,8 +51,6 @@ app.delete('/transactions/:id', checkAuth, TransactionController.remove);
 app.patch(
   '/transactions/:id',
   checkAuth,
-  transactionCreateValidation,
-  handleValidationErrors,
   TransactionController.update
 );
 
