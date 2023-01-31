@@ -25,7 +25,7 @@ const transactionCreateValidation = [
     .withMessage('Description should be string')
     .isLength({ min: 3 })
     .withMessage('Description is too short'),
-  body('amount', 'Amount should be number').isNumeric(),
+  // body('amount').isNumeric().withMessage('Amount should be number'),
   body('transactionType')
     .isString()
     .withMessage('Description should be string')
