@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import AppRouter from './router/AppRouter';
 import AuthContext from '../pages/main/auth/AuthContext';
-import './App.scss';
+import './style/App.scss';
 
 function App() {
   const [isAuth, setIsAuth] = useState(true);
