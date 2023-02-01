@@ -1,99 +1,10 @@
 import Transaction from '../models/Transaction.js';
-import { notFoundError, internalServerError } from '../utils/index.js';
-
-const getAll = async (req, res) => {
-  try {
-    const transactions = await Transaction.find().populate('user').exec();
-
-    res.json(transactions);
-  } catch (err) {
-    console.log(err);
-    internalServerError('Failed to get transactions');
-  }
-};
-
-const getOne = async (req, res) => {
-  try {
-    const transactionId = req.params.id;
-
-    Transaction.findOne(
-      {
-        _id: transactionId,
-      },
-      (err, doc) => {
-        if (err) {
-          console.log(err);
-          internalServerError('Failed to return Transaction');
-        }
-
-        if (!doc) {
-          notFoundError('Transaction not found');
-        }
-
-        res.json(doc);
-      }
-    );
-  } catch (err) {
-    console.log(err);
-    internalServerError('Failed to get Transactions');
-  }
-};
-
-const getMy = async (req, res) => {
-  try {
-    const userId = req.params.id;
-
-    Transaction.find(
-      {
-        user: userId,
-      },
-      (err, doc) => {
-        if (err) {
-          console.log(err);
-          internalServerError('Failed to return Transaction');
-        }
-
-        if (!doc) {
-          notFoundError('Transaction not found');
-        }
-
-        res.json(doc);
-      }
-    );
-  } catch (err) {
-    console.log(err);
-    internalServerError('Failed to get Transactions');
-  }
-};
-
-const remove = async (req, res) => {
-  try {
-    const transactionId = req.params.id;
-
-    Transaction.findOneAndDelete(
-      {
-        _id: transactionId,
-      },
-      (err, doc) => {
-        if (err) {
-          console.log(err);
-          internalServerError('Failed to remove Transaction');
-        }
-
-        if (!doc) {
-          notFoundError('Transaction not found');
-        }
-
-        res.json({
-          success: true,
-        });
-      }
-    );
-  } catch (err) {
-    console.log(err);
-    internalServerError('Failed to get Transactions');
-  }
-};
+import {
+  countBalance,
+  countBalanceReverse,
+} from '../utils/balance/countCurrentBalance.js';
+import { increaseBalance } from '../utils/balance/increaseBalance.js';
+import { decreaseBalance } from '../utils/balance/decreaseBalance.js';
 
 const transaction = (req) => {
   return {
@@ -111,8 +22,9 @@ const transaction = (req) => {
 const create = async (req, res) => {
   try {
     const doc = new Transaction(transaction(req));
-
     const addTransaction = await doc.save();
+
+    countBalance(req.body, req.userId);
 
     res.json(addTransaction);
   } catch (err) {
@@ -132,15 +44,150 @@ const update = async (req, res) => {
       {
         _id: transactionId,
       },
-      transaction(req)
-    );
+        transaction(req),
+    ).then(() => {
+      Transaction.findOne(
+        {
+          _id: transactionId,
+        },
+        (err, doc) => {
+          if (
+            (req.body.transactionType && !req.body.amount) ||
+            (req.body.transactionType && req.body.amount)
+          ) {
+            countBalance(doc, req.userId);
+            countBalance(doc, req.userId);
+          }
+
+          if (!req.body.transactionType && req.body.amount) {
+            countBalance(doc, req.userId);
+          }
+        }
+      )
+    });
 
     res.json({
       success: true,
     });
   } catch (err) {
     console.log(err);
-    internalServerError('Failed to update Transaction');
+    res.status(500).json({
+      message: 'Failed to update transaction',
+    });
+  }
+};
+
+const getAll = async (req, res) => {
+  try {
+    const transactions = await Transaction.find().populate('user').exec();
+
+    res.json(transactions);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'Failed to get transactions',
+    });
+  }
+};
+
+const getOne = async (req, res) => {
+  try {
+    const transactionId = req.params.id;
+
+    Transaction.findOne(
+      {
+        _id: transactionId,
+      },
+      (err, doc) => {
+        if (err) {
+          console.log(err);
+          res.status(500).json({
+            message: 'Failed to get transaction',
+          });
+        }
+
+        if (!doc) {
+          res.status(400).json({
+            message: 'Transaction not found',
+          });
+        }
+
+        res.json(doc);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'Failed to get transaction',
+    });
+  }
+};
+
+const getMy = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    Transaction.find(
+      {
+        user: userId,
+      },
+      (err, doc) => {
+        if (err) {
+          console.log(err);
+          res.status(500).json({
+            message: 'Failed to get my transactions',
+          });
+        }
+
+        if (!doc) {
+          res.status(404).json({
+            message: 'Transaction not found',
+          });
+        }
+
+        res.json(doc);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'Failed to get my transactions',
+    });
+  }
+};
+
+const remove = async (req, res) => {
+  try {
+    const transactionId = req.params.id;
+
+    Transaction.findOneAndDelete(
+      {
+        _id: transactionId,
+      },
+      async (err, doc) => {
+        if (err) {
+          console.log(err);
+          res.status(500).json({
+            message: 'Failed to remove my transaction',
+          });
+        }
+
+        await countBalanceReverse(doc, req.userId);
+
+        if (!doc) {
+          notFoundError(doc, 'Transaction not found');
+        }
+
+        res.json({
+          success: true,
+        });
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'Failed to get transaction',
+    });
   }
 };
 
