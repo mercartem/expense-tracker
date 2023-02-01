@@ -39,6 +39,33 @@ const getOne = async (req, res) => {
   }
 };
 
+const getMy = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    Transaction.find(
+      {
+        user: userId,
+      },
+      (err, doc) => {
+        if (err) {
+          console.log(err);
+          internalServerError('Failed to return Transaction');
+        }
+
+        if (!doc) {
+          notFoundError('Transaction not found');
+        }
+
+        res.json(doc);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    internalServerError('Failed to get Transactions');
+  }
+};
+
 const remove = async (req, res) => {
   try {
     const transactionId = req.params.id;
@@ -105,7 +132,7 @@ const update = async (req, res) => {
       {
         _id: transactionId,
       },
-      transaction(req),
+      transaction(req)
     );
 
     res.json({
@@ -117,4 +144,4 @@ const update = async (req, res) => {
   }
 };
 
-export { create, getAll, remove, update, getOne };
+export { create, getAll, remove, update, getOne, getMy };
