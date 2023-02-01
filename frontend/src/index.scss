@@ -1,10 +1,11 @@
-@import "normalize.css";
+@import 'normalize.css';
 
 * {
   margin: 0;
   padding: 0;
   border: 0;
   scroll-behavior: smooth;
+  list-style-type: none;
 }
 
 *,
