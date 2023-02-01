@@ -1,5 +1,4 @@
-import {createContext, Dispatch, SetStateAction} from 'react';
-
+import { createContext, Dispatch, SetStateAction } from 'react';
 
 interface IAuthContext {
   isAuth: boolean;
@@ -8,8 +7,8 @@ interface IAuthContext {
 
 const defaultAuthState = {
   isAuth: false,
-}
+};
 
 const AuthContext = createContext<IAuthContext>(defaultAuthState);
 
-export default AuthContext
+export default AuthContext;

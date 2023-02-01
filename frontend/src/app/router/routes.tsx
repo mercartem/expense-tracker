@@ -11,7 +11,7 @@
 //   {path: '/', component: MainPage, exact: true}
 // ]
 
-const privateRoutes = ['/dashboard', '/transactions', '/settings']
-const publicRoutes = ['/', '/login', '/sign']
+const privateRoutes = ['/dashboard', '/transactions', '/settings'];
+const publicRoutes = ['/', '/login', '/sign'];
 
-export { privateRoutes, publicRoutes}
+export { privateRoutes, publicRoutes };
