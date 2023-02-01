@@ -1,0 +1,8 @@
+@import '../../../shared/style/variables';
+
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
