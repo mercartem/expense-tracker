@@ -1,2 +1,2 @@
-export * as UserController from './AuthController.js';
+export * as UserController from './UserController.js';
 export * as TransactionController from './TransactionController.js';

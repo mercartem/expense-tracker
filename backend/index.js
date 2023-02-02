@@ -1,6 +1,6 @@
 import express from 'express';
-import multer from 'multer';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import {
   registerValidation,
   loginValidation,
@@ -18,19 +18,8 @@ mongoose
 
 const app = express();
 
-const storage = multer.diskStorage({
-  destination: (_, __, cb) => {
-    cb(null, 'uploads');
-  },
-  filename: (_, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-
-const upload = multer({ storage });
-
 app.use(express.json());
-app.use('/uploads', express.static('uploads'));
+app.use(cors());
 
 app.post(
   '/auth/login',
@@ -46,13 +35,11 @@ app.post(
 );
 app.get('/auth/me', checkAuth, UserController.getMe);
 
-app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
-  res.json({
-    url: `/uploads/${req.file.originalname}`,
-  });
-});
+app.post('/balance/:id', checkAuth, UserController.setBalance);
+app.get('/balance', checkAuth, UserController.getBalance);
 
 app.get('/transactions', TransactionController.getAll);
+app.get('/transactions/:id', checkAuth, TransactionController.getOne);
 app.post(
   '/transactions',
   checkAuth,
@@ -64,8 +51,6 @@ app.delete('/transactions/:id', checkAuth, TransactionController.remove);
 app.patch(
   '/transactions/:id',
   checkAuth,
-  transactionCreateValidation,
-  handleValidationErrors,
   TransactionController.update
 );
 

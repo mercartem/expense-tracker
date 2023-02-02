@@ -1,5 +1,5 @@
 import Transaction from '../models/Transaction.js';
-import User from '../models/User.js';
+import { notFoundError, internalServerError } from '../utils/index.js';
 
 const getAll = async (req, res) => {
   try {
@@ -8,44 +8,36 @@ const getAll = async (req, res) => {
     res.json(transactions);
   } catch (err) {
     console.log(err);
-    res.status(500).json({
-      message: 'Failed to get users',
-    });
+    internalServerError('Failed to get transactions');
   }
 };
 
-// const getOne = async (req, res) => {
-//   try {
-//     const transactionId = req.params.id;
+const getOne = async (req, res) => {
+  try {
+    const transactionId = req.params.id;
 
-//     Transaction.findOne(
-//       {
-//         _id: transactionId,
-//       },
-//       (err, doc) => {
-//         if (err) {
-//           console.log(err);
-//           return res.status(500).json({
-//             message: 'Failed to return Transaction',
-//           });
-//         }
+    Transaction.findOne(
+      {
+        _id: transactionId,
+      },
+      (err, doc) => {
+        if (err) {
+          console.log(err);
+          internalServerError('Failed to return Transaction');
+        }
 
-//         if (!doc) {
-//           return res.status(404).json({
-//             message: 'Transaction not found',
-//           });
-//         }
+        if (!doc) {
+          notFoundError('Transaction not found');
+        }
 
-//         res.json(doc);
-//       }
-//     );
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({
-//       message: 'Failed to get Transactions',
-//     });
-//   }
-// };
+        res.json(doc);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    internalServerError('Failed to get Transactions');
+  }
+};
 
 const remove = async (req, res) => {
   try {
@@ -58,15 +50,11 @@ const remove = async (req, res) => {
       (err, doc) => {
         if (err) {
           console.log(err);
-          return res.status(500).json({
-            message: 'Failed to remove Transaction',
-          });
+          internalServerError('Failed to remove Transaction');
         }
 
         if (!doc) {
-          return res.status(404).json({
-            message: 'Transaction not found',
-          });
+          notFoundError('Transaction not found');
         }
 
         res.json({
@@ -76,28 +64,26 @@ const remove = async (req, res) => {
     );
   } catch (err) {
     console.log(err);
-    res.status(500).json({
-      message: 'Failed to get Transactions',
-    });
+    internalServerError('Failed to get Transactions');
   }
+};
+
+const transaction = (req) => {
+  return {
+    category: req.body.category,
+    description: req.body.description,
+    amount: req.body.amount,
+    paymentMode: req.body.paymentMode,
+    transactionType: req.body.transactionType,
+    date: req.body.date,
+    time: req.body.time,
+    user: req.userId,
+  };
 };
 
 const create = async (req, res) => {
   try {
-    const doc = new Transaction({
-      category: req.body.category,
-      text: req.body.text,
-      tags: req.body.tags,
-      user: req.userId,
-    });
-
-    // const user = await User.findOne({ _id: req.userId });
-
-    // const userUpd = await User.findByIdAndUpdate(
-    //   req.userId,
-    //   { transactions: [...user.transactions, doc] },
-    //   { new: true }
-    // );
+    const doc = new Transaction(transaction(req));
 
     const addTransaction = await doc.save();
 
@@ -106,6 +92,7 @@ const create = async (req, res) => {
     console.log(err);
     res.status(500).json({
       message: 'Failed to create Transaction',
+      error: err,
     });
   }
 };
@@ -118,12 +105,7 @@ const update = async (req, res) => {
       {
         _id: transactionId,
       },
-      {
-        category: req.body.category,
-        text: req.body.text,
-        tags: req.body.tags,
-        user: req.userId,
-      }
+      transaction(req),
     );
 
     res.json({
@@ -131,10 +113,8 @@ const update = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({
-      message: 'Failed to update Transaction',
-    });
+    internalServerError('Failed to update Transaction');
   }
 };
 
-export { create, getAll, remove, update };
+export { create, getAll, remove, update, getOne };
