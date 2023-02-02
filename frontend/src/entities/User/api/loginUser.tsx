@@ -9,7 +9,8 @@ async function loginUser(user: User): Promise<Response> {
     },
     body: JSON.stringify(user),
   });
-  return res;
+  const result = await res.json();
+  return result;
 }
 
 export default loginUser;
