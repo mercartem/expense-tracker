@@ -5,23 +5,25 @@ import './style/App.scss';
 
 function App() {
   const [isAuth, setIsAuth] = useState(true);
-  
-  /* TODO: заменить логику проверки пользователя при передаче токена */ 
 
-  useEffect(()=> {
-    if(localStorage.getItem('auth')) {
-      setIsAuth(true)
+  /* TODO: заменить логику проверки пользователя при передаче токена */
+
+  useEffect(() => {
+    if (localStorage.getItem('auth')) {
+      setIsAuth(true);
     }
-  }, [])
+  }, []);
 
   return (
-    <AuthContext.Provider value={{
-      isAuth,
-      setIsAuth
-    }}>
-      <AppRouter/>
+    <AuthContext.Provider
+      value={{
+        isAuth,
+        setIsAuth,
+      }}
+    >
+      <AppRouter />
     </AuthContext.Provider>
-  )
+  );
 }
 
 export default App;

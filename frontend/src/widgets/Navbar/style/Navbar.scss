@@ -1,0 +1,63 @@
+@import '../../../shared/style/variables';
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  background-color: $wh;
+  box-shadow: 0 2px 4px 1px rgb(0 0 0 / 16%);
+  height: 100vh;
+  width: 200px;
+
+  &_logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background: #f7f7f7;
+  }
+
+  &_user {
+    text-align: center;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &_balance {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f9f9f9;
+    height: 33px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    img {
+      width: 23px;
+      height: 27px;
+    }
+  }
+
+  &_nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  &_nav::after,
+  &_nav::before {
+    content: '';
+    display: block;
+    background-image: linear-gradient(-90deg, #ffffff 3%, #b8cbcc 51%, #ffffff 95%);
+    height: 1px;
+    width: 100%;
+  }
+}

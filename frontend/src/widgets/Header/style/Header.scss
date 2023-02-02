@@ -1,0 +1,27 @@
+.header {
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  background-color: #36404a;
+
+  &_logo {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin-left: 55px;
+  }
+}
+
+.bm-burger-button {
+  position: absolute;
+  width: 30px;
+  height: 20px;
+  top: 15px;
+  left: 15px;
+}
+
+.bm-burger-bars {
+  background: white;
+}
