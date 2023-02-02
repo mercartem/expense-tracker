@@ -123,23 +123,15 @@ const getOne = async (req, res) => {
 
 const getMy = async (req, res) => {
   try {
-    const userId = req.params.id;
-
     Transaction.find(
       {
-        user: userId,
+        user: req.userId,
       },
       (err, doc) => {
         if (err) {
           console.log(err);
           res.status(500).json({
             message: 'Failed to get my transactions',
-          });
-        }
-
-        if (!doc) {
-          res.status(404).json({
-            message: 'Transaction not found',
           });
         }
 
