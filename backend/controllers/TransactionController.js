@@ -154,7 +154,7 @@ const remove = async (req, res) => {
       {
         _id: transactionId,
       },
-      async (err, doc) => {
+      (err, doc) => {
         if (err) {
           console.log(err);
           res.status(500).json({
