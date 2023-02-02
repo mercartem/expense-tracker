@@ -5,11 +5,12 @@ export interface IButtonRoundProps {
   isActive: boolean;
   type: 'button' | 'submit' | 'reset' ;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
-function ButtonRound({ text, isActive, type }: IButtonRoundProps) {
+function ButtonRound({ text, isActive, type, disabled, onClick }: IButtonRoundProps) {
   return (
-    <button type={type || 'button'} className={ isActive ? style.roundBtnActive : style.roundBtn }>
+    <button type={type || 'button'} className={ isActive ? style.roundBtnActive : style.roundBtn } disabled = {disabled} onClick={onClick}>
       {text}
     </button>
   );

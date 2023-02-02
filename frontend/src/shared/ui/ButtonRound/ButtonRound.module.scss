@@ -39,4 +39,7 @@
     height: 30px;
     font-size: 0.8rem;
   }
+  &:disabled {
+    background-color:$bg-grey;
+  }
 }

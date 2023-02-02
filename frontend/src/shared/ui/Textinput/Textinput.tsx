@@ -1,23 +1,25 @@
-import TextField from '@mui/material/TextField';
+import { TextField } from '@mui/material';
+import { MutableRefObject } from 'react';
 
-export interface ITextinputprops {
+export interface ITextInputProps {
   label: string;
+  name?: string;
+  value?: string;
   placeholder?: string | '';
   type: string;
   required?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: boolean;
+  ref?: MutableRefObject<HTMLInputElement>,
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  helperText?: string;
 }
 
-function Textinput(props: ITextinputprops) {
-  const {placeholder, label, type, onChange, required} = props;
+function TextInput(props: ITextInputProps) {
   return (
-  <TextField
-    placeholder={placeholder}
-    label={label}
-    type={type}
-    onChange={onChange}
-    required={false}
-  />
-)}
+    <TextField
+      {...props}
+    />        
+  )
+}
 
-export default Textinput
+export default TextInput
