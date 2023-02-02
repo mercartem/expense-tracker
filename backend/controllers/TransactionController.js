@@ -1,4 +1,5 @@
 import Transaction from '../models/Transaction.js';
+import User from '../models/User.js';
 import {
   countBalance,
   countBalanceReverse,
@@ -39,31 +40,28 @@ const create = async (req, res) => {
 const update = async (req, res) => {
   try {
     const transactionId = req.params.id;
+    const oldTransaction = await Transaction.findById(transactionId);
 
     await Transaction.updateOne(
       {
         _id: transactionId,
       },
-        transaction(req),
+      transaction(req)
     ).then(() => {
       Transaction.findOne(
         {
           _id: transactionId,
         },
-        (err, doc) => {
-          if (
-            (req.body.transactionType && !req.body.amount) ||
-            (req.body.transactionType && req.body.amount)
-          ) {
-            countBalance(doc, req.userId);
-            countBalance(doc, req.userId);
+        async (err, doc) => {
+          if (oldTransaction.transactionType === 'income') {
+            decreaseBalance(oldTransaction, req.userId);
           }
-
-          if (!req.body.transactionType && req.body.amount) {
-            countBalance(doc, req.userId);
+          if (oldTransaction.transactionType === 'outcome') {
+            increaseBalance(oldTransaction, req.userId);
           }
+          countBalance(doc, req.userId, oldTransaction.amount);
         }
-      )
+      );
     });
 
     res.json({
@@ -79,7 +77,7 @@ const update = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const transactions = await Transaction.find().populate('user').exec();
+    const transactions = await Transaction.find();
 
     res.json(transactions);
   } catch (err) {
