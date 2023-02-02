@@ -47,22 +47,22 @@ const update = async (req, res) => {
         _id: transactionId,
       },
       transaction(req)
-    ).then(() => {
-      Transaction.findOne(
-        {
-          _id: transactionId,
-        },
-        async (err, doc) => {
-          if (oldTransaction.transactionType === 'income') {
-            decreaseBalance(oldTransaction, req.userId);
-          }
-          if (oldTransaction.transactionType === 'expense') {
-            increaseBalance(oldTransaction, req.userId);
-          }
-          countBalance(doc, req.userId, oldTransaction.amount);
+    );
+
+    Transaction.findOne(
+      {
+        _id: transactionId,
+      },
+      (err, doc) => {
+        if (oldTransaction.transactionType === 'income') {
+          decreaseBalance(oldTransaction, req.userId);
         }
-      );
-    });
+        if (oldTransaction.transactionType === 'expense') {
+          increaseBalance(oldTransaction, req.userId);
+        }
+        countBalance(doc, req.userId);
+      }
+    );
 
     res.json({
       success: true,
@@ -170,7 +170,7 @@ const remove = async (req, res) => {
           });
         }
 
-        await countBalanceReverse(doc, req.userId);
+        countBalanceReverse(doc, req.userId);
 
         if (!doc) {
           notFoundError(doc, 'Transaction not found');
