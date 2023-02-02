@@ -56,7 +56,7 @@ const update = async (req, res) => {
           if (oldTransaction.transactionType === 'income') {
             decreaseBalance(oldTransaction, req.userId);
           }
-          if (oldTransaction.transactionType === 'outcome') {
+          if (oldTransaction.transactionType === 'expense') {
             increaseBalance(oldTransaction, req.userId);
           }
           countBalance(doc, req.userId, oldTransaction.amount);
