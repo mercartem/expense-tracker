@@ -1,11 +1,8 @@
 .header {
-  display: none;
+  position: fixed;
   width: 100%;
   height: 50px;
   background-color: #36404a;
-  @media (max-width: 770px) {
-    display: block;
-  }
 
   &_logo {
     width: 150px;
