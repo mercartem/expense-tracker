@@ -29,8 +29,8 @@ const transactionCreateValidation = [
   body('transactionType')
     .isString()
     .withMessage('Description should be string')
-    .isIn(['income', 'outcome'])
-    .withMessage('Valid types of transaction: income/outcome'),
+    .isIn(['income', 'expense'])
+    .withMessage('Valid types of transaction: income/expense'),
 ];
 
 export {

@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import User from '../models/User.js';
-import { notFoundError, internalServerError } from '../utils/index.js';
 
 const register = async (req, res) => {
   try {
@@ -35,20 +34,32 @@ const register = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    internalServerError('Failed to register, user already exists');
+    res.status(500).json({
+      message: 'User already exists',
+    })
   }
 };
 
 const login = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
-    notFoundError(user, 'User not found');
+
+    if (!user) {
+      res.status(404).json({
+        message: 'User not found',
+      });
+    }
 
     const isValidPass = await bcrypt.compare(
       req.body.password,
       user._doc.passwordHash
     );
-    notFoundError(isValidPass, 'Incorrect login or password');
+
+    if (!isValidPass) {
+      res.status(404).json({
+        message: 'Incorrect login or password',
+      });
+    }
 
     const token = jwt.sign(
       {
@@ -68,14 +79,20 @@ const login = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    internalServerError('Failed to login');
+    res.status(500).json({
+      message: 'Failed to login',
+    })
   }
 };
 
 const getMe = async (req, res) => {
   try {
     const user = await User.findById(req.userId);
-    notFoundError(user, 'User not found');
+    if (!user) {
+      return res.status(404).json({
+        message: 'User not found',
+      })
+    }
 
     const { passwordHash, ...userData } = user._doc;
 
@@ -95,7 +112,7 @@ const setBalance = async (req, res) => {
       },
       {
         $set: {
-          balance: req.body.balance,
+          balance: +req.body.balance,
         },
       }
     );
@@ -111,12 +128,20 @@ const setBalance = async (req, res) => {
 const getBalance = async (req, res) => {
   try {
     const user = await User.findById(req.userId);
-    notFoundError(user, 'User not found');
+    if (!user) {
+      return res.status(404).json({
+        message: 'User not found',
+      })
+    }
 
     const balance = user._doc.balance;
-    notFoundError(balance, 'Balance not determined');
+    if (!balance) {
+      return res.status(404).json({
+        message: 'Balance is not determined',
+      })
+    }
 
-    res.json(user._doc.balance);
+    res.json(balance);
   } catch (err) {
     return console.log(err);
   }

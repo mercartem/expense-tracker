@@ -39,6 +39,7 @@ app.post('/balance/:id', checkAuth, UserController.setBalance);
 app.get('/balance', checkAuth, UserController.getBalance);
 
 app.get('/transactions', TransactionController.getAll);
+app.get('/user/transactions', checkAuth, TransactionController.getMy);
 app.get('/transactions/:id', checkAuth, TransactionController.getOne);
 app.post(
   '/transactions',
