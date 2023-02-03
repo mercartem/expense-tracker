@@ -1,7 +1,7 @@
 import server from '../../../shared/constants/url';
-import { User } from '../lib/types/user';
+import { Auth, User } from '../lib/types/user';
 
-async function loginUser(user: User): Promise<Response> {
+async function loginUser(user: Auth): Promise<User | string> {
   const res = await fetch(`${server}/auth/login`, {
     method: 'POST',
     headers: {
@@ -9,8 +9,13 @@ async function loginUser(user: User): Promise<Response> {
     },
     body: JSON.stringify(user),
   });
-  const result = await res.json();
-  return result;
+  if (res.status === 403) {
+    return (await res.json())[0].msg as string;
+  }
+  if (res.status === 404) {
+    return (await res.json()).message as string;
+  }
+  return (await res.json()) as User;
 }
 
 export default loginUser;
