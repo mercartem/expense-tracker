@@ -13,3 +13,8 @@
 *::after {
   box-sizing: border-box;
 }
+
+*:hover,
+*:focus {
+  text-decoration: none !important;
+}
