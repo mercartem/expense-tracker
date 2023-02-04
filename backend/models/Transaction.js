@@ -2,33 +2,13 @@ import { Schema, model } from 'mongoose';
 
 const Transaction = new Schema(
   {
-    category: {
-      type: String,
-      unique: false
-    },
-    description: {
-      type: String,
-      unique: false
-    },
-    amount: {
-      type: Number,
-      unique: false
-    },
-    paymentMode: {
-      type: String,
-      unique: false
-    },
-    transactionType: {
-      type: String,
-      unique: false
-    },
-    date: {
-      type: String,
-      unique: false
-    },
-    time: {
-      type: String,
-    },
+    category: String,
+    description: String,
+    amount: Number,
+    paymentMode: String,
+    transactionType: String,
+    date: String,
+    time: String,
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User',
