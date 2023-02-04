@@ -5,8 +5,13 @@ import {
   registerValidation,
   loginValidation,
   transactionCreateValidation,
+  changePasswordValidation,
 } from './validations.js';
-import { UserController, TransactionController } from './controllers/index.js';
+import {
+  UserController,
+  TransactionController,
+  BalanceController,
+} from './controllers/index.js';
 import { handleValidationErrors, checkAuth } from './utils/index.js';
 
 mongoose
@@ -34,9 +39,16 @@ app.post(
   UserController.register
 );
 app.get('/auth/me', checkAuth, UserController.getMe);
+app.patch(
+  '/auth/me',
+  checkAuth,
+  changePasswordValidation,
+  handleValidationErrors,
+  UserController.changePassword
+);
 
-app.post('/balance/:id', checkAuth, UserController.setBalance);
-app.get('/balance', checkAuth, UserController.getBalance);
+app.post('/balance/:id', checkAuth, BalanceController.setBalance);
+app.get('/balance', checkAuth, BalanceController.getBalance);
 
 app.get('/transactions', TransactionController.getAll);
 app.get('/user/transactions', checkAuth, TransactionController.getMy);
@@ -49,11 +61,7 @@ app.post(
   TransactionController.create
 );
 app.delete('/transactions/:id', checkAuth, TransactionController.remove);
-app.patch(
-  '/transactions/:id',
-  checkAuth,
-  TransactionController.update
-);
+app.patch('/transactions/:id', checkAuth, TransactionController.update);
 
 app.listen(4444, (err) => {
   if (err) {

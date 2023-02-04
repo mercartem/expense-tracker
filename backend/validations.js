@@ -2,9 +2,6 @@ import { body } from 'express-validator';
 
 const loginValidation = [
   body('email', 'Icorrect email format').isEmail(),
-  body('password', 'Password should not be less than 5 symbols').isLength({
-    min: 5,
-  }),
 ];
 
 const registerValidation = [
@@ -14,6 +11,12 @@ const registerValidation = [
   }),
   body('fullName', 'Set your name').isLength({ min: 3 }),
 ];
+
+const changePasswordValidation = [
+  body('password', 'Password should not be less than 5 symbols').isLength({
+    min: 5,
+  }),
+]
 
 const transactionCreateValidation = [
   body('category', 'Category should be string').isString(),
@@ -36,5 +39,6 @@ const transactionCreateValidation = [
 export {
   registerValidation,
   loginValidation,
-  transactionCreateValidation
+  transactionCreateValidation,
+  changePasswordValidation
 };

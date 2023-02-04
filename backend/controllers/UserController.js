@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import User from '../models/User.js';
+import { setToken } from '../utils/setToken.js';
 
 const register = async (req, res) => {
   try {
@@ -16,15 +16,7 @@ const register = async (req, res) => {
 
     const user = await doc.save();
 
-    const token = jwt.sign(
-      {
-        _id: user._id,
-      },
-      'secret123',
-      {
-        expiresIn: '30d',
-      }
-    );
+    const token = setToken(user);
 
     const { passwordHash, ...userData } = user._doc;
 
@@ -36,7 +28,7 @@ const register = async (req, res) => {
     console.log(err);
     res.status(500).json({
       message: 'User already exists',
-    })
+    });
   }
 };
 
@@ -45,7 +37,7 @@ const login = async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) {
-      res.status(404).json({
+      return res.status(404).json({
         message: 'User not found',
       });
     }
@@ -56,20 +48,12 @@ const login = async (req, res) => {
     );
 
     if (!isValidPass) {
-      res.status(404).json({
+      return res.status(500).json({
         message: 'Incorrect login or password',
       });
     }
 
-    const token = jwt.sign(
-      {
-        _id: user._id,
-      },
-      'secret123',
-      {
-        expiresIn: '30d',
-      }
-    );
+    const token = setToken(user);
 
     const { passwordHash, ...userData } = user._doc;
 
@@ -80,8 +64,8 @@ const login = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: 'Failed to login',
-    })
+      message: 'failed to login',
+    });
   }
 };
 
@@ -91,7 +75,7 @@ const getMe = async (req, res) => {
     if (!user) {
       return res.status(404).json({
         message: 'User not found',
-      })
+      });
     }
 
     const { passwordHash, ...userData } = user._doc;
@@ -102,49 +86,30 @@ const getMe = async (req, res) => {
   }
 };
 
-const setBalance = async (req, res) => {
+const changePassword = async (req, res) => {
   try {
-    const userId = req.params.id;
+    const password = req.body.password;
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
 
-    await User.updateOne(
+    const user = await User.updateOne(
       {
-        _id: userId,
+        _id: req.userId,
       },
       {
-        $set: {
-          balance: +req.body.balance,
-        },
+        passwordHash: hash,
       }
     );
 
+    const token = setToken(user);
+
     res.json({
-      success: true,
+      message: 'Password changed successfully',
+      newToken: token,
     });
   } catch (err) {
     return console.log(err);
   }
 };
 
-const getBalance = async (req, res) => {
-  try {
-    const user = await User.findById(req.userId);
-    if (!user) {
-      return res.status(404).json({
-        message: 'User not found',
-      })
-    }
-
-    const balance = user._doc.balance;
-    if (!balance) {
-      return res.status(404).json({
-        message: 'Balance is not determined',
-      })
-    }
-
-    res.json(balance);
-  } catch (err) {
-    return console.log(err);
-  }
-};
-
-export { register, login, getMe, setBalance, getBalance };
+export { register, login, getMe, changePassword };
