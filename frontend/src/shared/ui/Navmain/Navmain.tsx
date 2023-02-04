@@ -4,12 +4,8 @@ interface INavmainprops {
   children: React.ReactNode;
 }
 
-function Navmain({children}:INavmainprops) {
-  return (
-    <nav className={style.navigation}>
-      {children}
-    </nav>
-  )
+function Navmain({ children }: INavmainprops) {
+  return <nav className={style.navigation}>{children}</nav>;
 }
 
-export default Navmain
+export default Navmain;

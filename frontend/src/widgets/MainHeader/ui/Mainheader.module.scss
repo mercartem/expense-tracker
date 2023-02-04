@@ -6,3 +6,15 @@
   flex-direction: row;
   gap: 1rem;
 }
+
+.logo {
+  display: block;
+  width: 300px;
+  height: auto;
+  @media all and (max-width: 740px) {
+    width: 200px;
+  }
+  @media all and (max-width: 500px) {
+    width: 150px;
+  }
+}

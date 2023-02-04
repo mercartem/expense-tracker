@@ -1,3 +1,3 @@
-import RegisterByMail from "./ui/RegisterByMail";
+import RegisterByMail from './ui/RegisterByMail';
 
-export default RegisterByMail
+export default RegisterByMail;

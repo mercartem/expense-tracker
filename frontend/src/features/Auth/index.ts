@@ -1,3 +1,3 @@
 import AuthByMail from './ui/AuthByMail';
 
-export default AuthByMail
+export default AuthByMail;

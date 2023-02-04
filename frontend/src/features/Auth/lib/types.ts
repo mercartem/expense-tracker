@@ -3,5 +3,9 @@ export interface IAuthFormProps {
 }
 
 export interface ISetFormCallback {
-  (data: { isValidMail: boolean, isValidPass: boolean}) : void
+  (data: { isValidMail: boolean; isValidPass: boolean }): void;
+}
+
+export interface IErrorFormCallback {
+  (error: boolean): void;
 }

@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material';
-import { MutableRefObject } from 'react';
+import { MutableRefObject, FocusEvent } from 'react';
 
 export interface ITextInputProps {
   label: string;
@@ -9,17 +9,14 @@ export interface ITextInputProps {
   type: string;
   required?: boolean;
   error?: boolean;
-  ref?: MutableRefObject<HTMLInputElement>,
+  ref?: MutableRefObject<HTMLInputElement>;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   helperText?: string;
+  onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
 function TextInput(props: ITextInputProps) {
-  return (
-    <TextField
-      {...props}
-    />        
-  )
+  return <TextField {...props} />;
 }
 
-export default TextInput
+export default TextInput;

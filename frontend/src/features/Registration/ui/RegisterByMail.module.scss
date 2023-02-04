@@ -22,3 +22,21 @@
 .formtext {
   font-size: 0.8em;
 }
+
+.error {
+  text-align: center;
+  color: red;
+  padding: 1em;
+}
+
+.title {
+  font-size: max(1.5vw, 24px);
+  text-align: center;
+  padding: 2em 0 0 0;
+  @media all and (max-width:740px) {
+    padding: 2em 0 0 0;
+   }
+   @media all and (max-width:500px) {
+    font-size: 20px;
+   }
+}
