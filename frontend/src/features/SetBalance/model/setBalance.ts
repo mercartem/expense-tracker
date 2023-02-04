@@ -35,8 +35,9 @@ async function handleSubmitBalance(
   e.preventDefault();
   if (isValid) {
     const { token, id } = accessData;
+    const balanceNum = Number(balance)
     if (id && token) {
-      await createBalance(balance, id, token);
+      await createBalance(balanceNum, id, token);
       approveUser(true);
       updateContext(true);
     }

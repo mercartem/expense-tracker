@@ -59,9 +59,7 @@ async function handleSubmit(
       setToken(token);
       setId(id);
       updateContext(true);
-    } else {
-      throw new Error('Failed to get your data. Please try once again');
-    }
+    } 
   } catch (err) {
     if (err instanceof Error) {
       errorHandler(err.message);
