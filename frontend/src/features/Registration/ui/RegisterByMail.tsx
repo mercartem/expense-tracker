@@ -57,7 +57,7 @@ function RegisterByMail() {
               setInputData({ email: '', password: '', fullName: '' });
             }}
           >
-            {registerError && <p className={style.error}>The user can not be created!</p>}
+            {registerError && <p className={style.error}>{registerError}</p>}
             <FormControl>
               <TextInput
                 {...nameInputProps}
