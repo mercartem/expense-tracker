@@ -122,6 +122,9 @@ const getOne = async (req, res) => {
 
 const getMy = async (req, res) => {
   try {
+    let { page, limit } = req.query;
+    page -= 1;
+
     Transaction.find(
       {
         user: req.userId,
@@ -129,12 +132,12 @@ const getMy = async (req, res) => {
       (err, doc) => {
         if (err) {
           console.log(err);
-          res.status(500).json({
+          return res.status(500).json({
             message: 'Failed to get my transactions',
           });
         }
 
-        res.json(doc);
+        res.json(doc.slice(limit * page, limit * (page + 1)));
       }
     );
   } catch (err) {
