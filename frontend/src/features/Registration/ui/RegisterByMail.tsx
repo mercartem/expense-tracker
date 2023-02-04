@@ -1,10 +1,10 @@
 import { FormControl } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User } from '../../../entities/User/lib/types/user';
+import { Auth } from '../../../entities/User/lib/types/user';
 import ButtonRound from '../../../shared/ui/ButtonRound/ButtonRound';
-import TextInput from '../../../shared/ui/Textinput/TextInput';
-import { isValidForm } from '../utils/utils';
+import TextInput from '../../../shared/ui/TextInput/Textinput';
+import isValidForm from '../utils/utils';
 import {
   handleSubmit,
   mailInputProps,
@@ -18,40 +18,42 @@ import { IUserAccess } from '../lib/types';
 import SetBalance from '../../SetBalance/ui/SetBalance';
 
 function RegisterByMail() {
-  const [inputData, setInputData] = useState<User>({ email: '', password: '', fullName: '' });
-  const [userData, setUserData] = useState<IUserAccess | null>(null);
-  const [formValid, setFormValid] = useState({
-    isValidMail: false,
-    isValidPass: false,
-    isValidName: false,
+  const [inputData, setInputData] = useState<Required<Auth>>({
+    email: '',
+    password: '',
+    fullName: '',
   });
-  const [registerError, setRegisterError] = useState(false);
+  const [userAccessData, setUserAccessData] = useState<IUserAccess | null>(null);
+  const [formValid, setFormValid] = useState(false);
+  const [registerError, setRegisterError] = useState('');
   const [inputErrors, setInputErrors] = useState({
-    email: false,
-    password: false,
-    fullName: false,
+    email: true,
+    password: true,
+    fullName: true,
   });
 
   function handleOnchange(e: React.ChangeEvent<HTMLInputElement>, name: string) {
     setInputData({ ...inputData, [name]: e.target.value });
-    validateUserInput(name, e.target.value, formValid, setFormValid);
+    validateUserInput(name, e.target.value, inputErrors, setInputErrors);
+    setFormValid(isValidForm({ ...inputData, [name]: e.target.value }));
   }
 
-  function handleError(e: React.ChangeEvent<HTMLInputElement>, name: string, isValid: boolean) {
-    setInputErrors({ ...inputErrors, [name]: isValid });
+  function handleInputError(e: React.ChangeEvent<HTMLInputElement>, name: string) {
+    validateUserInput(name, e.target.value, inputErrors, setInputErrors);
   }
   return (
     <div>
-      {userData ? (
-        <SetBalance {...userData} />
+      {userAccessData ? (
+        <SetBalance {...userAccessData} />
       ) : (
         <>
           <h2 className={style.title}>Enter your data to register</h2>
           <form
-            name='registerform'
+            name='registerForm'
             className={style.form}
+            noValidate
             onSubmit={async (e) => {
-              await handleSubmit(e, inputData, setUserData, setRegisterError);
+              await handleSubmit(e, inputData, setUserAccessData, setRegisterError);
               setInputData({ email: '', password: '', fullName: '' });
             }}
           >
@@ -61,10 +63,10 @@ function RegisterByMail() {
                 {...nameInputProps}
                 value={inputData.fullName}
                 onChange={(e) => handleOnchange(e, 'fullName')}
-                helperText={formValid.isValidName ? '' : 'Name should be more than 4 symbols'}
-                error={inputErrors.fullName}
+                helperText={inputErrors.fullName ? '' : 'Name should be more than 4 symbols'}
+                error={!inputErrors.fullName}
                 onBlur={(e) => {
-                  handleError(e, 'fullName', !formValid.isValidName);
+                  handleInputError(e, 'fullName');
                 }}
               />
             </FormControl>
@@ -73,10 +75,10 @@ function RegisterByMail() {
                 {...mailInputProps}
                 value={inputData.email}
                 onChange={(e) => handleOnchange(e, 'email')}
-                helperText={formValid.isValidMail ? '' : 'Enter a valid Email'}
-                error={inputErrors.email}
+                helperText={inputErrors.email ? '' : 'Enter a valid Email'}
+                error={!inputErrors.email}
                 onBlur={(e) => {
-                  handleError(e, 'email', !formValid.isValidName);
+                  handleInputError(e, 'email');
                 }}
               />
             </FormControl>
@@ -85,15 +87,15 @@ function RegisterByMail() {
                 {...passwordInputProps}
                 value={inputData.password}
                 onChange={(e) => handleOnchange(e, 'password')}
-                helperText={formValid.isValidPass ? '' : 'Password should be longer than 5 letters'}
-                error={inputErrors.password}
+                helperText={inputErrors.password ? '' : 'Password should be longer than 5 letters'}
+                error={!inputErrors.password}
                 onBlur={(e) => {
-                  handleError(e, 'password', !formValid.isValidName);
+                  handleInputError(e, 'password');
                 }}
               />
             </FormControl>
-            <ButtonRound type='submit' text='Sign in' disabled={!isValidForm(formValid)} isActive />
-            <p className={style.formtext}>
+            <ButtonRound type='submit' text='Sign in' disabled={!formValid} isActive />
+            <p className={style.formText}>
               Have an account? <Link to='/login'>Log in</Link>
             </p>
           </form>

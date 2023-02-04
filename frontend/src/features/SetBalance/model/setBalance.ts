@@ -1,5 +1,7 @@
+import createBalance from '../../../entities/Balance/api/createBalance';
+import { ICallback } from '../../../shared/lib/types';
+import { validateBalance } from '../../../shared/utils/utils';
 import { IUserAccess } from '../../Registration/lib/types';
-import { setValueCallback } from '../lib/types';
 
 const balanceInputProps = {
   label: 'Your balance',
@@ -8,54 +10,36 @@ const balanceInputProps = {
   required: true,
 };
 
-function validateBalance(value: string) {
-  const pattern = /^[-+]?[0-9]+$/;
-  return pattern.test(value);
-}
-
-function setToken(token: string) {
-  if (token) {
-    localStorage.setItem('token', JSON.stringify(token));
-  }
-}
-
-function setId(id: string) {
-  if (id) {
-    localStorage.setItem('id', JSON.stringify(id));
-  }
-}
-
-function getToken() {
-  const tokenString = localStorage.getItem('token');
-  if (tokenString) {
-    return JSON.parse(tokenString);
-  }
-  return tokenString;
-}
-
-function handleValidationError(value: string, handleError: setValueCallback<boolean>) {
+function handleValidationError(value: string, handleError: ICallback<boolean>) {
   const isValid = validateBalance(value);
   handleError(isValid);
 }
+
 function handleOnChange(
   value: string,
-  updateValueCallback: setValueCallback<string>,
-  handleError: setValueCallback<boolean>,
+  updateValueCallback: ICallback<string>,
+  handleError: ICallback<boolean>,
 ) {
   updateValueCallback(value);
   handleValidationError(value, handleError);
 }
 
-function handleSubmitBalance(
+async function handleSubmitBalance(
   e: React.FormEvent<HTMLFormElement>,
-  accessData: IUserAccess, approveUser: setValueCallback<boolean>,
-  isValid: boolean) {
+  balance: string,
+  accessData: IUserAccess,
+  approveUser: ICallback<boolean>,
+  isValid: boolean,
+  updateContext: ICallback<boolean>,
+) {
   e.preventDefault();
-  if(isValid) {
-    const { token, _id } = accessData;
-    setToken(token);
-    setId(_id);
-    approveUser(true)
+  if (isValid) {
+    const { token, id } = accessData;
+    if (id && token) {
+      await createBalance(balance, id, token);
+      approveUser(true);
+      updateContext(true);
+    }
   }
 }
 

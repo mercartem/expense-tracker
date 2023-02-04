@@ -41,5 +41,6 @@
   }
   &:disabled {
     background-color:$bg-grey;
+    border: 1px $basic-blue solid;
   }
 }

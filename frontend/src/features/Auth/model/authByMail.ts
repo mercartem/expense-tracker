@@ -1,9 +1,8 @@
-import { Navigate } from 'react-router-dom';
 import loginUser from '../../../entities/User/api/loginUser';
-import { User } from '../../../entities/User/lib/types/user';
-import { ITextInputProps } from '../../../shared/ui/Textinput/TextInput';
-import { IErrorFormCallback, ISetFormCallback } from '../lib/types';
-import { setToken, validateMail, validatePassword } from '../utils/utils';
+import { Auth } from '../../../entities/User/lib/types/user';
+import { ITextInputProps } from '../../../shared/ui/TextInput/Textinput';
+import { setId, setToken, validateMail, validatePassword  } from '../../../shared/utils/utils';
+import { ICallback, IUserAccess } from '../../../shared/lib/types';
 
 const mailInputProps: ITextInputProps = {
   label: 'Email',
@@ -11,7 +10,6 @@ const mailInputProps: ITextInputProps = {
   placeholder: 'Enter your Email',
   type: 'email',
   required: true,
-  error: false,
 };
 
 const passwordInputProps: ITextInputProps = {
@@ -20,50 +18,55 @@ const passwordInputProps: ITextInputProps = {
   placeholder: 'Enter your password',
   type: 'password',
   required: true,
-  error: false,
-  helperText: '',
 };
 
 function validateUserInput(
   name: string,
   value: string,
-  data: { isValidMail: boolean; isValidPass: boolean },
-  cb: ISetFormCallback,
+  data: { email: boolean; password: boolean },
+  updateFormValidation: ICallback<{ email: boolean; password: boolean }>,
 ) {
   if (name === 'email') {
-    const validatedMail = validateMail(value).isValidMail;
-    cb({ ...data, isValidMail: validatedMail });
-  }
-  if (name === 'password') {
-    const validatedPass = validatePassword(value).isValidPass;
-    cb({ ...data, isValidPass: validatedPass });
+    updateFormValidation({ ...data, [name]: validateMail(value) });
+  } else {
+    updateFormValidation({ ...data, [name]: validatePassword(value) });
   }
 }
 
-// async function getUserData(loginData: User) {
-//   try {
-//     const userData = await loginUser(loginData);
-//     // const token = userData;
-//     // setToken(token)
-//   }
-//   catch(error) {
-//     console.log(error)
-//   }
-// }
+async function getUserData(loginData: Auth) {
+  const response = await loginUser(loginData);
+  if (typeof response === 'string') {
+    throw new Error(response);
+  } else {
+    const { _id: id, token } = response;
+    return { id, token };
+  }
+}
 
-function handleSubmit(
+async function handleSubmit(
   e: React.FormEvent<HTMLFormElement>,
-  userData: User,
-  cb: IErrorFormCallback,
-  error: boolean,
+  userData: Auth,
+  errorHandler: ICallback<string>,
+  setUserData: ICallback<IUserAccess>,
+  updateContext: ICallback<boolean>,
 ) {
-  // const {token} = response
   e.preventDefault();
-  // if(userData) {
-  //   setToken(userData.token)
-  // }
-  cb(!error);
-  console.log(userData);
+  try {
+    const { id, token } = await getUserData(userData);
+    if (id && token) {
+      errorHandler('');
+      setUserData({ id, token });
+      setToken(token);
+      setId(id);
+      updateContext(true);
+    } else {
+      throw new Error('Failed to get your data. Please try once again');
+    }
+  } catch (err) {
+    if (err instanceof Error) {
+      errorHandler(err.message);
+    }
+  }
 }
 
 export { mailInputProps, passwordInputProps, handleSubmit, validateUserInput };

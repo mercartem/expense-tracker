@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from '../../pages/Dashboard/ui/Dashboard';
 import AuthContext from '../context/AuthContext';
-import Intro from '../../pages/Main/ui/Inrto';
+import Intro from '../../pages/Main/ui/Intro';
 import MainPage from '../../pages/Main/ui/MainPage';
 import Settings from '../../pages/Settings/ui/Settings';
 import Transactions from '../../pages/Transactions/ui/Transactions';

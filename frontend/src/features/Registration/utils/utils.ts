@@ -1,33 +1,8 @@
-import { DataToValidate } from '../lib/types';
+import { Auth } from '../../../entities/User/lib/types/user';
+import { validateMail, validatePassword, validateName } from '../../../shared/utils/utils';
 
-function validateMail(mail: string) {
-  const validMail = { isValidMail: false };
-  const regexp =
-    /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
-  if (regexp.test(mail)) {
-    validMail.isValidMail = true;
-  }
-  return validMail;
+function isValidForm(data: Required<Auth>) {
+  return validateMail(data.email) && validatePassword(data.password) && validateName(data.fullName);
 }
 
-function validatePassword(password: string) {
-  const validPassword = { isValidPass: false };
-  if (password.length > 4) {
-    validPassword.isValidPass = true;
-  }
-  return validPassword;
-}
-
-function validateName(name: string) {
-  const validName = { isValidName: false };
-  if (name.length >= 4) {
-    validName.isValidName = true;
-  }
-  return validName;
-}
-
-function isValidForm(validatedData: DataToValidate) {
-  return validatedData.isValidMail && validatedData.isValidPass && validatedData.isValidName;
-}
-
-export { isValidForm, validateMail, validatePassword, validateName };
+export default isValidForm;

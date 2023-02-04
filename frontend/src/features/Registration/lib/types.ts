@@ -1,14 +1,11 @@
+import { Auth } from '../../../entities/User/lib/types/user';
+
 export interface IAuthFormProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-export type DataToValidate = {
-  isValidMail: boolean;
-  isValidPass: boolean;
-  isValidName: boolean;
-};
 export interface ISetFormCallback {
-  (data: DataToValidate): void;
+  (data: Required<Auth>): void;
 }
 
 export interface IErrorFormCallback {
@@ -16,7 +13,7 @@ export interface IErrorFormCallback {
 }
 
 export interface IUserAccess {
-  _id: string;
+  id: string;
   token: string;
 }
 export interface IUpdateCallback {
@@ -25,4 +22,10 @@ export interface IUpdateCallback {
 export interface IRegisterError {
   msg: string;
   param: string;
+}
+
+export interface IDataToValidate {
+  email: boolean;
+  password: boolean;
+  fullName: boolean;
 }

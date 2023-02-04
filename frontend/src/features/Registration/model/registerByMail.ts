@@ -1,16 +1,15 @@
-import { Navigate } from 'react-router-dom';
-import loginUser from '../../../entities/User/api/loginUser';
 import registerUser from '../../../entities/User/api/registerUser';
-import { User } from '../../../entities/User/lib/types/user';
-import { ITextInputProps } from '../../../shared/ui/Textinput/TextInput';
+import { Auth } from '../../../entities/User/lib/types/user';
 import {
-  DataToValidate,
-  IErrorFormCallback,
-  IRegisterError,
-  ISetFormCallback,
-  IUpdateCallback,
-} from '../lib/types';
-import { validateMail, validateName, validatePassword } from '../utils/utils';
+  setId,
+  setToken,
+  validateMail,
+  validateName,
+  validatePassword,
+} from '../../../shared/utils/utils';
+import { IUserAccess, ICallback } from '../../../shared/lib/types';
+import { ITextInputProps } from '../../../shared/ui/TextInput/Textinput';
+import { IDataToValidate } from '../lib/types';
 
 const mailInputProps: ITextInputProps = {
   label: 'Email',
@@ -36,38 +35,59 @@ const nameInputProps: ITextInputProps = {
 function validateUserInput(
   name: string,
   value: string,
-  data: DataToValidate,
-  cb: ISetFormCallback,
+  data: IDataToValidate,
+  updateFormValidation: ICallback<IDataToValidate>,
 ) {
-  if (name === 'email') {
-    const validatedMail = validateMail(value).isValidMail;
-    cb({ ...data, isValidMail: validatedMail });
+  switch (name) {
+    case 'email': {
+      updateFormValidation({ ...data, [name]: validateMail(value) });
+      break;
+    }
+    case 'password': {
+      updateFormValidation({ ...data, [name]: validatePassword(value) });
+      break;
+    }
+    case 'fullName': {
+      updateFormValidation({ ...data, [name]: validateName(value) });
+      break;
+    }
+    default:
+      return data;
   }
-  if (name === 'password') {
-    const validatedPass = validatePassword(value).isValidPass;
-    cb({ ...data, isValidPass: validatedPass });
-  }
-  if (name === 'fullName') {
-    const validatedName = validateName(value).isValidName;
-    cb({ ...data, isValidName: validatedName });
+  return data;
+}
+
+async function registerNewUser(userData: Required<Auth>) {
+  const response = await registerUser(userData);
+  if (typeof response === 'string') {
+    throw new Error(response);
+  } else {
+    const { _id: id, token } = response;
+    return { id, token };
   }
 }
 
 async function handleSubmit(
   e: React.FormEvent<HTMLFormElement>,
-  userData: User,
-  updateUserCallback: IUpdateCallback,
-  errorCallback: IErrorFormCallback,
+  userData: Required<Auth>,
+  updateUserCallback: ICallback<IUserAccess>,
+  errorHandler: ICallback<string>,
 ) {
   e.preventDefault();
   try {
-    const response = await registerUser(userData);
-    console.log(response);
-    const { _id, token } = response;
-    updateUserCallback({ ...userData, _id, token });
+    const { id, token } = await registerNewUser(userData);
+    if (id && token) {
+      errorHandler('');
+      updateUserCallback({ id, token });
+      setToken(token);
+      setId(id);
+    } else {
+      throw new Error('Failed to register. Please try once again');
+    }
   } catch (err) {
-    console.log(err);
-    errorCallback(false);
+    if (err instanceof Error) {
+      errorHandler(err.message);
+    }
   }
 }
 
