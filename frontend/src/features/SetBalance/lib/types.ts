@@ -1,7 +1,7 @@
-export interface updateBalanceCb {
+export interface IUpdateBalanceCb {
   (value: string): void;
 }
 
-export interface setValueCallback<T> {
+export interface ISetValueCallback<T> {
   (value: T): void;
 }

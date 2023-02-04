@@ -1,7 +1,7 @@
 import loginUser from '../../../entities/User/api/loginUser';
 import { Auth } from '../../../entities/User/lib/types/user';
-import { ITextInputProps } from '../../../shared/ui/TextInput/Textinput';
-import { setId, setToken, validateMail, validatePassword  } from '../../../shared/utils/utils';
+import { ITextInputProps } from '../../../shared/ui/Textinput/Textinput';
+import { setId, setToken, validateMail, validatePassword } from '../../../shared/utils/utils';
 import { ICallback, IUserAccess } from '../../../shared/lib/types';
 
 const mailInputProps: ITextInputProps = {
@@ -59,7 +59,7 @@ async function handleSubmit(
       setToken(token);
       setId(id);
       updateContext(true);
-    } 
+    }
   } catch (err) {
     if (err instanceof Error) {
       errorHandler(err.message);

@@ -4,7 +4,7 @@ import { Link, Navigate } from 'react-router-dom';
 import AuthContext from '../../../app/context/AuthContext';
 import { Auth } from '../../../entities/User/lib/types/user';
 import ButtonRound from '../../../shared/ui/ButtonRound/ButtonRound';
-import TextInput from '../../../shared/ui/TextInput/Textinput';
+import TextInput from '../../../shared/ui/Textinput/Textinput';
 import { IUserAccess } from '../../../shared/lib/types';
 import {
   mailInputProps,
@@ -74,7 +74,7 @@ function AuthByMail() {
             }}
           />
         </FormControl>
-        <ButtonRound type='submit' text='Login' disabled={!formValid} isActive />
+        <ButtonRound text='Login' disabled={!formValid} isActive />
         <p className={style.formText}>Forgot your password?</p>
         <p className={style.formText}>
           Do not have an account? <Link to='/sign'>Register</Link>

@@ -8,7 +8,7 @@ interface IAuthContext {
 const defaultAuthState = {
   isAuth: false,
   setIsAuth() {
-   console.log('function should be overwritten');
+    console.log('function should be overwritten');
   },
 };
 

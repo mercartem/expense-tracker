@@ -16,10 +16,10 @@ function MainHeader() {
         </Link>
         <div className={style.buttonContainer}>
           <NavLink to='/login'>
-            <ButtonRound text='Log In' type='button' isActive={matchCurrentUrl('/login')} />
+            <ButtonRound text='Log In' isActive={matchCurrentUrl('/login')} />
           </NavLink>
           <NavLink to='/sign'>
-            <ButtonRound text='Sign In' type='button' isActive={matchCurrentUrl('/sign')} />
+            <ButtonRound text='Sign In' isActive={matchCurrentUrl('/sign')} />
           </NavLink>
         </div>
       </Navmain>

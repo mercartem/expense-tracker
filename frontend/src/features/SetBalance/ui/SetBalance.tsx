@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { FormControl } from '@mui/material';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import ButtonRound from '../../../shared/ui/ButtonRound/ButtonRound';
-import TextInput from '../../../shared/ui/TextInput/Textinput';
+import TextInput from '../../../shared/ui/Textinput/Textinput';
 import { IUserAccess } from '../../Registration/lib/types';
 import {
   balanceInputProps,
@@ -51,7 +51,7 @@ function SetBalance(accessData: IUserAccess) {
             helperText={isValid ? '' : 'Enter any sum'}
           />
         </FormControl>
-        <ButtonRound type='submit' text='Confirm' isActive disabled={!isValid} />
+        <ButtonRound text='Confirm' isActive disabled={!isValid} />
       </form>
     </div>
   );

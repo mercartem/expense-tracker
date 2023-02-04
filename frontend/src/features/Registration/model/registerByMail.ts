@@ -8,7 +8,7 @@ import {
   validatePassword,
 } from '../../../shared/utils/utils';
 import { IUserAccess, ICallback } from '../../../shared/lib/types';
-import { ITextInputProps } from '../../../shared/ui/TextInput/Textinput';
+import { ITextInputProps } from '../../../shared/ui/Textinput/Textinput';
 import { IDataToValidate } from '../lib/types';
 
 const mailInputProps: ITextInputProps = {

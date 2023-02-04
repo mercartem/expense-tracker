@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Auth } from '../../../entities/User/lib/types/user';
 import ButtonRound from '../../../shared/ui/ButtonRound/ButtonRound';
-import TextInput from '../../../shared/ui/TextInput/Textinput';
+import TextInput from '../../../shared/ui/Textinput/Textinput';
 import isValidForm from '../utils/utils';
 import {
   handleSubmit,
@@ -94,7 +94,7 @@ function RegisterByMail() {
                 }}
               />
             </FormControl>
-            <ButtonRound type='submit' text='Sign in' disabled={!formValid} isActive />
+            <ButtonRound text='Sign in' disabled={!formValid} isActive />
             <p className={style.formText}>
               Have an account? <Link to='/login'>Log in</Link>
             </p>
