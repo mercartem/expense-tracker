@@ -1,6 +1,6 @@
 import server from '../../../shared/constants/url';
 
-async function createBalance(balance: string, id: string, token: string): Promise<void> {
+async function createBalance(balance: number, id: string, token: string): Promise<void> {
   await fetch(`${server}/balance/${id}`, {
     method: 'POST',
     headers: {

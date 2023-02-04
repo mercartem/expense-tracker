@@ -15,6 +15,9 @@ async function loginUser(user: Auth): Promise<User | string> {
   if (res.status === 404) {
     return (await res.json()).message as string;
   }
+  if (res.status === 500) {
+    return (await res.json()).message as string;
+  }
   return (await res.json()) as User;
 }
 
