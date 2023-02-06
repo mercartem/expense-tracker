@@ -1,7 +1,7 @@
 @import '../../../shared/style/variables';
 
 .mainContainer {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -18,6 +18,10 @@
   justify-content: center;
   justify-items: space-between;
   font-size: min(3vw, 38px);
+  @media all and (max-width: 740px) {
+    font-size: min(3vw, 28px);
+    flex-direction: column;
+  }
 }
 
 .introText {
@@ -25,10 +29,19 @@
   margin-right: 2em;
   font-size: 1em;
   line-height: 1.1;
+  padding: 20px;
+  @media all and (max-width: 360px) {
+    padding: 30px 20px;
+    height: 100vh;
+  }
 }
 
 .subtitle {
   font-size: 0.9em;
+  line-height: 1.2em;
+  @media all and (max-width: 740px) {
+    font-size: max(1em, 20px);
+  }
 }
 
 .screenshot {
@@ -38,5 +51,10 @@
   object-fit: contain;
   @media all and (max-width: 960px) {
     max-width: 40vw;
+  }
+  @media all and (max-width: 360px) {
+    max-height: 100vh;
+    height: 100vh;
+    max-width: 70vw;
   }
 }

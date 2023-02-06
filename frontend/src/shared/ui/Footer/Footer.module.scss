@@ -38,9 +38,22 @@
     height: 20px;
   }
 }
+
+.author {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .github {
   display: block;
-  color: #fff;
+  color: black;
+  &:hover {
+    color: $basic-blue;
+  }
+  &:active {
+    color: $wh;
+  }
   @media all and (max-width:740px) {
     font-size: 0.8rem;
   }

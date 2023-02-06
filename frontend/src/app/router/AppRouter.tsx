@@ -9,6 +9,7 @@ import Transactions from '../../pages/Transactions/ui/Transactions';
 import LoginForm from '../../widgets/Loginform/ui/LoginForm';
 import RegisterForm from '../../widgets/RegisterForm/ui/RegisterForm';
 import { privateRoutes, publicRoutes } from './routes';
+import ErrorPage from '../../pages/404/ui/ErrorPage';
 import UserPageLayout from '../../shared/ui/UserPageLayout/UserPageLayout';
 
 function AppRouter() {
@@ -24,8 +25,8 @@ function AppRouter() {
         <Route path='user/transactions' element={<Transactions />} />
         <Route path='user/settings' element={<Settings />} />
       </Route>
-      <Route path='*' element={<h1>NOT FOUND</h1>} />
-      <Route path='404' element={<h1>NOT FOUND</h1>} />
+      <Route path='*' element={<ErrorPage />} />
+      <Route path='/404' element={<ErrorPage />} />
     </Routes>
   ) : (
     <Routes>
@@ -36,9 +37,9 @@ function AppRouter() {
         <Route index element={<Intro />} />
         <Route path='login' element={<LoginForm />} />
         <Route path='sign' element={<RegisterForm />} />
-        <Route path='*' element={<h1>NOT FOUND</h1>} />
-        <Route path='404' element={<h1>NOT FOUND</h1>} />
       </Route>
+      <Route path='*' element={<ErrorPage />} />
+      <Route path='/404' element={<ErrorPage />} />
     </Routes>
   );
 }

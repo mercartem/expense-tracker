@@ -5,7 +5,7 @@ import rsschool from './assets/rsschool.svg';
 function Footer() {
   return (
     <footer className={style.footer}>
-      <div>
+      <div className={style.author}>
         <a href='https://github.com/mercartem' className={style.github}>
           <img src={githubLogo} alt='github logo' className={style.githubLogo} />
           mercartem
