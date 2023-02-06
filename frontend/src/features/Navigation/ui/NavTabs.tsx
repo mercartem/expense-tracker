@@ -10,11 +10,11 @@ function NavTabs() {
 
   const [value, setValue] = React.useState(() => {
     switch (currentPath) {
-      case '/dashboard':
+      case '/user/dashboard':
         return 0;
-      case '/transactions':
+      case '/user/transactions':
         return 1;
-      case '/settings':
+      case '/user/settings':
         return 2;
       default:
         return 0;
@@ -27,10 +27,10 @@ function NavTabs() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Tabs className='navbar__nav' value={value} onChange={handleChange} orientation='vertical'>
-        <LinkTab label='Dashboard' href='/dashboard' />
-        <LinkTab label='Transactions' href='/transactions' />
-        <LinkTab label='Settings' href='/settings' />
+      <Tabs className='navbar_nav' value={value} onChange={handleChange} orientation='vertical'>
+        <LinkTab label='Dashboard' href='/user/dashboard' />
+        <LinkTab label='Transactions' href='/user/transactions' />
+        <LinkTab label='Settings' href='/user/settings' />
       </Tabs>
     </Box>
   );

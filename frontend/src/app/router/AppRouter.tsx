@@ -9,18 +9,21 @@ import Transactions from '../../pages/Transactions/ui/Transactions';
 import LoginForm from '../../widgets/Loginform/ui/LoginForm';
 import RegisterForm from '../../widgets/RegisterForm/ui/RegisterForm';
 import { privateRoutes, publicRoutes } from './routes';
+import { UserPage } from '../../shared/ui/UserPageLayout/UserPageLayout';
 
 function AppRouter() {
   const { isAuth } = useContext(AuthContext);
+
   return isAuth ? (
     <Routes>
       {publicRoutes.map((routPath) => (
-        <Route path={routPath} key={routPath} element={<Navigate to='/dashboard' />} />
+        <Route path={routPath} key={routPath} element={<Navigate to='/user/dashboard' />} />
       ))}
-      <Route path='/' element={<Navigate to='/dashboard' />} />
-      <Route path='/dashboard' element={<Dashboard />} />
-      <Route path='/transactions' element={<Transactions />} />
-      <Route path='/settings' element={<Settings />} />
+      <Route path='/' element={<UserPage/>}>
+        <Route path='user/dashboard' element={<Dashboard />} />
+        <Route path='user/transactions' element={<Transactions />} />
+        <Route path='user/settings' element={<Settings />} />
+      </Route>
       <Route path='*' element={<h1>NOT FOUND</h1>} />
       <Route path='404' element={<h1>NOT FOUND</h1>} />
     </Routes>
