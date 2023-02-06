@@ -12,13 +12,20 @@ function getToken(): string | null {
   return tokenString;
 }
 
+function tokenExist() {
+  if (getToken()) {
+    return true;
+  }
+  return false;
+}
+
 function setId(id: string) {
   if (id) {
     localStorage.setItem('id', JSON.stringify(id));
   }
 }
 
-function getId() {
+function getId(): string | null {
   const idString = localStorage.getItem('id');
   if (idString) {
     return JSON.parse(idString);
@@ -77,4 +84,5 @@ export {
   validatePassword,
   validateMail,
   validateBalance,
+  tokenExist,
 };
