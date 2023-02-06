@@ -7,11 +7,10 @@ export interface IButtonRoundProps {
   disabled?: boolean;
 }
 
-
 function ButtonRound({ text, isActive, disabled, onClick }: IButtonRoundProps) {
   return (
     <button
-      type="submit"
+      type='submit'
       className={isActive ? style.roundBtnActive : style.roundBtn}
       disabled={disabled}
       onClick={onClick}
