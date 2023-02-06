@@ -2,22 +2,20 @@
 
 //backgrounds
 
-$basic-blue: #5886F6;
-$bg-grey: #DEDDED; 
-$bg-light: #EEF5F8;
+$basic-blue: #5886f6;
+$bg-grey: #dedded;
+$bg-light: #eef5f8;
 $wh: white;
 
 //text
 
 $text-color: #303030;
 $basic-font: 'Hanuman', serif;
-$second-font: 'Roboto',  sans-serif;
+$second-font: 'Roboto', sans-serif;
 
 @mixin mainText {
-  font-family: $basic-font;
   color: $text-color;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.2em;
 }
-

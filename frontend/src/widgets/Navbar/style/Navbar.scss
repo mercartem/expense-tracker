@@ -10,7 +10,7 @@
   height: 100vh;
   width: 200px;
 
-  &_logo {
+  &__logo {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -19,7 +19,7 @@
     background: #f7f7f7;
   }
 
-  &_user {
+  &__user {
     text-align: center;
     padding: 0 1rem;
     display: flex;
@@ -28,7 +28,7 @@
     gap: 1rem;
   }
 
-  &_balance {
+  &__balance {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -44,7 +44,7 @@
     }
   }
 
-  &_nav {
+  &__nav {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -52,12 +52,17 @@
     gap: 1.5rem;
   }
 
-  &_nav::after,
-  &_nav::before {
+  &__nav::after,
+  &__nav::before {
     content: '';
     display: block;
     background-image: linear-gradient(-90deg, #ffffff 3%, #b8cbcc 51%, #ffffff 95%);
     height: 1px;
     width: 100%;
   }
+}
+
+a:focus,
+a:hover {
+  color: rgba(0, 0, 0, 0.6);
 }

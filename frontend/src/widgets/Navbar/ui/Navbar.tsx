@@ -9,15 +9,15 @@ import NavTabs from '../../../features/Navigation/ui/NavTabs';
 function Navbar() {
   return (
     <div className='navbar'>
-      <div className='navbar_logo'>
+      <div className='navbar__logo'>
         <LogoImg />
       </div>
-      <div className='navbar_user'>
+      <div className='navbar__user'>
         <div>
           <MoneyImg />
         </div>
         <UserName />
-        <div className='navbar_balance'>
+        <div className='navbar__balance'>
           <span>
             <WalletImg />
           </span>
