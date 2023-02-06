@@ -1,7 +1,13 @@
 import loginUser from '../../../entities/User/api/loginUser';
 import { Auth } from '../../../entities/User/lib/types/user';
 import { ITextInputProps } from '../../../shared/ui/Textinput/Textinput';
-import { setId, setToken, validateMail, validatePassword } from '../../../shared/utils/utils';
+import {
+  setId,
+  setToken,
+  setName,
+  validateMail,
+  validatePassword,
+} from '../../../shared/utils/utils';
 import { ICallback, IUserAccess } from '../../../shared/lib/types';
 
 const mailInputProps: ITextInputProps = {
@@ -38,8 +44,8 @@ async function getUserData(loginData: Auth) {
   if (typeof response === 'string') {
     throw new Error(response);
   } else {
-    const { _id: id, token } = response;
-    return { id, token };
+    const { _id: id, token, fullName } = response;
+    return { id, token, fullName };
   }
 }
 
@@ -52,12 +58,13 @@ async function handleSubmit(
 ) {
   e.preventDefault();
   try {
-    const { id, token } = await getUserData(userData);
+    const { id, token, fullName } = await getUserData(userData);
     if (id && token) {
       errorHandler('');
       setUserData({ id, token });
       setToken(token);
       setId(id);
+      setName(fullName);
       updateContext(true);
     }
   } catch (err) {

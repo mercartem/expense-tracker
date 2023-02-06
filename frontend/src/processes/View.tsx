@@ -1,8 +1,21 @@
 import { useEffect, useState } from 'react';
+import getBalance from '../entities/Balance/api/getBalance';
+import { getToken } from '../shared/utils/utils';
 import Header from '../widgets/Header/ui/Header';
 import Navbar from '../widgets/Navbar/ui/Navbar';
 
 function View() {
+  const [balance, setBalance] = useState('');
+
+  useEffect(() => {
+    async function fetchData() {
+      const token = getToken() as string;
+      const currentBalance = await getBalance(token);
+      setBalance(currentBalance.toLocaleString());
+    }
+    fetchData();
+  }, []);
+
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -13,7 +26,7 @@ function View() {
     };
   }, []);
 
-  return width > 770 ? <Navbar /> : <Header />;
+  return width > 770 ? <Navbar balance={balance} /> : <Header balance={balance} />;
 }
 
 export default View;

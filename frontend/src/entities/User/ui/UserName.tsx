@@ -1,5 +1,7 @@
+import { getName } from '../../../shared/utils/utils';
+
 function UserName() {
-  return <p>Nicholas Delacruz</p>;
+  return <p>{getName()}</p>;
 }
 
 export default UserName;

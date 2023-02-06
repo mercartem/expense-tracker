@@ -6,11 +6,11 @@ import Intro from '../../pages/main/ui/Intro';
 import MainPage from '../../pages/main/ui/MainPage';
 import Settings from '../../pages/Settings/ui/Settings';
 import Transactions from '../../pages/Transactions/ui/Transactions';
-import View from '../../processes/View';
 import LoginForm from '../../widgets/Loginform/ui/LoginForm';
 import RegisterForm from '../../widgets/RegisterForm/ui/RegisterForm';
 import { privateRoutes, publicRoutes } from './routes';
 import ErrorPage from '../../pages/404/ui/ErrorPage';
+import UserPageLayout from '../../shared/ui/UserPageLayout/UserPageLayout';
 
 function AppRouter() {
   const { isAuth } = useContext(AuthContext);
@@ -18,35 +18,13 @@ function AppRouter() {
   return isAuth ? (
     <Routes>
       {publicRoutes.map((routPath) => (
-        <Route path={routPath} key={routPath} element={<Navigate to='/dashboard' />} />
+        <Route path={routPath} key={routPath} element={<Navigate to='/user/dashboard' />} />
       ))}
-      <Route
-        path='/dashboard'
-        element={
-          <main className='page'>
-            <View />
-            <Dashboard />
-          </main>
-        }
-      />
-      <Route
-        path='/transactions'
-        element={
-          <main className='page'>
-            <View />
-            <Transactions />
-          </main>
-        }
-      />
-      <Route
-        path='/settings'
-        element={
-          <main className='page'>
-            <View />
-            <Settings />
-          </main>
-        }
-      />
+      <Route path='/' element={<UserPageLayout />}>
+        <Route path='user/dashboard' element={<Dashboard />} />
+        <Route path='user/transactions' element={<Transactions />} />
+        <Route path='user/settings' element={<Settings />} />
+      </Route>
       <Route path='*' element={<ErrorPage />} />
       <Route path='/404' element={<ErrorPage />} />
     </Routes>

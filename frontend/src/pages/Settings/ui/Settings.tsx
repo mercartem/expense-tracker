@@ -5,7 +5,7 @@ import { removeUserFromStorage } from '../../../shared/utils/utils';
 function Settings() {
   const { setIsAuth } = useContext(AuthContext);
   return (
-    <div>
+    <div style={{ marginTop: 50 }}>
       Настройки
       <button
         type='button'

@@ -1,5 +1,7 @@
-function Balance() {
-  return <span>₽1,000</span>;
+import { NavbarProps } from '../../../shared/lib/types';
+
+function Balance({ balance }: NavbarProps) {
+  return <span>{balance} ₽</span>;
 }
 
 export default Balance;

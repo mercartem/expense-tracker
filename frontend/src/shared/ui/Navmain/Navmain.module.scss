@@ -13,11 +13,11 @@
   @include mainText;
   font-size: 1rem;
   @media all and (max-width:740px) {
-    height: 40px;
+    height: 60px;
     font-size: 0.8rem;
   }
   @media all and (max-width:500px) {
     padding: 10px;
-    height: 40px;
+    height: 60px;
   }
 }

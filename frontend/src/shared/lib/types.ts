@@ -6,3 +6,7 @@ export interface IUserAccess {
 export interface ICallback<T> {
   (param: T): void;
 }
+
+export interface NavbarProps {
+  balance?: string;
+}

@@ -4,12 +4,19 @@ function setToken(token: string) {
   }
 }
 
-function getToken() {
+function getToken(): string | null {
   const tokenString = localStorage.getItem('token');
   if (tokenString) {
     return JSON.parse(tokenString);
   }
   return tokenString;
+}
+
+function tokenExist() {
+  if (getToken()) {
+    return true;
+  }
+  return false;
 }
 
 function setId(id: string) {
@@ -18,7 +25,7 @@ function setId(id: string) {
   }
 }
 
-function getId() {
+function getId(): string | null {
   const idString = localStorage.getItem('id');
   if (idString) {
     return JSON.parse(idString);
@@ -26,9 +33,24 @@ function getId() {
   return idString;
 }
 
+function setName(name: string) {
+  if (name) {
+    localStorage.setItem('name', JSON.stringify(name));
+  }
+}
+
+function getName() {
+  const name = localStorage.getItem('name');
+  if (name) {
+    return JSON.parse(name);
+  }
+  return name;
+}
+
 function removeUserFromStorage() {
   localStorage.removeItem('token');
   localStorage.removeItem('id');
+  localStorage.removeItem('name');
 }
 
 function validateMail(mail: string) {
@@ -55,9 +77,12 @@ export {
   getToken,
   setId,
   getId,
+  setName,
+  getName,
   removeUserFromStorage,
   validateName,
   validatePassword,
   validateMail,
   validateBalance,
+  tokenExist,
 };
