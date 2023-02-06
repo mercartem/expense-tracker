@@ -47,8 +47,8 @@ function AppRouter() {
           </main>
         }
       />
-      <Route path='*' element={<ErrorPage/>} />
-      <Route path='/404' element={<ErrorPage/>} />
+      <Route path='*' element={<ErrorPage />} />
+      <Route path='/404' element={<ErrorPage />} />
     </Routes>
   ) : (
     <Routes>
@@ -60,8 +60,8 @@ function AppRouter() {
         <Route path='login' element={<LoginForm />} />
         <Route path='sign' element={<RegisterForm />} />
       </Route>
-      <Route path='*' element={<ErrorPage/>} />
-      <Route path='/404' element={<ErrorPage/>} />
+      <Route path='*' element={<ErrorPage />} />
+      <Route path='/404' element={<ErrorPage />} />
     </Routes>
   );
 }
