@@ -11,7 +11,7 @@ function View() {
     async function fetchData() {
       const token = getToken() as string;
       const currentBalance = await getBalance(token);
-      setBalance(currentBalance);
+      setBalance(currentBalance.toLocaleString());
     }
     fetchData();
   }, []);
