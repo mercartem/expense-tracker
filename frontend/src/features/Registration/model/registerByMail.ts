@@ -3,6 +3,7 @@ import { Auth } from '../../../entities/User/lib/types/user';
 import {
   setId,
   setToken,
+  setName,
   validateMail,
   validateName,
   validatePassword,
@@ -62,8 +63,8 @@ async function registerNewUser(userData: Required<Auth>) {
   if (typeof response === 'string') {
     throw new Error(response);
   } else {
-    const { _id: id, token } = response;
-    return { id, token };
+    const { _id: id, token, fullName } = response;
+    return { id, token, fullName };
   }
 }
 
@@ -75,12 +76,13 @@ async function handleSubmit(
 ) {
   e.preventDefault();
   try {
-    const { id, token } = await registerNewUser(userData);
+    const { id, token, fullName } = await registerNewUser(userData);
     if (id && token) {
       errorHandler('');
       updateUserCallback({ id, token });
       setToken(token);
       setId(id);
+      setName(fullName);
     } else {
       throw new Error('Failed to register. Please try once again');
     }

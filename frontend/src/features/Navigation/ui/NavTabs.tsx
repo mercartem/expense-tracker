@@ -27,7 +27,7 @@ function NavTabs() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Tabs className='navbar_nav' value={value} onChange={handleChange} orientation='vertical'>
+      <Tabs className='navbar__nav' value={value} onChange={handleChange} orientation='vertical'>
         <LinkTab label='Dashboard' href='/dashboard' />
         <LinkTab label='Transactions' href='/transactions' />
         <LinkTab label='Settings' href='/settings' />

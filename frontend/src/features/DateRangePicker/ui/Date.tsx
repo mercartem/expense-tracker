@@ -11,6 +11,7 @@ function DatePick() {
       showOneCalendar
       format='dd-MM-yyyy'
       placement='bottomEnd'
+      isoWeek
     />
   );
 }

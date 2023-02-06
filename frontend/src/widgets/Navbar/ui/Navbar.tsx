@@ -5,8 +5,9 @@ import WalletImg from '../../../shared/ui/WalletImg';
 import UserName from '../../../entities/User/ui/UserName';
 import Balance from '../../../entities/Balance/ui/Balance';
 import NavTabs from '../../../features/Navigation/ui/NavTabs';
+import { NavbarProps } from '../../../shared/lib/types';
 
-function Navbar() {
+function Navbar({ balance }: NavbarProps) {
   return (
     <div className='navbar'>
       <div className='navbar__logo'>
@@ -21,7 +22,7 @@ function Navbar() {
           <span>
             <WalletImg />
           </span>
-          <Balance />
+          <Balance balance={balance} />
         </div>
       </div>
       <NavTabs />
