@@ -1,0 +1,29 @@
+@import '../../../shared/style/variables';
+
+.container {
+  @include mainText;
+   width: max(50vw, 500px);
+   margin: max(5vw, 40px) auto;
+   background-color: #fff;
+   @media all and (max-width:740px) {
+    width: max(50vw, 80%);
+    margin: max(10vw, 40px) auto;
+   }
+   @media all and (max-width:500px) {
+    width: 90%;
+    margin: max(10vw, 40px) auto;
+   }
+
+}
+
+.title {
+  font-size: max(1.5vw, 24px);
+  text-align: center;
+  padding: 2em 0 0 0;
+  @media all and (max-width:740px) {
+    padding: 2em 0 0 0;
+   }
+   @media all and (max-width:500px) {
+    font-size: 20px;
+   }
+}

@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import AppRouter from './router/AppRouter';
-import AuthContext from '../pages/main/auth/AuthContext';
+import AuthContext from './context/AuthContext';
 import './style/App.scss';
+import { getToken } from '../shared/utils/utils';
 
 function App() {
-  const [isAuth, setIsAuth] = useState(true);
-
-  /* TODO: заменить логику проверки пользователя при передаче токена */
+  const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem('auth')) {
+    if (getToken()) {
       setIsAuth(true);
     }
   }, []);
