@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import AppRouter from './router/AppRouter';
 import AuthContext from './context/AuthContext';
 import './style/App.scss';
-import { getToken } from '../shared/utils/utils';
+import { getToken, tokenExist } from '../shared/utils/utils';
 
 function App() {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(tokenExist());
 
   useEffect(() => {
     if (getToken()) {

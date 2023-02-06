@@ -12,6 +12,9 @@ function getToken(): string | null {
   return tokenString;
 }
 
+function tokenExist () {
+  return getToken()
+}
 function setId(id: string) {
   if (id) {
     localStorage.setItem('id', JSON.stringify(id));
@@ -77,4 +80,5 @@ export {
   validatePassword,
   validateMail,
   validateBalance,
+  tokenExist
 };
