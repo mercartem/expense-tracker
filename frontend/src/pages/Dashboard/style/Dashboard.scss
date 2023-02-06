@@ -1,5 +1,15 @@
 .dashboard {
   flex: 1;
   display: flex;
+  justify-content: flex-end;
   padding: 1rem 2rem;
+  @media (max-width: 770px) {
+    margin-top: 50px;
+  }
+
+  &__calendar {
+    height: 35.6px;
+    box-shadow: 0 2px 4px 1px rgb(0 0 0 / 16%);
+    border-radius: 6px;
+  }
 }

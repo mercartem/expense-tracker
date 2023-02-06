@@ -4,7 +4,9 @@ import '../style/Dashboard.scss';
 function Dashboard() {
   return (
     <div className='dashboard'>
-      <DatePick />
+      <div className='dashboard__calendar'>
+        <DatePick />
+      </div>
     </div>
   );
 }

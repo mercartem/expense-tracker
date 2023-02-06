@@ -5,14 +5,16 @@ import '../style/Header.scss';
 
 function Header() {
   return (
-    <header className='header'>
+    <>
       <Menu width='200px'>
         <Navbar />
       </Menu>
-      <div className='header_logo'>
-        <LogoImg />
-      </div>
-    </header>
+      <header className='header'>
+        <div className='header__logo'>
+          <LogoImg />
+        </div>
+      </header>
+    </>
   );
 }
 
