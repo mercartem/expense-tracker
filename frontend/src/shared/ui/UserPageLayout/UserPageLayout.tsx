@@ -1,25 +1,13 @@
 import { Outlet } from 'react-router-dom';
 import View from '../../../processes/View';
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-export function UserPageLayout({ children }: LayoutProps) {
+function UserPageLayout() {
   return (
     <main className='page'>
       <View />
-      {children}
+      <Outlet />
     </main>
   );
 }
 
-export function UserPage () {
-  return (
-    <main className='page'>
-      <View />
-      <Outlet/>
-    </main>
-  );
-}
-
+export default UserPageLayout;
