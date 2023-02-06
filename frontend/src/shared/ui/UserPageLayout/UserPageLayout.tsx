@@ -4,7 +4,7 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-function UserPageLayout({children}:LayoutProps) {
+function UserPageLayout({ children }: LayoutProps) {
   return (
     <main className='page'>
       <View />

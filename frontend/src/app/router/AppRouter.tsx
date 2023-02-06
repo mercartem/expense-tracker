@@ -12,19 +12,19 @@ import { privateRoutes, publicRoutes } from './routes';
 
 function AppRouter() {
   const { isAuth } = useContext(AuthContext);
-  return isAuth? (
+  return isAuth ? (
     <Routes>
       {publicRoutes.map((routPath) => (
         <Route path={routPath} key={routPath} element={<Navigate to='/dashboard' />} />
       ))}
-      <Route path='/' element={<Navigate to='/dashboard'/>} />
-      <Route path='/dashboard' element={<Dashboard/>}/>
-      <Route path='/transactions' element={<Transactions/>}/>
-      <Route path='/settings' element={<Settings/>}/>
+      <Route path='/' element={<Navigate to='/dashboard' />} />
+      <Route path='/dashboard' element={<Dashboard />} />
+      <Route path='/transactions' element={<Transactions />} />
+      <Route path='/settings' element={<Settings />} />
       <Route path='*' element={<h1>NOT FOUND</h1>} />
       <Route path='404' element={<h1>NOT FOUND</h1>} />
     </Routes>
-  ) : ( 
+  ) : (
     <Routes>
       {privateRoutes.map((routPath) => (
         <Route path={routPath} key={routPath} element={<Navigate to='/' />} />

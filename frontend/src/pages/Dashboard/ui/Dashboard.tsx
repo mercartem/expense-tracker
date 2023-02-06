@@ -7,7 +7,7 @@ function Dashboard() {
     <UserPageLayout>
       <div className='dashboard'>
         <div className='dashboard__calendar'>
-        <DatePick />
+          <DatePick />
         </div>
       </div>
     </UserPageLayout>

@@ -5,7 +5,7 @@ function Transactions() {
     <UserPageLayout>
       <div>Транзакции</div>
     </UserPageLayout>
-  )
+  );
 }
 
 export default Transactions;

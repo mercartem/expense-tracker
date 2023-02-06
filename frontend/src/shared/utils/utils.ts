@@ -12,8 +12,8 @@ function getToken(): string | null {
   return tokenString;
 }
 
-function tokenExist () {
-  return getToken()
+function tokenExist() {
+  return getToken();
 }
 function setId(id: string) {
   if (id) {
@@ -80,5 +80,5 @@ export {
   validatePassword,
   validateMail,
   validateBalance,
-  tokenExist
+  tokenExist,
 };
