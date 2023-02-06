@@ -10,6 +10,7 @@ import View from '../../processes/View';
 import LoginForm from '../../widgets/Loginform/ui/LoginForm';
 import RegisterForm from '../../widgets/RegisterForm/ui/RegisterForm';
 import { privateRoutes, publicRoutes } from './routes';
+import ErrorPage from '../../pages/404/ui/ErrorPage';
 
 function AppRouter() {
   const { isAuth } = useContext(AuthContext);
@@ -46,7 +47,8 @@ function AppRouter() {
           </main>
         }
       />
-      <Route path='*' element={<h1>NOT FOUND</h1>} />
+      <Route path='*' element={<ErrorPage/>} />
+      <Route path='/404' element={<ErrorPage/>} />
     </Routes>
   ) : (
     <Routes>
@@ -58,7 +60,8 @@ function AppRouter() {
         <Route path='login' element={<LoginForm />} />
         <Route path='sign' element={<RegisterForm />} />
       </Route>
-      <Route path='*' element={<h1>NOT FOUND</h1>} />
+      <Route path='*' element={<ErrorPage/>} />
+      <Route path='/404' element={<ErrorPage/>} />
     </Routes>
   );
 }
