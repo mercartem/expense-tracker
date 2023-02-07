@@ -2,7 +2,7 @@ import server from '../../../shared/constants/url';
 import { Transaction } from '../lib/types/transaction';
 
 async function getTransaction(id: string, token: string) {
-  const res = await fetch(`${server}/user/transactions/${id}`, {
+  const res = await fetch(`${server}/transactions/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

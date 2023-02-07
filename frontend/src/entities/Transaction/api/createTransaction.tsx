@@ -2,7 +2,7 @@ import server from '../../../shared/constants/url';
 import { Transaction } from '../lib/types/transaction';
 
 async function createTransaction(transaction: Transaction, token: string): Promise<void> {
-  await fetch(`${server}/user/transactions`, {
+  await fetch(`${server}/transactions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

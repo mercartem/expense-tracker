@@ -6,7 +6,7 @@ async function updateTransaction(
   id: string,
   token: string,
 ): Promise<void> {
-  await fetch(`${server}/user/transactions/${id}`, {
+  await fetch(`${server}/transactions/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
