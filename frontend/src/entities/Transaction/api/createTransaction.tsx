@@ -1,4 +1,5 @@
 import server from '../../../shared/constants/url';
+import { getToken } from '../../../shared/utils/utils';
 import { Transaction } from '../lib/types/transaction';
 
 async function createTransaction(transaction: Transaction, token: string): Promise<void> {
@@ -11,5 +12,15 @@ async function createTransaction(transaction: Transaction, token: string): Promi
     body: JSON.stringify(transaction),
   });
 }
+
+// createTransaction({
+//   category: 'Food',
+//   description: '',
+//   amount: 100,
+//   paymentMode: 'cash',
+//   transactionType: 'expense',
+//   date: '',
+//   time: '',
+// }, getToken() as string)
 
 export default createTransaction;
