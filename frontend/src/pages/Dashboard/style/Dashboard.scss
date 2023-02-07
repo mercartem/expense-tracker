@@ -14,10 +14,21 @@
   &__header {
     display: flex;
     justify-content: space-between;
+    gap: 0.5rem;
     p {
+      align-self: flex-start;
       color: #688496;
       font-size: 15px;
       font-weight: 500;
+    }
+    .rs-picker {
+      width: 280px;
+    }
+    @media (max-width: 1400px) {
+      flex-direction: column;
+      .rs-picker {
+        width: 100%;
+      }
     }
   }
 
@@ -32,7 +43,7 @@
     gap: 1rem;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr;
-    @media (max-width: 500px) {
+    @media (max-width: 600px) {
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr 1fr;
     }

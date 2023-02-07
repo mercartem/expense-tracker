@@ -9,7 +9,6 @@ function DatePick({ fetchData }: { fetchData: (dates: DateRange | null) => Promi
     <DateRangePicker
       ranges={predefinedRanges}
       placeholder='Pick date range'
-      style={{ width: 220 }}
       showOneCalendar
       format='dd-MM-yyyy'
       placement='bottomEnd'

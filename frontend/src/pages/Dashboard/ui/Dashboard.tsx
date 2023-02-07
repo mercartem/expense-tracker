@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { DateRange } from 'rsuite/esm/DateRangePicker';
 import getAllTransactions from '../../../entities/Transaction/api/getAllTransactions';
+import getAllUserTransactions from '../../../entities/Transaction/api/getAllUserTransactions';
 import amounts from '../../../entities/Transaction/model/amount';
 import DatePick from '../../../features/DateRangePicker/ui/Date';
 import { getAmountsOfTransactions, getToken } from '../../../shared/utils/utils';
@@ -11,11 +12,13 @@ function Dashboard() {
   const [amount, setAmount] = useState(amounts);
 
   async function fetchData(dates: DateRange | null) {
+    console.log(dates);
+    const token = getToken();
     // TODO: используйте dates для получения транзакций за выбранный период
-    if (dates) {
+    if (token && dates) {
+      // TODO: const transactions = await getAllUserTransactions(token);
       const transactions = await getAllTransactions();
       setAmount(getAmountsOfTransactions(transactions));
-      console.log(dates);
     }
   }
 
