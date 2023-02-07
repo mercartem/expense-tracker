@@ -140,6 +140,10 @@ const getMy = async (req, res) => {
           });
         }
 
+        if (limit === '0') {
+          return res.json(doc);
+        }
+
         let filtered = [...doc];
 
         if ('from' in req.query) {
