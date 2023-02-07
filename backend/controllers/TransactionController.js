@@ -3,6 +3,7 @@ import {
   countBalance,
   countBalanceReverse,
 } from '../utils/balance/countCurrentBalance.js';
+import { convertToDate } from '../utils/index.js';
 import { increaseBalance } from '../utils/balance/increaseBalance.js';
 import { decreaseBalance } from '../utils/balance/decreaseBalance.js';
 
@@ -122,7 +123,9 @@ const getOne = async (req, res) => {
 
 const getMy = async (req, res) => {
   try {
-    let { page, limit } = req.query;
+    let { page, limit, ...args } = req.query;
+    let keys = Object.keys(args);
+
     page -= 1;
 
     Transaction.find(
@@ -137,7 +140,30 @@ const getMy = async (req, res) => {
           });
         }
 
-        res.json(doc.slice(limit * page, limit * (page + 1)));
+        if (limit === '0') {
+          return res.json(doc);
+        }
+
+        let filtered = [...doc];
+
+        if ('from' in req.query) {
+          filtered = filtered.filter((item) => {
+            if (args.from <= item.date && item.date <= args.to) {
+              return item;
+            }
+          });
+
+          keys.splice(keys.indexOf('from'), 1);
+          keys.splice(keys.indexOf('to'), 1);
+        }
+
+        keys.map((arg) => {
+          filtered = filtered.filter((item) => {
+            return item[arg] === args[arg];
+          });
+        });
+
+        res.json(filtered.slice(limit * page, limit * (page + 1)));
       }
     );
   } catch (err) {

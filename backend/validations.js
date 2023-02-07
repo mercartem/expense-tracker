@@ -1,11 +1,11 @@
 import { body } from 'express-validator';
 
 const loginValidation = [
-  body('email', 'Icorrect email format').isEmail(),
+  body('email', 'Incorrect email format').isEmail(),
 ];
 
 const registerValidation = [
-  body('email', 'Icorrect email format').isEmail(),
+  body('email', 'Incorrect email format').isEmail(),
   body('password', 'Password should not be less than 5 symbols').isLength({
     min: 5,
   }),
