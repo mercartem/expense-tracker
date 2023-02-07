@@ -1,0 +1,18 @@
+.info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: #ffffff;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+  border-radius: 6px;
+  text-align: center;
+  padding: 1rem;
+  &__amount {
+    font-size: 24px;
+    font-weight: 400;
+  }
+  &__title {
+    font-size: 13px;
+    color: #6f6f6f;
+  }
+}

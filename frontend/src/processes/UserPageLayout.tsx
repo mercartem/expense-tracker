@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import View from '../../../processes/View';
+import View from './View';
 
 function UserPageLayout() {
   return (

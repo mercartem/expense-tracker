@@ -1,3 +1,6 @@
+import { Amounts } from '../../entities/Transaction/lib/types/amount';
+import { Transaction } from '../../entities/Transaction/lib/types/transaction';
+
 function setToken(token: string) {
   if (token) {
     localStorage.setItem('token', JSON.stringify(token));
@@ -72,6 +75,23 @@ function validateBalance(value: string) {
   return pattern.test(value.trim());
 }
 
+function getAmountsOfTransactions(transactions: Transaction[]): Amounts {
+  const income = transactions
+    .filter((transaction) => transaction.transactionType === 'income')
+    .reduce((acc, transaction) => acc + transaction.amount, 0);
+  const expense = transactions
+    .filter((transaction) => transaction.transactionType === 'expense')
+    .reduce((acc, transaction) => acc + transaction.amount, 0);
+  const balance = income - expense;
+  const numberOfTransactions = transactions.length;
+  return {
+    income: `${income.toLocaleString()} ₽`,
+    expenses: `${expense.toLocaleString()} ₽`,
+    balance: `${balance.toLocaleString()} ₽`,
+    transactions: numberOfTransactions.toLocaleString(),
+  };
+}
+
 export {
   setToken,
   getToken,
@@ -85,4 +105,5 @@ export {
   validateMail,
   validateBalance,
   tokenExist,
+  getAmountsOfTransactions,
 };

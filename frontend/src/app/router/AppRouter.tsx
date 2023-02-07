@@ -10,7 +10,7 @@ import LoginForm from '../../widgets/Loginform/ui/LoginForm';
 import RegisterForm from '../../widgets/RegisterForm/ui/RegisterForm';
 import { privateRoutes, publicRoutes } from './routes';
 import ErrorPage from '../../pages/404/ui/ErrorPage';
-import UserPageLayout from '../../shared/ui/UserPageLayout/UserPageLayout';
+import UserPageLayout from '../../processes/UserPageLayout';
 
 function AppRouter() {
   const { isAuth } = useContext(AuthContext);
