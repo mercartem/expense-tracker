@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { DateRange } from 'rsuite/esm/DateRangePicker';
 import getAllTransactions from '../../../entities/Transaction/api/getAllTransactions';
 import amounts from '../../../entities/Transaction/model/amount';
 import DatePick from '../../../features/DateRangePicker/ui/Date';
@@ -9,14 +10,18 @@ import '../style/Dashboard.scss';
 function Dashboard() {
   const [amount, setAmount] = useState(amounts);
 
-  async function fetchData() {
-    const transactions = await getAllTransactions();
-    setAmount(getAmountsOfTransactions(transactions));
-    console.log('запрос');
+  async function fetchData(dates: DateRange | null) {
+    // TODO: используйте dates для получения транзакций за выбранный период
+    if (dates) {
+      const transactions = await getAllTransactions();
+      setAmount(getAmountsOfTransactions(transactions));
+      console.log(dates);
+    }
   }
 
   useEffect(() => {
-    fetchData();
+    const allTime: [Date, Date] = [new Date(new Date().getFullYear() - 1, 0, 1), new Date()];
+    fetchData(allTime);
   }, []);
 
   return (
@@ -24,7 +29,7 @@ function Dashboard() {
       <div className='dashboard__header'>
         <p>Dashboard</p>
         <div className='dashboard__calendar'>
-          <DatePick fetchData={() => fetchData()} />
+          <DatePick fetchData={(dates) => fetchData(dates)} />
         </div>
       </div>
       <div className='dashboard__info'>

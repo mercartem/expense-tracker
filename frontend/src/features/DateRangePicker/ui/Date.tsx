@@ -1,8 +1,10 @@
 import { DateRangePicker } from 'rsuite';
+import { DateRange } from 'rsuite/esm/DateRangePicker';
 import predefinedRanges from '../constants/predifinedRanges';
 import '../style/Date.scss';
 
-function DatePick({ fetchData }: { fetchData: () => Promise<void> }) {
+function DatePick({ fetchData }: { fetchData: (dates: DateRange | null) => Promise<void> }) {
+  const allTime: [Date, Date] = [new Date(new Date().getFullYear() - 1, 0, 1), new Date()];
   return (
     <DateRangePicker
       ranges={predefinedRanges}
@@ -12,8 +14,10 @@ function DatePick({ fetchData }: { fetchData: () => Promise<void> }) {
       format='dd-MM-yyyy'
       placement='bottomEnd'
       isoWeek
-      defaultValue={[new Date(new Date().getFullYear() - 1, 0, 1), new Date()]}
-      onClose={() => fetchData()}
+      defaultValue={allTime}
+      onChange={(value) => {
+        fetchData(value);
+      }}
     />
   );
 }
