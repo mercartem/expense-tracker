@@ -1,0 +1,13 @@
+.filterItem {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-items: space-between;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+
+.filterBox {
+  min-width: 50%;
+
+}
