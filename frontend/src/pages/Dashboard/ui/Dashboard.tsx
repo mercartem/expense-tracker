@@ -1,23 +1,22 @@
 import { useEffect, useState } from 'react';
 import { DateRange } from 'rsuite/esm/DateRangePicker';
-import getAllTransactions from '../../../entities/Transaction/api/getAllTransactions';
 import getAllUserTransactions from '../../../entities/Transaction/api/getAllUserTransactions';
 import amounts from '../../../entities/Transaction/model/amount';
 import DatePick from '../../../features/DateRangePicker/ui/Date';
 import { getAmountsOfTransactions, getToken } from '../../../shared/utils/utils';
 import InfoCard from '../../../widgets/InfoCard/ui/InfoCard';
+import ExpensesAnalysis from '../../../widgets/PieChart/ui/ExpensesAnalysis';
 import '../style/Dashboard.scss';
 
 function Dashboard() {
   const [amount, setAmount] = useState(amounts);
 
   async function fetchData(dates: DateRange | null) {
-    console.log(dates);
     const token = getToken();
-    // TODO: используйте dates для получения транзакций за выбранный период
     if (token && dates) {
-      // TODO: const transactions = await getAllUserTransactions(token);
-      const transactions = await getAllTransactions();
+      const from = dates[0].toISOString();
+      const to = dates[1].toISOString();
+      const transactions = await getAllUserTransactions(token, 1, 12, from, to);
       setAmount(getAmountsOfTransactions(transactions));
     }
   }
@@ -40,6 +39,11 @@ function Dashboard() {
         <InfoCard title='Expenses' amount={amount.expenses} color='#fb6d9d' />
         <InfoCard title='Balance' amount={amount.balance} color='#81c868' />
         <InfoCard title='Transactions' amount={amount.transactions} color='#34d3eb' />
+      </div>
+      <div className='dashboard__charts'>
+        <ExpensesAnalysis />
+        <div className='area-chart'>2</div>
+        <div className='bar-chart'>3</div>
       </div>
     </div>
   );

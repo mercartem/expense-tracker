@@ -48,4 +48,16 @@
       grid-template-rows: 1fr 1fr;
     }
   }
+
+  &__charts {
+    display: flex;
+    flex-wrap: wrap;
+    .expenses-analysis {
+      flex: 100%;
+    }
+    .area-chart,
+    .bar-chart {
+      flex: 50%;
+    }
+  }
 }
