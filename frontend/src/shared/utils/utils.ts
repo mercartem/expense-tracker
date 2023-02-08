@@ -92,6 +92,21 @@ function getAmountsOfTransactions(transactions: Transaction[]): Amounts {
   };
 }
 
+function getCategoriesSummary(transactions: Transaction[]) {
+  const result: { [key: string]: number } = {};
+  const expensesTransactions = transactions.filter(
+    (transaction) => transaction.transactionType === 'expense',
+  );
+  expensesTransactions.forEach((trans) => {
+    const { category, amount } = trans;
+    if (!result[category]) {
+      result[category] = 0;
+    }
+    result[category] += amount;
+  });
+  return Object.entries(result).map(([name, value]) => ({ name, value }));
+}
+
 export {
   setToken,
   getToken,
@@ -106,4 +121,5 @@ export {
   validateBalance,
   tokenExist,
   getAmountsOfTransactions,
+  getCategoriesSummary,
 };
