@@ -5,7 +5,6 @@ import { Transaction } from '../../lib/types/transaction';
 import { getIconCategory } from '../../model/categories';
 import style from './TransactionRow.module.scss';
 
-
 interface ITransactionRowProps {
   transaction: Transaction;
   onClick: (e: React.MouseEvent) => void;
@@ -45,13 +44,15 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
         />
         {category}
       </TableCell>
-      <TableCell align='left'>{date}</TableCell>
+      {window.innerWidth >= 770 && <TableCell align='left'>{date}</TableCell>}
       <TableCell align='left' style={{ textTransform: 'capitalize' }}>
         {paymentMode}
       </TableCell>
-      <TableCell align='left' style={{ textTransform: 'capitalize' }}>
-        {description}
-      </TableCell>
+      {window.innerWidth >= 770 && (
+        <TableCell align='left' style={{ textTransform: 'capitalize' }}>
+          {description}
+        </TableCell>
+      )}
       <TableCell align='left' style={{ color: transactionType === 'income' ? 'green' : 'red' }}>
         {amount}
       </TableCell>

@@ -1,0 +1,17 @@
+.block {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 5%;
+}
+.date {
+  min-width: 45%;
+}
+
+.formWrapper {
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 30px;
+}

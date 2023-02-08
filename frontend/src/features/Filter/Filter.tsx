@@ -1,159 +1,157 @@
-import { Checkbox, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { useState } from 'react';
 import TuneIcon from '@mui/icons-material/Tune';
 import DatePick from '../DateRangePicker/ui/Date';
-import style from './Filter.module.scss'
+import style from './Filter.module.scss';
+import FilterCheckbox from '../../shared/ui/FilterCheckbox/FilterCheckbox';
+import SelectCategory from '../../shared/ui/SelectCategory/SelectCategory';
+import AmountRange from './AmountRange';
 
-const categories = [
-  'Food',
-  'Transportation',
-  'Rent',
-  'Bills',
-  'Utilities',
-  'Shopping',
-  'Entertainment',
-  'Health Care',
-  'Housing',
-  'Taxes',
-  'Clothing',
-  'Education',
-  'Miscellaneous',
-  'Personal Care',
-  'Salary',
-  'Interests',
-  'Business',
-  'Extra income',
-];
-
-interface ICheckboxProps {
-  checked: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  label: string;
-  id: string;
+interface IFilterActiveProps {
+  date: {
+    from: string;
+    to: string;
+  };
+  category: string;
+  transactionType: {
+    income: boolean;
+    expense: boolean;
+  };
+  paymentMode: {
+    cash: boolean;
+    debit: boolean;
+    credit: boolean;
+  };
+  amount: {
+    min: string;
+    max: string;
+  };
 }
-
-function CheckboxFilter({...props}: ICheckboxProps) {
-  const [checked, setChecked] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
-    setChecked(!checked);
-    props.onChange(e);    
-  }; 
-
-  return (
-    <div className={style.filterBox}>
-      <FormControl sx={{flexDirection: 'row', alignItems: 'center'}}>
-        <Checkbox
-          checked={checked}
-          onChange={handleChange}
-          id={props.id}
-        />
-        <label htmlFor={props.id}>{props.label}
-        </label>
-      </FormControl>
-    </div>
-  )
-}
+const defaultFilterState = {
+  date: {
+    from: '',
+    to: '',
+  },
+  category: '',
+  transactionType: {
+    income: false,
+    expense: false,
+  },
+  paymentMode: {
+    cash: false,
+    debit: false,
+    credit: false,
+  },
+  amount: {
+    min: '10',
+    max: '10000',
+  },
+};
 
 export default function Filter() {
-  const [selected, setSelected] = useState('');
-
-  const handleSelect = (e: SelectChangeEvent) => { 
-    setSelected(e.target.value); 
-    console.log(e.target.value)
-  }; 
+  const [filterActive, setActiveFilters] = useState<IFilterActiveProps>(defaultFilterState);
+  const { transactionType, paymentMode } = filterActive;
 
   return (
     <>
-    <div className={style.headerWrapper}>
-        <TuneIcon/>
+      <div className={style.headerWrapper}>
+        <TuneIcon />
         <h4 className={style.filterHeader}>Filters</h4>
-    </div>
-    
-    <div className={style.filterWrapper}>
-      
-      <div className={style.filterBox}>
-        <p className={style.filterTitle}>Select a range</p>
-        <DatePick />
       </div>
-      <div className={style.filterBox}>
-        <p className={style.filterTitle}>Category</p>
-      <FormControl variant='standard' sx={{ m: 2, minWidth: 220, margin: 0 }}>
-        <InputLabel>Select category</InputLabel>
-        <Select
-          value={selected}
-          onChange={(e: SelectChangeEvent) => handleSelect(e)}
-          label='Select Category'
-        >
-        {categories.map((category) => (<MenuItem value={category} key={category}>{category}</MenuItem>))}
-        </Select>
-      </FormControl>
-      </div>
-      <div className={style.filterBox}>
-        <p className={style.filterTitle}>Cashflow</p>
-      <div className={style.filterItem}>
-        <CheckboxFilter
-          checked
-          onChange={(e) => console.log(e.target.id)}
-          label='Income'
-          id='Income'/>
-        <CheckboxFilter
-          checked
-          onChange={(e) => console.log(e.target.id)}
-          label='Expense'
-          id='Expense'/>
-      </div>
-      
-      </div>
-      <div className={style.filterBox}>
-
-        <p className={style.filterTitle}>Payment Mode</p>
-      <div className={style.filterItem}>
-        <CheckboxFilter
-          checked
-          onChange={(e) => console.log(e.target.id)}
-          label='Cash'
-          id='Cash'/>
-        <CheckboxFilter
-          checked
-          onChange={(e) => console.log(e.target.id)}
-          label='Debit Card'
-          id='Debit'/>
-        <CheckboxFilter
-          checked
-          onChange={(e) => console.log(e.target.id)}
-          label='Credit Card'
-          id='Credit'/>
-      </div>
-      </div>
-      <div className={style.filterBox}>
-         <p className={style.filterTitle}>Amount</p>
-      <div className={style.filterItem}>
-        <div>
-           <span className={style.rangeLabel}>Min:</span>
-        <TextField
-          className={style.rangeBox}
-          value='10'
-          type='text'
-          size="small"
-          variant="standard"
+      <div className={style.filterWrapper}>
+        <div className={style.filterBox}>
+          <p className={style.filterTitle}>Select a range</p>
+          <DatePick />
+        </div>
+        <div className={style.filterBox}>
+          <p className={style.filterTitle}>Category</p>
+          <SelectCategory
+            updateState={(e) => {
+              const cleanValue = e.target.value.replace(' ', '');
+              setActiveFilters({ ...filterActive, category: cleanValue });
+            }}
           />
+        </div>
+        <div className={style.filterBox}>
+          <p className={style.filterTitle}>Cashflow</p>
+          <div className={style.filterItem}>
+            <FilterCheckbox
+              label='Income'
+              value='income'
+              name='transactionType'
+              checked={transactionType.income}
+              updateState={(e) => {
+                setActiveFilters({
+                  ...filterActive,
+                  transactionType: { ...transactionType, income: e.target.checked },
+                });
+              }}
+            />
+            <FilterCheckbox
+              label='Expense'
+              value='expense'
+              name='cashflow'
+              checked={transactionType.expense}
+              updateState={(e) => {
+                setActiveFilters({
+                  ...filterActive,
+                  transactionType: { ...transactionType, expense: e.target.checked },
+                });
+              }}
+            />
           </div>
-    <div>
-       <span className={style.rangeLabel}> - Max:</span>
-      <TextField
-        className={style.rangeBox}
-        value='10000'
-        type='text'
-        size="small"
-        variant="standard"
-      />
-    </div>
+        </div>
+        <div className={style.filterBox}>
+          <p className={style.filterTitle}>Payment Mode</p>
+          <div className={style.filterItem}>
+            <FilterCheckbox
+              label='Cash'
+              value='cash'
+              name='paymentMode'
+              checked={paymentMode.cash}
+              updateState={(e) => {
+                setActiveFilters({
+                  ...filterActive,
+                  paymentMode: { ...paymentMode, cash: e.target.checked },
+                });
+              }}
+            />
+            <FilterCheckbox
+              label='Debit Card'
+              value='debit'
+              name='paymentMode'
+              checked={paymentMode.debit}
+              updateState={(e) => {
+                setActiveFilters({
+                  ...filterActive,
+                  paymentMode: { ...paymentMode, debit: e.target.checked },
+                });
+              }}
+            />
+            <FilterCheckbox
+              label='Credit Card'
+              value='credit'
+              name='paymentMode'
+              checked={paymentMode.credit}
+              updateState={(e) => {
+                setActiveFilters({
+                  ...filterActive,
+                  paymentMode: { ...paymentMode, credit: e.target.checked },
+                });
+              }}
+            />
+          </div>
+        </div>
+        <div className={style.filterBox}>
+          <AmountRange
+            initialRange={filterActive.amount}
+            updateState={(e) => {
+              const field = e.target.id;
+              const newAmount = { ...filterActive.amount, [field]: e.target.value };
+              setActiveFilters({ ...filterActive, amount: newAmount });
+            }}
+          />
+        </div>
       </div>
-      </div>
-  </div>
-    
     </>
-    
   );
 }

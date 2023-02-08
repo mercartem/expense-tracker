@@ -3,6 +3,10 @@
 
 .container {
   padding: 20px;
+  width: 100%;
+  @media all and (max-width: 771px) {
+    margin-top: 50px;
+  }
 }
 
 .search {
@@ -12,6 +16,9 @@
   width: 80%;
   border: 1px solid rgb(214, 214, 214);
   border-radius: 5px;
+  @media all and (max-width: 771px) {
+    width: 100%;
+  }
 }
 
 .iconWrapper {
@@ -33,7 +40,6 @@
   width: 93%;
   margin-left: 40px;
   padding: 5px;
-  
 }
 
 .toolbar {
@@ -41,6 +47,7 @@
   width: 100%;
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
 .table {
@@ -53,11 +60,6 @@
   line-height: 1.2em;
   padding-bottom: 1em;
   color: $text-color;
-}
-
-.button {
-  padding: 5px;
-  font-size: 14px;
 }
 
 

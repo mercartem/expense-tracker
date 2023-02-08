@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -12,7 +13,7 @@ interface IHeadCell {
   numeric: boolean;
 }
 
-const headCells: readonly IHeadCell[] = [
+const headCells: IHeadCell[] = [
   {
     id: 'category',
     numeric: false,
@@ -52,6 +53,8 @@ interface ITableHeadProps {
 }
 
 function TableHeadTransactions({ ...props }: ITableHeadProps) {
+  const [width, setWidth] = useState(window.innerWidth);
+
   return (
     <TableHead>
       <TableRow>
@@ -60,16 +63,30 @@ function TableHeadTransactions({ ...props }: ITableHeadProps) {
             <Checkbox color='primary' checked={props.checked} onChange={props.handleChange} />
           </TableCell>
         )}
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align='left'
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            style={{ fontWeight: 700 }}
-          >
-            {headCell.label}
-          </TableCell>
-        ))}
+        {window.innerWidth > 770 &&
+          headCells.map((headCell) => (
+            <TableCell
+              key={headCell.id}
+              align='left'
+              padding={headCell.disablePadding ? 'none' : 'normal'}
+              style={{ fontWeight: 700 }}
+            >
+              {headCell.label}
+            </TableCell>
+          ))}
+        {window.innerWidth <= 770 &&
+          headCells
+            .filter((headCell) => !['description', 'date'].includes(headCell.id))
+            .map((headCell) => (
+              <TableCell
+                key={headCell.id}
+                align='left'
+                padding={headCell.disablePadding ? 'none' : 'normal'}
+                style={{ fontWeight: 700 }}
+              >
+                {headCell.label}
+              </TableCell>
+            ))}
       </TableRow>
     </TableHead>
   );

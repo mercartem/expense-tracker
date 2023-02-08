@@ -15,18 +15,18 @@ import Taxes from '../assets/category/tax.png';
 import Clothing from '../assets/category/clothing.png';
 import Education from '../assets/category/education.png';
 import Miscellaneous from '../assets/category/miscellaneous.png';
-import Personal from '../assets/category/personal.png'
+import Personal from '../assets/category/personal.png';
 
 export const expenseCategoriesIMG = [
   { category: 'Food', img: Food },
-  { category: 'Transportation', img: Transport},
+  { category: 'Transportation', img: Transport },
   { category: 'Rent', img: Rent },
-  { category: 'Bills', img:  Bills},
+  { category: 'Bills', img: Bills },
   { category: 'Utilities', img: Utilities },
-  { category: 'Shopping', img: Shopping},
+  { category: 'Shopping', img: Shopping },
   { category: 'Entertainment', img: Entertainment },
   { category: 'Health Care', img: Health },
-  { category: 'Housing', img: Housing},
+  { category: 'Housing', img: Housing },
   { category: 'Taxes', img: Taxes },
   { category: 'Clothing', img: Clothing },
   { category: 'Education', img: Education },
@@ -36,8 +36,8 @@ export const expenseCategoriesIMG = [
 
 export const incomeCategoriesIMG = [
   { category: 'Salary', img: Salary },
-  { category: 'Interests', img: Interests},
-  { category: 'Business', img: Business},
+  { category: 'Interests', img: Interests },
+  { category: 'Business', img: Business },
   { category: 'Extra income', img: Extra },
 ];
 
@@ -67,13 +67,18 @@ export const incomeCategoriesIMG = [
 
 export function getIconCategory(category: string, type: string) {
   if (type === 'income') {
-    return incomeCategoriesIMG.find((item) => (item.category).toLocaleLowerCase() === category.toLocaleLowerCase())?.img || '';
+    return (
+      incomeCategoriesIMG.find(
+        (item) => item.category.toLocaleLowerCase() === category.toLocaleLowerCase(),
+      )?.img || ''
+    );
   }
   if (type === 'expense') {
-    return expenseCategoriesIMG.find((item) => (item.category).toLocaleLowerCase() === category.toLocaleLowerCase())?.img || '';
+    return (
+      expenseCategoriesIMG.find(
+        (item) => item.category.toLocaleLowerCase() === category.toLocaleLowerCase(),
+      )?.img || ''
+    );
   }
   return '';
 }
-
-
-

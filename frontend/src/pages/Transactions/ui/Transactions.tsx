@@ -1,13 +1,25 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
-import { Table, TableBody, TableContainer, TablePagination, Box, IconButton, Toolbar, Typography, Button, InputBase } from '@mui/material';
-import { useState } from 'react';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import {
+  Table,
+  TableBody,
+  TableContainer,
+  TablePagination,
+  Box,
+  Toolbar,
+  Button,
+  InputBase,
+} from '@mui/material';
+import { useEffect, useState } from 'react';
 import { Transaction } from '../../../entities/Transaction/lib/types/transaction';
 import TransactionRow from '../../../entities/Transaction/ui/TransactionRow/TransactionRow';
 import Filter from '../../../features/Filter/Filter';
 import TableHeadTransactions from '../../../shared/ui/TableHeadTransactions/TableHeadTransactions';
-import style from './Transactions.module.scss'
+import style from './Transactions.module.scss';
+import FilterModal from '../../../features/FilterModal/ui/FilterModal';
+import AddTransactionForm from '../../../widgets/AddTransaction/ui/AddTransactionForm';
 
 const transactions: Transaction[] = [
   {
@@ -218,6 +230,16 @@ function Transactions() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const newSelected = transactionsData.map((cost) => cost._id);
@@ -254,78 +276,76 @@ function Transactions() {
   return (
     <>
       <div className={style.container}>
-      <h2 className={style.title}>All transactions</h2>
+        <h2 className={style.title}>All transactions</h2>
         <div className={style.transactionsList}>
           <div className={style.toolbar}>
             <div className={style.search}>
-                <div className={style.iconWrapper}>
-                  <SearchIcon color='primary'/>
-                </div>
-                <InputBase
-                  className={style.input}
-                  placeholder="Search…"
-                  type ='search'
-                  inputProps={{ 'aria-label': 'search' }}
-                />
-                </div>
-              <Button variant='contained' className={style.button} sx={{fontSize: 12}}>Add Transaction</Button>
+              <div className={style.iconWrapper}>
+                <SearchIcon color='primary' />
+              </div>
+              <InputBase
+                className={style.input}
+                placeholder='Search…'
+                type='search'
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </div>
+            {width >= 770 && <AddTransactionForm />}
+            {width <= 1100 && width >= 770 && <FilterModal />}
+            {width < 770 && <AddBoxIcon sx={{ color: '#6890FB', width: 45, height: 45 }} />}
           </div>
-          <Box sx={{ width: '100%'}}>
-          <Toolbar
-          sx={{justifyContent: 'flex-end'}}>
-            <Button 
-              variant="text" 
-              startIcon={<EditIcon />}
-              size="medium"
-              disabled>
-              Edit
-            </Button>
-            <Button 
-              variant="text" 
-              size="medium"
-              startIcon={<DeleteIcon />}
-              disabled>
-              Delete
-            </Button>
-          </Toolbar>
-          <TableContainer className={style.table}>
-            <Table sx={{ width: '100%' }} aria-labelledby='tableTitle' size='small'>
-              <TableHeadTransactions checkboxComponent handleChange={(e) => handleSelectAllClick(e)} />
-              <TableBody  sx={{ minWidth: '100%' }}>
-                {transactionsData
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((transaction) => {
-                    const { _id: id } = transaction;
-                    return (
-                      <TransactionRow
-                        key={id}
-                        transaction={transaction}
-                        isSelected={isSelected(id)}
-                        checkboxComponent
-                        onClick={(e) => handleItemClick(e, id)}
-                      />
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component='div'
-            count={transactionsData.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+          <Box sx={{ width: '100%' }}>
+            <Toolbar sx={{ justifyContent: 'flex-end' }}>
+              <Button variant='text' startIcon={<EditIcon />} size='medium' disabled>
+                Edit
+              </Button>
+              <Button variant='text' size='medium' startIcon={<DeleteIcon />} disabled>
+                Delete
+              </Button>
+            </Toolbar>
+            <TableContainer className={style.table}>
+              <Table sx={{ width: '100%' }} aria-labelledby='tableTitle' size='small'>
+                <TableHeadTransactions
+                  checkboxComponent
+                  handleChange={(e) => handleSelectAllClick(e)}
+                />
+                <TableBody sx={{ minWidth: '100%' }}>
+                  {transactionsData
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((transaction) => {
+                      const { _id: id } = transaction;
+                      return (
+                        <TransactionRow
+                          key={id}
+                          transaction={transaction}
+                          isSelected={isSelected(id)}
+                          checkboxComponent
+                          onClick={(e) => handleItemClick(e, id)}
+                        />
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component='div'
+              count={transactionsData.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
           </Box>
         </div>
       </div>
-      <div className={style.filterContainer}>
-        <Filter/>
-      </div>
+      {width < 770 && <FilterModal />}
+      {width >= 1100 && (
+        <div className={style.filterContainer}>
+          <Filter />
+        </div>
+      )}
     </>
-    
   );
 }
 
