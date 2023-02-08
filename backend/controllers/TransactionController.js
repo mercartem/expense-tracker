@@ -140,10 +140,6 @@ const getMy = async (req, res) => {
           });
         }
 
-        if (limit === '0') {
-          return res.json(doc);
-        }
-
         let filtered = [...doc];
 
         if ('from' in req.query) {
@@ -162,6 +158,10 @@ const getMy = async (req, res) => {
             return item[arg] === args[arg];
           });
         });
+
+        if (limit === '0') {
+          return res.json(filtered);
+        }
 
         res.json(filtered.slice(limit * page, limit * (page + 1)));
       }
