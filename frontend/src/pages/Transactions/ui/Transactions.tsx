@@ -289,7 +289,7 @@ function Transactions() {
             </Button>
           </Toolbar>
           <TableContainer className={style.table}>
-            <Table sx={{ width: '100%' }} aria-labelledby='tableTitle' size='medium'>
+            <Table sx={{ width: '100%' }} aria-labelledby='tableTitle' size='small'>
               <TableHeadTransactions checkboxComponent handleChange={(e) => handleSelectAllClick(e)} />
               <TableBody  sx={{ minWidth: '100%' }}>
                 {transactionsData

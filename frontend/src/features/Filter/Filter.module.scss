@@ -1,13 +1,47 @@
+@import '../../shared/style/variables';
+
+.filterWrapper {
+  padding: 10px;
+}
+.filterHeader {
+  padding-left: 10px;
+}
+.headerWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #e8ecef;
+  padding: 10px;
+}
+
+.filterBox {
+  margin-bottom: 15px;
+}
+
 .filterItem {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-items: space-between;
-  padding: 10px;
+  padding: 0;
   flex-wrap: wrap;
+}
+
+.filterTitle {
+  font-size: 14px;
+  color: $basic-blue;
+  margin-bottom: 10px;
 }
 
 .filterBox {
   min-width: 50%;
+}
 
+.rangeBox {
+  width: 70px;
+}
+
+.rangeLabel {
+  margin-right: 10px;
 }
