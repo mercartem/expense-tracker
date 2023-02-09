@@ -51,13 +51,23 @@
 
   &__charts {
     display: flex;
-    flex-wrap: wrap;
-    .expenses-analysis {
-      flex: 100%;
-    }
-    .area-chart,
-    .bar-chart {
-      flex: 50%;
+    flex-direction: column;
+    row-gap: 1rem;
+    .two-charts-wrapper {
+      display: flex;
+      justify-content: space-between;
+      column-gap: 1rem;
+      @media (max-width: 1400px) {
+        flex-direction: column;
+        row-gap: 1rem;
+      }
+      .area-chart,
+      .bar-chart {
+        width: 50%;
+        @media (max-width: 1400px) {
+          width: 100%;
+        }
+      }
     }
   }
 }

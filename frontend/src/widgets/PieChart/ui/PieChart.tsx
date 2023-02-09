@@ -1,19 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
 import { ExpensesAnalysisProps, LabelProps } from '../lib/types';
-
-const COLORS = [
-  '#61EFCD',
-  '#CDDE1F',
-  '#FEC200',
-  '#CA765A',
-  '#2485FA',
-  '#F57D7D',
-  '#C152D2',
-  '#8854D9',
-  '#3D4EB8',
-  '#00BCD7',
-];
+import COLORS from '../../../shared/constants/color';
 
 function PieChartExpenses({ categories }: ExpensesAnalysisProps) {
   const renderCustomizedLabel = ({
@@ -70,7 +58,7 @@ function PieChartExpenses({ categories }: ExpensesAnalysisProps) {
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip />
+          <Tooltip formatter={(number) => `${number}₽`} />
         </PieChart>
       </ResponsiveContainer>
     </div>

@@ -1,27 +1,36 @@
+/* eslint-disable react/no-array-index-key */
 import PieChartExpenses from './PieChart';
 import '../style/ExpensesAnalysis.scss';
 import { ExpensesAnalysisProps } from '../lib/types';
+import SummaryCategory from './Category';
+import COLORS from '../../../shared/constants/color';
 
-function ExpensesAnalysis({ categories }: ExpensesAnalysisProps) {
+function ExpensesAnalysis({ categories, period }: ExpensesAnalysisProps) {
+  const total: number = categories.reduce((sum, { value }) => sum + value, 0);
+  const startMonth = period && period[0].toLocaleString('en-US', { month: 'short' });
+  const endMonth = period && period[1].toLocaleString('en-US', { month: 'short' });
   return (
     <div className='expenses-analysis'>
       <p className='expenses-analysis__title'>Total Expenses</p>
-      <p className='expenses-analysis__period'>Sep 1 - Nov 30</p>
+      <p className='expenses-analysis__period'>
+        {period && `${startMonth} ${period[0].getDate()} - ${endMonth} ${period[1].getDate()}`}
+      </p>
       <div className='expenses-analysis__chart'>
         <PieChartExpenses categories={categories} />
-        <table>
-          <tr>
-            <td>0</td>
-            <td>Shopping</td>
-            <td>2000Р</td>
-            <td>50%</td>
-          </tr>
-          <tr>
-            <td>0</td>
-            <td>Shopping</td>
-            <td>2000Р</td>
-            <td>50%</td>
-          </tr>
+        <table className='pie-chart-legend'>
+          <tbody>
+            {categories
+              .map(({ name, value }, i) => (
+                <SummaryCategory
+                  key={i}
+                  category={name}
+                  amount={value}
+                  percent={(value / total) * 100}
+                  color={COLORS[i % COLORS.length]}
+                />
+              ))
+              .sort((a, b) => b.props.amount - a.props.amount)}
+          </tbody>
         </table>
       </div>
     </div>

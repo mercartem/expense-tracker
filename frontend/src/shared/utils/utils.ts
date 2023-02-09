@@ -107,6 +107,29 @@ function getCategoriesSummary(transactions: Transaction[]) {
   return Object.entries(result).map(([name, value]) => ({ name, value }));
 }
 
+function getMonthlyBalance(transactions: Transaction[]) {
+  const monthlyBalances: { [key: string]: { month: string; income: number; expense: number } } = {};
+  transactions.forEach((transaction) => {
+    const month = new Date(transaction.date).toLocaleString('en-US', { month: 'short' });
+    if (!monthlyBalances[month]) {
+      monthlyBalances[month] = {
+        month,
+        income: 0,
+        expense: 0,
+      };
+    }
+    if (transaction.transactionType === 'income') {
+      monthlyBalances[month].income += transaction.amount;
+    } else if (transaction.transactionType === 'expense') {
+      monthlyBalances[month].expense += transaction.amount;
+    }
+  });
+  return Object.values(monthlyBalances).map((balance) => ({
+    month: balance.month,
+    amount: balance.income - balance.expense,
+  }));
+}
+
 export {
   setToken,
   getToken,
@@ -122,4 +145,5 @@ export {
   tokenExist,
   getAmountsOfTransactions,
   getCategoriesSummary,
+  getMonthlyBalance,
 };
