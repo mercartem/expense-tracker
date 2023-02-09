@@ -1,15 +1,63 @@
 .dashboard {
   flex: 1;
   display: flex;
-  justify-content: flex-end;
-  padding: 1rem 2rem;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
   @media (max-width: 770px) {
     margin-top: 50px;
+  }
+  @media (max-width: 360px) {
+    padding: 1rem 0.2rem;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    p {
+      align-self: flex-start;
+      color: #688496;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .rs-picker {
+      width: 280px;
+    }
+    @media (max-width: 1400px) {
+      flex-direction: column;
+      .rs-picker {
+        width: 100%;
+      }
+    }
   }
 
   &__calendar {
     height: 35.6px;
-    box-shadow: 0 2px 4px 1px rgb(0 0 0 / 16%);
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
     border-radius: 6px;
+  }
+
+  &__info {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+  }
+
+  &__charts {
+    display: flex;
+    flex-wrap: wrap;
+    .expenses-analysis {
+      flex: 100%;
+    }
+    .area-chart,
+    .bar-chart {
+      flex: 50%;
+    }
   }
 }

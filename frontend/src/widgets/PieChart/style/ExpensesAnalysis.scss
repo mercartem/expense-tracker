@@ -1,0 +1,39 @@
+.expenses-analysis {
+  border: 1px solid transparent;
+  background: #ffffff;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+  border-radius: 6px;
+  padding: 1rem;
+
+  &__title {
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 16px;
+    font-size: 16px;
+    color: #545454;
+  }
+
+  &__period {
+    color: #9d9d9d;
+    margin-bottom: 2rem;
+  }
+
+  &__chart {
+    display: flex;
+    justify-content: space-around;
+    height: 400px;
+    @media (max-width: 1000px) {
+      flex-direction: column;
+    }
+    .pie-chart-wrapper {
+      width: 60%;
+      height: 100%;
+      @media (max-width: 1400px) {
+        width: 70%;
+      }
+      @media (max-width: 1000px) {
+        width: 99%;
+      }
+    }
+  }
+}

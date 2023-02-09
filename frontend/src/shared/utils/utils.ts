@@ -1,3 +1,6 @@
+import { Amounts } from '../../entities/Transaction/lib/types/amount';
+import { Transaction } from '../../entities/Transaction/lib/types/transaction';
+
 function setToken(token: string) {
   if (token) {
     localStorage.setItem('token', JSON.stringify(token));
@@ -72,6 +75,38 @@ function validateBalance(value: string) {
   return pattern.test(value.trim());
 }
 
+function getAmountsOfTransactions(transactions: Transaction[]): Amounts {
+  const income = transactions
+    .filter((transaction) => transaction.transactionType === 'income')
+    .reduce((acc, transaction) => acc + transaction.amount, 0);
+  const expense = transactions
+    .filter((transaction) => transaction.transactionType === 'expense')
+    .reduce((acc, transaction) => acc + transaction.amount, 0);
+  const balance = income - expense;
+  const numberOfTransactions = transactions.length;
+  return {
+    income: `${income.toLocaleString()} ₽`,
+    expenses: `${expense.toLocaleString()} ₽`,
+    balance: `${balance.toLocaleString()} ₽`,
+    transactions: numberOfTransactions.toLocaleString(),
+  };
+}
+
+function getCategoriesSummary(transactions: Transaction[]) {
+  const result: { [key: string]: number } = {};
+  const expensesTransactions = transactions.filter(
+    (transaction) => transaction.transactionType === 'expense',
+  );
+  expensesTransactions.forEach((trans) => {
+    const { category, amount } = trans;
+    if (!result[category]) {
+      result[category] = 0;
+    }
+    result[category] += amount;
+  });
+  return Object.entries(result).map(([name, value]) => ({ name, value }));
+}
+
 export {
   setToken,
   getToken,
@@ -85,4 +120,6 @@ export {
   validateMail,
   validateBalance,
   tokenExist,
+  getAmountsOfTransactions,
+  getCategoriesSummary,
 };
