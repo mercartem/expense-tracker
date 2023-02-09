@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 const style = {
   position: 'absolute',
@@ -28,13 +29,14 @@ export default function TransactionModal({ ...props }: IBasicModalProps) {
 
   return (
     <div>
-      <Button
+      {window.innerWidth < 770 && <AddBoxIcon sx={{ color: '#6890FB', width: 45, height: 45 }}  onClick={handleOpen} />}
+      {window.innerWidth >= 770 &&   <Button
         variant='contained'
         sx={{ fontSize: 12, padding: 1, minWidth: 150 }}
         onClick={handleOpen}
-      >
-        Add Transaction
-      </Button>
+      > Add Transaction
+      </Button>}
+     
       <Modal
         open={open}
         onClose={handleClose}
@@ -50,15 +52,15 @@ export default function TransactionModal({ ...props }: IBasicModalProps) {
             onClick={handleClose}
           />
           {props.children}
-          {/* <div>
+          <div>
             <Button
               variant='outlined'
               onClick={handleClose}
-              sx={{ fontSize: 12, padding: 1, minWidth: 150, position: 'absolute', bottom: '52px', right: '32px' }}
+              sx={{ fontSize: 12, padding: 1, minWidth: 150, position: 'absolute', bottom: '49px', right: '30px' }}
             >
               Cancel
-            </Button> */}
-          {/* </div> */}
+            </Button> 
+          </div>
         </Box>
       </Modal>
     </div>

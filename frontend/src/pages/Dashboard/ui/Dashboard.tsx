@@ -38,7 +38,9 @@ function Dashboard() {
       <div className='dashboard__header'>
         <p>Dashboard</p>
         <div className='dashboard__calendar'>
-          <DatePick fetchData={(dates) => fetchData(dates)} />
+          <DatePick 
+            period = {[new Date(new Date().getFullYear() - 1, 0, 1), new Date()]}
+            fetchData={(dates) => fetchData(dates)} />
         </div>
       </div>
       <div className='dashboard__info'>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { DateRange } from 'rsuite/esm/DateRangePicker';
 import TuneIcon from '@mui/icons-material/Tune';
 import DatePick from '../DateRangePicker/ui/Date';
 import style from './Filter.module.scss';
@@ -7,10 +8,7 @@ import SelectCategory from '../../shared/ui/SelectCategory/SelectCategory';
 import AmountRange from './AmountRange';
 
 interface IFilterActiveProps {
-  date: {
-    from: string;
-    to: string;
-  };
+  date: DateRange | null;
   category: string;
   transactionType: {
     income: boolean;
@@ -26,11 +24,8 @@ interface IFilterActiveProps {
     max: string;
   };
 }
-const defaultFilterState = {
-  date: {
-    from: '',
-    to: '',
-  },
+const defaultFilterState: IFilterActiveProps = {
+  date: [new Date(new Date().getFullYear() - 1, 0, 1), new Date()],
   category: '',
   transactionType: {
     income: false,
@@ -60,11 +55,14 @@ export default function Filter() {
       <div className={style.filterWrapper}>
         <div className={style.filterBox}>
           <p className={style.filterTitle}>Select a range</p>
-          <DatePick />
+          <DatePick 
+            period = {filterActive.date}
+            fetchData={(dates) => setActiveFilters({...filterActive, date: dates})}/>
         </div>
         <div className={style.filterBox}>
           <p className={style.filterTitle}>Category</p>
           <SelectCategory
+            type = ''
             updateState={(e) => {
               const cleanValue = e.target.value.replace(' ', '');
               setActiveFilters({ ...filterActive, category: cleanValue });

@@ -4,6 +4,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { Transaction } from '../../lib/types/transaction';
 import { getIconCategory } from '../../model/categories';
 import style from './TransactionRow.module.scss';
+import convertData from '../../utils/utils';
 
 interface ITransactionRowProps {
   transaction: Transaction;
@@ -44,7 +45,7 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
         />
         {category}
       </TableCell>
-      {window.innerWidth >= 770 && <TableCell align='left'>{date}</TableCell>}
+      {window.innerWidth >= 770 && <TableCell align='left'>{convertData(date, 'us-US')}</TableCell>}
       <TableCell align='left' style={{ textTransform: 'capitalize' }}>
         {paymentMode}
       </TableCell>

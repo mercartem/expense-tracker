@@ -1,18 +1,19 @@
+import { useEffect, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import {
   Table,
   TableBody,
   TableContainer,
-  TablePagination,
   Box,
   Toolbar,
   Button,
   InputBase,
+  Pagination,
+  Stack,
+  Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { Transaction } from '../../../entities/Transaction/lib/types/transaction';
 import TransactionRow from '../../../entities/Transaction/ui/TransactionRow/TransactionRow';
 import Filter from '../../../features/Filter/Filter';
@@ -20,216 +21,14 @@ import TableHeadTransactions from '../../../shared/ui/TableHeadTransactions/Tabl
 import style from './Transactions.module.scss';
 import FilterModal from '../../../features/FilterModal/ui/FilterModal';
 import AddTransactionForm from '../../../widgets/AddTransaction/ui/AddTransactionForm';
-
-const transactions: Transaction[] = [
-  {
-    _id: '63dc164d940499648d1bc344',
-    category: 'Utilities',
-    description: 'купил ботинки',
-    amount: 800,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de5779a88861369ce35e2c',
-    category: 'Clothing',
-    description: 'купил ботинки',
-    amount: 800,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de57a80d3307d471c384aa',
-    category: 'Clothing',
-    description: 'купил ботинки',
-    amount: 800,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de57aa0d3307d471c384ad',
-    category: 'Clothing',
-    description: 'купил ботинки',
-    amount: 800,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de58aa0d3307d471c384b9',
-    category: 'Clothing',
-    description: 'купил штаны',
-    amount: 500,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de5f21740d120e613410cf',
-    category: 'Shopping',
-    description: 'купил велик',
-    amount: 5000,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de5f3b740d120e613410d2',
-    category: 'Entertainment',
-    description: 'сходил на концерт паши техника',
-    amount: 0,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de6033740d120e613410d5',
-    category: 'Extra income',
-    description: 'продал машину',
-    amount: 750000,
-    paymentMode: 'credit card',
-    transactionType: 'income',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63e125f536dd6dbaf2a4ae7d',
-    category: 'Transportation',
-    description: 'buy skateboard',
-    amount: 2000,
-    paymentMode: 'cash',
-    transactionType: 'expense',
-    date: '2022-02-06',
-    time: '12-00',
-  },
-  {
-    _id: '63e1ec8a327034f65f3ba21b',
-    category: 'food',
-    description: 'молоко',
-    amount: 100,
-    paymentMode: 'cash',
-    transactionType: 'expense',
-    date: '2022-02-07',
-    time: '09-00',
-  },
-  {
-    _id: '634c164d940499648d1bc344',
-    category: 'Taxes',
-    description: 'купил ботинки',
-    amount: 800,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de5779a85861369ce35e2c',
-    category: 'Personal Care',
-    description: 'купил ботинки',
-    amount: 800,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de57a80d3y07d471c384aa',
-    category: 'Education',
-    description: 'купил ботинки',
-    amount: 800,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de57aa0d3k07d471c384ad',
-    category: 'Health Care',
-    description: 'купил ботинки',
-    amount: 800,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de58aa0d3317d471c384b9',
-    category: 'Bills',
-    description: 'купил штаны',
-    amount: 500,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de5f21740d20e613410cf',
-    category: 'Personal Care',
-    description: 'купил велик',
-    amount: 5000,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de5f3b740dt0e613410d2',
-    category: 'Rent',
-    description: 'сходил на концерт паши техника',
-    amount: 0,
-    paymentMode: 'credit card',
-    transactionType: 'expense',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63de6033740d120etee613410d5',
-    category: 'Interests',
-    description: 'продал шубу',
-    amount: 750000,
-    paymentMode: 'credit card',
-    transactionType: 'income',
-    date: '31.01.2023',
-    time: '21:03',
-  },
-  {
-    _id: '63e125f536dderer6dbaf2a4ae7d',
-    category: 'Utilities',
-    description: 'buy skateboard',
-    amount: 2000,
-    paymentMode: 'cash',
-    transactionType: 'expense',
-    date: '2022-02-06',
-    time: '12-00',
-  },
-  {
-    _id: '63e1ec8a327tet034f65f3ba21b',
-    category: 'food',
-    description: 'Кефир',
-    amount: 100,
-    paymentMode: 'cash',
-    transactionType: 'expense',
-    date: '2022-02-07',
-    time: '09-00',
-  },
-];
+import {fetchTransactions, deleteTransactions} from '../model/model';
+import EditTransactionForm from '../../../widgets/EditTransaction/ui/EditTransactionForm';
 
 function Transactions() {
-  const [transactionsData, setTransactionsData] = useState<Transaction[]>(transactions);
+  const [transactionsData, setTransactionsData] = useState<Transaction[]>([]);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
+  const [page, setPage] = useState(1);
+  
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -240,6 +39,11 @@ function Transactions() {
     };
   }, []);
 
+  useEffect(() => {
+    fetchTransactions(setTransactionsData)
+  }, []);
+
+
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const newSelected = transactionsData.map((cost) => cost._id);
@@ -247,6 +51,7 @@ function Transactions() {
       return;
     }
     setSelectedItems([]);
+    console.log(selectedItems)
   };
 
   const handleItemClick = (event: React.MouseEvent<unknown>, id: string) => {
@@ -259,17 +64,17 @@ function Transactions() {
       newSelectedItems = selectedItems.filter((item) => item !== id);
     }
     setSelectedItems(newSelectedItems);
-    console.log(selectedItems);
   };
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
+  const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+  const handleDeleteClick = async () => {
+    await deleteTransactions(selectedItems);
+    await fetchTransactions(setTransactionsData, page);
+    setSelectedItems([]);
+  }
 
   const isSelected = (id: string) => selectedItems.indexOf(id) !== -1;
 
@@ -290,16 +95,22 @@ function Transactions() {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </div>
-            {width >= 770 && <AddTransactionForm />}
+            <AddTransactionForm updateTransactions={() => fetchTransactions(setTransactionsData, page)}/>
             {width <= 1100 && width >= 770 && <FilterModal />}
-            {width < 770 && <AddBoxIcon sx={{ color: '#6890FB', width: 45, height: 45 }} />}
           </div>
           <Box sx={{ width: '100%' }}>
             <Toolbar sx={{ justifyContent: 'flex-end' }}>
-              <Button variant='text' startIcon={<EditIcon />} size='medium' disabled>
-                Edit
-              </Button>
-              <Button variant='text' size='medium' startIcon={<DeleteIcon />} disabled>
+              <EditTransactionForm 
+                active={!(selectedItems.length === 1)} 
+                id={selectedItems[0]} 
+                updateTransactions={handleDeleteClick}/>
+              <Button 
+                variant='text' 
+                size='medium' 
+                startIcon={<DeleteIcon />} 
+                disabled = {!(selectedItems.length >= 1)}
+                onClick={handleDeleteClick}
+                >
                 Delete
               </Button>
             </Toolbar>
@@ -311,7 +122,6 @@ function Transactions() {
                 />
                 <TableBody sx={{ minWidth: '100%' }}>
                   {transactionsData
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((transaction) => {
                       const { _id: id } = transaction;
                       return (
@@ -327,15 +137,10 @@ function Transactions() {
                 </TableBody>
               </Table>
             </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component='div'
-              count={transactionsData.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+            <Stack spacing={2}>
+      <Pagination count={10} page={page} onChange={handleChangePage} />
+    </Stack>
+          
           </Box>
         </div>
       </div>

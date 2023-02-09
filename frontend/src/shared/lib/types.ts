@@ -10,3 +10,8 @@ export interface ICallback<T> {
 export interface NavbarProps {
   balance?: string;
 }
+
+
+export type CategoriesTyped = {
+  [x: string]: string[];
+}
