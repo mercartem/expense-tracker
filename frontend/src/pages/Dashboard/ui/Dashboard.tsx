@@ -3,13 +3,19 @@ import { DateRange } from 'rsuite/esm/DateRangePicker';
 import getAllUserTransactions from '../../../entities/Transaction/api/getAllUserTransactions';
 import amounts from '../../../entities/Transaction/model/amount';
 import DatePick from '../../../features/DateRangePicker/ui/Date';
-import { getAmountsOfTransactions, getToken } from '../../../shared/utils/utils';
+import {
+  getAmountsOfTransactions,
+  getCategoriesSummary,
+  getToken,
+} from '../../../shared/utils/utils';
 import InfoCard from '../../../widgets/InfoCard/ui/InfoCard';
+import { Category } from '../../../widgets/PieChart/lib/types';
 import ExpensesAnalysis from '../../../widgets/PieChart/ui/ExpensesAnalysis';
 import '../style/Dashboard.scss';
 
 function Dashboard() {
   const [amount, setAmount] = useState(amounts);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   async function fetchData(dates: DateRange | null) {
     const token = getToken();
@@ -18,6 +24,7 @@ function Dashboard() {
       const to = dates[1].toISOString();
       const transactions = await getAllUserTransactions(token, 1, 12, from, to);
       setAmount(getAmountsOfTransactions(transactions));
+      setCategories(getCategoriesSummary(transactions));
     }
   }
 
@@ -41,7 +48,7 @@ function Dashboard() {
         <InfoCard title='Transactions' amount={amount.transactions} color='#34d3eb' />
       </div>
       <div className='dashboard__charts'>
-        <ExpensesAnalysis />
+        <ExpensesAnalysis categories={categories} />
         <div className='area-chart'>2</div>
         <div className='bar-chart'>3</div>
       </div>
