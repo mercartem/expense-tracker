@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { DateRange } from 'rsuite/esm/DateRangePicker';
 import getAllUserTransactions from '../../../entities/Transaction/api/getAllUserTransactions';
 import amounts from '../../../entities/Transaction/model/amount';
@@ -18,21 +19,40 @@ import ExpensesAnalysis from '../../../widgets/PieChart/ui/ExpensesAnalysis';
 import '../style/Dashboard.scss';
 
 function Dashboard() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
   const allTime: [Date, Date] = [new Date(new Date().getFullYear() - 1, 0, 1), new Date()];
+  const dateParams: [Date, Date] | false = queryParams.has('startDate') && [
+    new Date(queryParams.get('startDate') as string),
+    new Date(queryParams.get('endDate') as string),
+  ];
+
   const [amount, setAmount] = useState(amounts);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [period, setPeriod] = useState(allTime);
+  const [period, setPeriod] = useState(dateParams || allTime);
   const [monthlyBalance, setMonthlyBalance] = useState<MonthlyBalance[]>([]);
+
+  function handleDate(dates: DateRange | null) {
+    if (dates) {
+      const [startDate, endDate] = [
+        dates[0].toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+        dates[1].toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+      ];
+      navigate(`/user/dashboard?startDate=${startDate}&endDate=${endDate}`);
+      setPeriod(dates);
+    }
+  }
 
   async function fetchData(dates: DateRange | null) {
     const token = getToken();
     if (token && dates) {
-      const from = dates[0].toISOString();
-      const to = dates[1].toISOString();
+      const [from, to] = [dates[0].toISOString(), dates[1].toISOString()];
       const transactions = await getAllUserTransactions(token, 1, 0, from, to);
+
       setAmount(getAmountsOfTransactions(transactions));
       setCategories(getCategoriesSummary(transactions));
-      setPeriod(dates);
       setMonthlyBalance(getMonthlyBalance(transactions));
     }
   }
@@ -46,7 +66,11 @@ function Dashboard() {
       <div className='dashboard__header'>
         <p>Dashboard</p>
         <div className='dashboard__calendar'>
-          <DatePick fetchData={(dates) => fetchData(dates)} period={period} />
+          <DatePick
+            fetchData={(dates) => fetchData(dates)}
+            handleDate={(dates) => handleDate(dates)}
+            period={period}
+          />
         </div>
       </div>
       <div className='dashboard__info'>

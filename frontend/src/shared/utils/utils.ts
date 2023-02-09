@@ -97,6 +97,7 @@ function getCategoriesSummary(transactions: Transaction[]) {
   const expensesTransactions = transactions.filter(
     (transaction) => transaction.transactionType === 'expense',
   );
+
   expensesTransactions.forEach((trans) => {
     const { category, amount } = trans;
     if (!result[category]) {
@@ -104,13 +105,18 @@ function getCategoriesSummary(transactions: Transaction[]) {
     }
     result[category] += amount;
   });
+
   return Object.entries(result).map(([name, value]) => ({ name, value }));
 }
 
 function getMonthlyBalance(transactions: Transaction[]) {
   const monthlyBalances: { [key: string]: { month: string; income: number; expense: number } } = {};
+
   transactions.forEach((transaction) => {
-    const month = new Date(transaction.date).toLocaleString('en-US', { month: 'short' });
+    const month = new Date(transaction.date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+    });
     if (!monthlyBalances[month]) {
       monthlyBalances[month] = {
         month,
@@ -124,12 +130,25 @@ function getMonthlyBalance(transactions: Transaction[]) {
       monthlyBalances[month].expense += transaction.amount;
     }
   });
-  return Object.values(monthlyBalances).map((balance) => ({
-    month: balance.month,
-    amount: balance.income - balance.expense,
-    expense: balance.expense,
-    income: balance.income,
-  }));
+
+  return Object.values(monthlyBalances)
+    .map((balance) => ({
+      month: balance.month,
+      amount: balance.income - balance.expense,
+      expense: balance.expense,
+      income: balance.income,
+    }))
+    .sort((a, b) => {
+      const dateA = new Date(a.month);
+      const dateB = new Date(b.month);
+      if (dateA > dateB) {
+        return 1;
+      }
+      if (dateA < dateB) {
+        return -1;
+      }
+      return 0;
+    });
 }
 
 export {

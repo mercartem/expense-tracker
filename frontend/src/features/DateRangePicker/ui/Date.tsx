@@ -5,9 +5,11 @@ import '../style/Date.scss';
 
 function DatePick({
   fetchData,
+  handleDate,
   period,
 }: {
   fetchData: (dates: DateRange | null) => Promise<void>;
+  handleDate: (dates: DateRange | null) => void;
   period: [Date, Date];
 }) {
   return (
@@ -21,6 +23,7 @@ function DatePick({
       defaultValue={period}
       onChange={(value) => {
         fetchData(value);
+        handleDate(value);
       }}
     />
   );

@@ -7,12 +7,12 @@ import App from './app/App';
 
 // createTransaction(
 //   {
-//     category: 'Salary',
-//     description: 'зпшка',
-//     amount: 200000,
+//     category: 'Transporation',
+//     description: 'бензин',
+//     amount: 3000,
 //     paymentMode: 'cash',
 //     transactionType: 'income',
-//     date: '2023-02-04T21:00:00.000Z',
+//     date: '2022-09-04T21:00:00.000Z',
 //     time: '00:00',
 //   },
 //   getToken() as string,
