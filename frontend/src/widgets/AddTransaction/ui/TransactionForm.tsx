@@ -1,52 +1,67 @@
 import {
   Box,
+  Button,
   FormControl,
   FormControlLabel,
   FormLabel,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
   TextField,
 } from '@mui/material';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-import { DatePicker } from 'rsuite';
-import categories from '../../../shared/constants/categories';
+import { useState } from 'react';
+import DatePick from '../../../features/DateRangePicker/ui/Date';
 import SelectCategory from '../../../shared/ui/SelectCategory/SelectCategory';
 import style from './AddTransaction.module.scss';
 
 function nowTime() {
   const date = new Date();
-  const h = date.getHours();
-  const m = date.getMinutes();
+  const h = date.getHours() > 9? date.getHours() : `0${date.getHours()}`;
+  const m = date.getMinutes()> 9? date.getMinutes() : `0${date.getMinutes()}`;
   return `${h}:${m}`;
 }
 
 export default function TransactionForm() {
+  const [formState, setFormState] = useState({
+      category: '',
+      description: '',
+      amount: '0',
+      paymentMode: 'cash',
+      transactionType: 'expense',
+      date: '',
+      time: nowTime(),
+    })
+
+  function handleSubmit (e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    console.log(formState)
+  }
+
   return (
-    <Box component='form' noValidate className={style.formWrapper}>
+    <Box component='form' noValidate className={style.formWrapper} 
+      onSubmit={(e) => handleSubmit(e)}>
       <FormControl>
         <RadioGroup
           row
           name='transactionType'
-          // value={value}
-          // onChange={handleChange}
+          value={formState.transactionType}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormState({...formState, transactionType: e.target.value})}
         >
           <FormControlLabel value='income' control={<Radio />} label='Income' />
-          <FormControlLabel value='outcome' control={<Radio />} label='Outcome' />
+          <FormControlLabel value='expense' control={<Radio />} label='Expense' />
         </RadioGroup>
       </FormControl>
       <div className={style.block}>
-        <div className={style.date}>
-          <DatePicker />
-        </div>
+<div className={style.date}>
+          <DatePick/>
+
+</div>
         <FormControl>
           <TextField
             id='time'
             label='Choose a Time'
             type='time'
-            defaultValue={nowTime()}
+            value = {formState.time}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormState({...formState, time: e.target.value})}
             size='small'
             InputLabelProps={{
               shrink: true,
@@ -60,12 +75,14 @@ export default function TransactionForm() {
       </div>
 
       <div className={style.block}>
-        <SelectCategory updateState={(e) => console.log(e.target.value)} />
+        <SelectCategory 
+          updateState={(e) => setFormState({...formState, category: e.target.value})} />
         <FormControl variant='standard' sx={{ minWidth: '45%' }}>
           <TextField
             variant='standard'
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             label='Amount'
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormState({...formState, amount: e.target.value})}
           />
         </FormControl>
       </div>
@@ -75,6 +92,8 @@ export default function TransactionForm() {
           id='standard-basic'
           label='Description'
           variant='standard'
+          value={formState.description}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormState({...formState, description: e.target.value})}
           sx={{ maxWidth: '95%' }}
         />
       </FormControl>
@@ -83,14 +102,23 @@ export default function TransactionForm() {
         <RadioGroup
           row
           name='paymentMode'
-          // value={value}
-          // onChange={handleChange}
+          value={formState.paymentMode}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormState({...formState, paymentMode: e.target.value})}
         >
           <FormControlLabel value='cash' control={<Radio />} label='Cash' />
           <FormControlLabel value='debit' control={<Radio />} label='Debit Card' />
           <FormControlLabel value='credit' control={<Radio />} label='Credit Card' />
         </RadioGroup>
       </FormControl>
+      <div>
+        <Button 
+          type='submit'
+          variant='contained' 
+          sx={{ fontSize: 12, padding: 1, minWidth: 150, mr: 2 }}>
+        Add
+      </Button>
+      </div>
+      
     </Box>
   );
 }

@@ -8,7 +8,7 @@ import TransactionForm from './TransactionForm';
 
 export default function AddTransactionForm() {
   return (
-    <TransactionModal buttonNameOne='Add' buttonNameTwo='Cancel'>
+    <TransactionModal>
       <TransactionForm />
     </TransactionModal>
   );

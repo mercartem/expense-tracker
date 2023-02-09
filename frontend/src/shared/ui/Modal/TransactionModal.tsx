@@ -19,8 +19,6 @@ const style = {
 
 interface IBasicModalProps {
   children: React.ReactNode;
-  buttonNameOne: string;
-  buttonNameTwo: string;
 }
 
 export default function TransactionModal({ ...props }: IBasicModalProps) {
@@ -52,18 +50,15 @@ export default function TransactionModal({ ...props }: IBasicModalProps) {
             onClick={handleClose}
           />
           {props.children}
-          <div>
-            <Button variant='contained' sx={{ fontSize: 12, padding: 1, minWidth: 150, mr: 2 }}>
-              {props.buttonNameOne}
-            </Button>
+          {/* <div>
             <Button
               variant='outlined'
               onClick={handleClose}
-              sx={{ fontSize: 12, padding: 1, minWidth: 150 }}
+              sx={{ fontSize: 12, padding: 1, minWidth: 150, position: 'absolute', bottom: '52px', right: '32px' }}
             >
-              {props.buttonNameTwo}
-            </Button>
-          </div>
+              Cancel
+            </Button> */}
+          {/* </div> */}
         </Box>
       </Modal>
     </div>
