@@ -11,7 +11,7 @@ import {
 } from '../../../shared/utils/utils';
 import { MonthlyBalance } from '../../../widgets/AreaChart/lib/types';
 import BalanceAnalysis from '../../../widgets/AreaChart/ui/AreaChart';
-import BarChart from '../../../widgets/BarChart/ui/BarChart';
+import ExpensesIncomeAnalysis from '../../../widgets/BarChart/ui/BarChart';
 import InfoCard from '../../../widgets/InfoCard/ui/InfoCard';
 import { Category } from '../../../widgets/PieChart/lib/types';
 import ExpensesAnalysis from '../../../widgets/PieChart/ui/ExpensesAnalysis';
@@ -59,7 +59,7 @@ function Dashboard() {
         <ExpensesAnalysis categories={categories} period={period} />
         <div className='two-charts-wrapper'>
           <BalanceAnalysis monthlyBalance={monthlyBalance} />
-          <BarChart />
+          <ExpensesIncomeAnalysis monthlyBalance={monthlyBalance} />
         </div>
       </div>
     </div>

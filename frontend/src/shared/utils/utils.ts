@@ -127,6 +127,8 @@ function getMonthlyBalance(transactions: Transaction[]) {
   return Object.values(monthlyBalances).map((balance) => ({
     month: balance.month,
     amount: balance.income - balance.expense,
+    expense: balance.expense,
+    income: balance.income,
   }));
 }
 
