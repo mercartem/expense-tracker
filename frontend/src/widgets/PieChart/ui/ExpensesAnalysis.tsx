@@ -9,20 +9,6 @@ function ExpensesAnalysis({ categories }: ExpensesAnalysisProps) {
       <p className='expenses-analysis__period'>Sep 1 - Nov 30</p>
       <div className='expenses-analysis__chart'>
         <PieChartExpenses categories={categories} />
-        <table>
-          <tr>
-            <td>0</td>
-            <td>Shopping</td>
-            <td>2000Р</td>
-            <td>50%</td>
-          </tr>
-          <tr>
-            <td>0</td>
-            <td>Shopping</td>
-            <td>2000Р</td>
-            <td>50%</td>
-          </tr>
-        </table>
       </div>
     </div>
   );

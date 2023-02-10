@@ -1,0 +1,6 @@
+.modal {
+  max-width: 600px;
+  @media all and (max-width: 770px) {
+    max-width: 80%;
+  }
+}
