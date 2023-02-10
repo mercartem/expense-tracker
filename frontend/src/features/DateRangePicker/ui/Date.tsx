@@ -1,9 +1,9 @@
-import { DateRangePicker } from 'rsuite';
+import { DatePicker, DateRangePicker } from 'rsuite';
 import { DateRange } from 'rsuite/esm/DateRangePicker';
 import predefinedRanges from '../constants/predifinedRanges';
 import '../style/Date.scss';
 
-function DatePick(props: {
+export function DatePick(props: {
   fetchData: (dates: DateRange | null) => Promise<void> | void;
   handleDate?: (dates: DateRange | null) => void;
   period: DateRange | null;
@@ -28,4 +28,27 @@ function DatePick(props: {
   );
 }
 
-export default DatePick;
+export function DatePickOne(props: {
+  fetchData: (dates: DateRange | null) => Promise<void> | void;
+}) {
+  const { fetchData } = props;
+  return (
+    <DatePicker
+      placeholder='Pick date'
+      format='dd-MM-yyyy'
+      placement='bottomEnd'
+      calendarDefaultDate={new Date()}
+      ranges={[
+        {
+          label: 'Now',
+          value: new Date(),
+        },
+      ]}
+      onChange={(value) => {
+        if (value) {
+          fetchData([value, value]);
+        }
+      }}
+    />
+  );
+}

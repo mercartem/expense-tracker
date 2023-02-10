@@ -3,7 +3,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { useState } from 'react';
 import { Transaction } from '../../../entities/Transaction/lib/types/transaction';
-import DatePick from '../../DateRangePicker/ui/Date';
+import { DatePickOne } from '../../DateRangePicker/ui/Date';
 import SelectCategory from '../../../shared/ui/SelectCategory/SelectCategory';
 import { ITransactionFormState } from '../lib/types';
 import style from './Transaction.module.scss';
@@ -97,10 +97,7 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
         </FormControl>
         <div className={style.block}>
           <div className={style.date}>
-            <DatePick
-              period={formState.date}
-              fetchData={(dates) => setFormState({ ...formState, date: dates })}
-            />
+            <DatePickOne fetchData={(dates) => setFormState({ ...formState, date: dates })} />
           </div>
           <FormControl>
             <TextField
