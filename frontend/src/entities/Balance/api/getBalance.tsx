@@ -6,6 +6,9 @@ async function getBalance(token: string): Promise<string> {
       Authorization: token,
     },
   });
+  if (res.status === 404) {
+    return '0';
+  }
   const result = (await res.json()) as string;
   return result;
 }
