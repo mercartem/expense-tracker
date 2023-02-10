@@ -21,7 +21,6 @@ const categories = [
   'Extra income',
 ];
 
-
 const categoriesTyped: CategoriesTyped = {
   expense: [
     'Food',
@@ -39,12 +38,7 @@ const categoriesTyped: CategoriesTyped = {
     'Miscellaneous',
     'Personal Care',
   ],
-  income: [
-    'Salary',
-    'Interests',
-    'Business',
-    'Extra income',
-  ]
+  income: ['Salary', 'Interests', 'Business', 'Extra income'],
 };
 
-export { categories, categoriesTyped};
+export { categories, categoriesTyped };

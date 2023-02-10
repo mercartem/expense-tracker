@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
@@ -8,8 +9,8 @@ import convertData from '../../utils/utils';
 
 interface ITransactionRowProps {
   transaction: Transaction;
-  onClick: (e: React.MouseEvent) => void;
-  isSelected: boolean;
+  onClick?: (e: React.MouseEvent) => void;
+  isSelected?: boolean;
   checkboxComponent: boolean;
 }
 
@@ -23,6 +24,17 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
     amount,
     transactionType,
   } = props.transaction;
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <TableRow
       hover
@@ -45,11 +57,11 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
         />
         {category}
       </TableCell>
-      {window.innerWidth >= 770 && <TableCell align='left'>{convertData(date, 'us-US')}</TableCell>}
+      {width >= 770 && <TableCell align='left'>{convertData(date, 'us-US')}</TableCell>}
       <TableCell align='left' style={{ textTransform: 'capitalize' }}>
         {paymentMode}
       </TableCell>
-      {window.innerWidth >= 770 && (
+      {width >= 770 && (
         <TableCell align='left' style={{ textTransform: 'capitalize' }}>
           {description}
         </TableCell>

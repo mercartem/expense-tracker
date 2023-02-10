@@ -1,6 +1,5 @@
 import { Button, Drawer } from '@mui/material';
 import TuneIcon from '@mui/icons-material/Tune';
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useState } from 'react';
 import Filter from '../../Filter/Filter';
 

@@ -1,42 +1,6 @@
 import { FormControl, Checkbox } from '@mui/material';
 import { useState } from 'react';
-
-// function parseQuery(searchParams: URLSearchParams) {
-//   const paramObj: { [x: string]: string[] } = {};
-//   const array = Array.from(searchParams.entries());
-//   array.forEach(([key, value]) => {
-//     paramObj[key] = value.split('&')
-//   })
-//   return paramObj;
-// }
-
-// function updateSearchParams(
-//   name: string,
-//   value: string,
-//   searchParams: URLSearchParams,
-//   cb: (obj: URLSearchParams)=> void) {
-//     const paramsObj = parseQuery(searchParams);
-//     if (name in paramsObj) {
-//     paramsObj[name].push(value)
-//     console.log(paramsObj)
-//     const newValue = Array.from(new Set(paramsObj[name])).join('&')
-//     const updatedObj = {...paramsObj, [name]: newValue }
-
-//     const newQuery = createSearchParams(updatedObj)
-//     cb(newQuery);
-//   } else {
-//     const updatedObj = {...paramsObj, [name]: value }
-//     const newQuery = createSearchParams(updatedObj)
-//     cb(newQuery);
-//   }
-// }
-interface ICheckboxProps {
-  label: string;
-  value: string;
-  name: string;
-  checked: boolean;
-  updateState: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import { ICheckboxProps } from '../../lib/types';
 
 function FilterCheckbox({ ...props }: ICheckboxProps) {
   const [checked, setChecked] = useState(props.checked);

@@ -23,7 +23,7 @@ function AmountRange({ ...props }: AmountRangeProps) {
     <>
       <p className={style.filterTitle}>Amount</p>
       <div className={style.filterItem}>
-        <div>
+        <div className={style.rangeBox}>
           <span className={style.rangeLabel}>Min:</span>
           <TextField
             className={style.rangeBox}
@@ -36,10 +36,10 @@ function AmountRange({ ...props }: AmountRangeProps) {
             onChange={handleChange}
           />
         </div>
-        <div>
-          <span className={style.rangeLabel}> - Max:</span>
+        <div className={style.rangeBox}>
+          <span className={style.rangeLabel} id='maxLabel'>Max:</span>
           <TextField
-            className={style.rangeBox}
+           
             value={range.max}
             id='max'
             type='text'

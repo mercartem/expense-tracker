@@ -55,14 +55,16 @@ export default function Filter() {
       <div className={style.filterWrapper}>
         <div className={style.filterBox}>
           <p className={style.filterTitle}>Select a range</p>
-          <DatePick 
-            period = {filterActive.date}
-            fetchData={(dates) => setActiveFilters({...filterActive, date: dates})}/>
+          <DatePick
+            period={filterActive.date}
+            fetchData={(dates) => setActiveFilters({ ...filterActive, date: dates })}
+          />
         </div>
         <div className={style.filterBox}>
           <p className={style.filterTitle}>Category</p>
           <SelectCategory
-            type = ''
+            initialValue=''
+            type=''
             updateState={(e) => {
               const cleanValue = e.target.value.replace(' ', '');
               setActiveFilters({ ...filterActive, category: cleanValue });

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
 import {
   Table,
@@ -12,24 +11,23 @@ import {
   InputBase,
   Pagination,
   Stack,
-  Typography,
 } from '@mui/material';
 import { Transaction } from '../../../entities/Transaction/lib/types/transaction';
 import TransactionRow from '../../../entities/Transaction/ui/TransactionRow/TransactionRow';
 import Filter from '../../../features/Filter/Filter';
 import TableHeadTransactions from '../../../shared/ui/TableHeadTransactions/TableHeadTransactions';
-import style from './Transactions.module.scss';
 import FilterModal from '../../../features/FilterModal/ui/FilterModal';
 import AddTransactionForm from '../../../widgets/AddTransaction/ui/AddTransactionForm';
-import {fetchTransactions, deleteTransactions} from '../model/model';
+import { fetchTransactions, deleteTransactions } from '../model/model';
 import EditTransactionForm from '../../../widgets/EditTransaction/ui/EditTransactionForm';
+import style from './Transactions.module.scss';
 
 function Transactions() {
   const [transactionsData, setTransactionsData] = useState<Transaction[]>([]);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [page, setPage] = useState(1);
-  
   const [width, setWidth] = useState(window.innerWidth);
+  const [pageCount, setPageCount] = useState(10)
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
@@ -40,9 +38,8 @@ function Transactions() {
   }, []);
 
   useEffect(() => {
-    fetchTransactions(setTransactionsData)
+    fetchTransactions(setTransactionsData);
   }, []);
-
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
@@ -51,7 +48,6 @@ function Transactions() {
       return;
     }
     setSelectedItems([]);
-    console.log(selectedItems)
   };
 
   const handleItemClick = (event: React.MouseEvent<unknown>, id: string) => {
@@ -74,7 +70,12 @@ function Transactions() {
     await deleteTransactions(selectedItems);
     await fetchTransactions(setTransactionsData, page);
     setSelectedItems([]);
-  }
+  };
+
+  const handleEditClick = async () => {
+    await fetchTransactions(setTransactionsData, page);
+    setSelectedItems([]);
+  };
 
   const isSelected = (id: string) => selectedItems.indexOf(id) !== -1;
 
@@ -95,22 +96,25 @@ function Transactions() {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </div>
-            <AddTransactionForm updateTransactions={() => fetchTransactions(setTransactionsData, page)}/>
+            <AddTransactionForm
+              updateTransactions={() => fetchTransactions(setTransactionsData, page)}
+            />
             {width <= 1100 && width >= 770 && <FilterModal />}
           </div>
           <Box sx={{ width: '100%' }}>
             <Toolbar sx={{ justifyContent: 'flex-end' }}>
-              <EditTransactionForm 
-                active={!(selectedItems.length === 1)} 
-                id={selectedItems[0]} 
-                updateTransactions={handleDeleteClick}/>
-              <Button 
-                variant='text' 
-                size='medium' 
-                startIcon={<DeleteIcon />} 
-                disabled = {!(selectedItems.length >= 1)}
+              <EditTransactionForm
+                active={!(selectedItems.length === 1)}
+                id={selectedItems[0]}
+                updateTransactions={handleEditClick}
+              />
+              <Button
+                variant='text'
+                size='medium'
+                startIcon={<DeleteIcon />}
+                disabled={!(selectedItems.length >= 1)}
                 onClick={handleDeleteClick}
-                >
+              >
                 Delete
               </Button>
             </Toolbar>
@@ -121,26 +125,24 @@ function Transactions() {
                   handleChange={(e) => handleSelectAllClick(e)}
                 />
                 <TableBody sx={{ minWidth: '100%' }}>
-                  {transactionsData
-                    .map((transaction) => {
-                      const { _id: id } = transaction;
-                      return (
-                        <TransactionRow
-                          key={id}
-                          transaction={transaction}
-                          isSelected={isSelected(id)}
-                          checkboxComponent
-                          onClick={(e) => handleItemClick(e, id)}
-                        />
-                      );
-                    })}
+                  {transactionsData.map((transaction) => {
+                    const { _id: id } = transaction;
+                    return (
+                      <TransactionRow
+                        key={id}
+                        transaction={transaction}
+                        isSelected={isSelected(id)}
+                        checkboxComponent
+                        onClick={(e) => handleItemClick(e, id)}
+                      />
+                    );
+                  })}
                 </TableBody>
               </Table>
             </TableContainer>
             <Stack spacing={2}>
-      <Pagination count={10} page={page} onChange={handleChangePage} />
-    </Stack>
-          
+              <Pagination count={pageCount} page={page} onChange={handleChangePage} />
+            </Stack>
           </Box>
         </div>
       </div>

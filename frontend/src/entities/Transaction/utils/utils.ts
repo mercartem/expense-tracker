@@ -3,4 +3,4 @@ function convertData(date: string, locale: string) {
   return formattedDate;
 }
 
-export default convertData
+export default convertData;

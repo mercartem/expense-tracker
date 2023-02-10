@@ -9,6 +9,7 @@ import Modal from '@mui/material/Modal';
 import TransactionForm from '../../../features/TransactionForm/ui/TransactionForm';
 import { editTransaction, getTransactionValues, nowTime } from '../utils/utils';
 import { ITransactionFormState } from '../../../features/TransactionForm/lib/types';
+import styles from './Edit.module.scss';
 
 const style = {
   position: 'absolute',
@@ -28,66 +29,70 @@ const defaultState: ITransactionFormState = {
   amount: '',
   paymentMode: 'cash',
   transactionType: 'expense',
-  date: [ new Date(), new Date()],
+  date: [new Date(), new Date()],
   time: nowTime(),
-}
+};
 
 interface IAddTransactionFormProps {
   id: string;
   updateTransactions: () => Promise<void>;
   active: boolean;
-} 
+}
 
-export default function EditTransactionForm({...props}: IAddTransactionFormProps) {
+export default function EditTransactionForm({ ...props }: IAddTransactionFormProps) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [transactionValues, setTransactionValues] = useState(defaultState);
 
+  const handleEditTransaction = (data: ITransactionFormState) => editTransaction(data, props.id);
+
   useEffect(() => {
-     const fetchData = async () => {
+    const fetchData = async () => {
       const data = await getTransactionValues(props.id);
-      setTransactionValues(data)
-     }
-     fetchData();
+      setTransactionValues(data);
+    };
+    fetchData();
   }, []);
 
-      return (
-        <div>
-          <Button 
-                variant='text' 
-                startIcon={<EditIcon />} 
-                size='medium' 
-                disabled={props.active}
-                onClick={async ()=> {
-                  handleOpen();
-                  const data = await getTransactionValues(props.id);
-                  console.log(data)
-                  setTransactionValues(data);
-                  }}>
-                Edit
-              </Button>
-          <Modal
-            open={open}
-            onClose={handleClose}
-          >
-            <Box sx={style}>
-              <Typography id='modal-modal-title' variant='h6' component='h2'>
-                Edit Transaction
-              </Typography>
-              <CloseIcon
-                sx={{ position: 'absolute', top: '10px', right: '10px' }}
-                onClick={handleClose}
-              />
-              <TransactionForm 
-                updateTransactions={props.updateTransactions}
-                handleApi={editTransaction}
-                initialValues={transactionValues}
-                handleClose={handleClose}
-                buttonName='add'/>
-            </Box>
-          </Modal>
-        </div>
-      );
-    }
-    
+  return (
+    <div>
+      <Button
+        variant='text'
+        startIcon={<EditIcon />}
+        size='medium'
+        disabled={props.active}
+        onClick={async () => {
+          const data = await getTransactionValues(props.id);
+          await setTransactionValues(data);
+          handleOpen();
+        }}
+      >
+        Edit
+      </Button>
+      <Modal open={open} onClose={handleClose}>
+        <Box className={styles.modal} sx={style}>
+          <Typography id='modal-modal-title' variant='h6' component='h2'>
+            Edit Transaction
+          </Typography>
+          <CloseIcon
+            sx={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              ':hover': { cursor: 'pointer' },
+            }}
+            onClick={handleClose}
+          />
+          <TransactionForm
+            updateTransactions={props.updateTransactions}
+            handleApi={handleEditTransaction}
+            initialValues={transactionValues}
+            handleClose={handleClose}
+            buttonName='edit'
+          />
+        </Box>
+      </Modal>
+    </div>
+  );
+}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -17,7 +17,7 @@ const headCells: IHeadCell[] = [
   {
     id: 'category',
     numeric: false,
-    disablePadding: true,
+    disablePadding: false,
     label: 'Category',
   },
   {
@@ -55,6 +55,14 @@ interface ITableHeadProps {
 function TableHeadTransactions({ ...props }: ITableHeadProps) {
   const [width, setWidth] = useState(window.innerWidth);
 
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <TableHead>
       <TableRow>
@@ -63,7 +71,7 @@ function TableHeadTransactions({ ...props }: ITableHeadProps) {
             <Checkbox color='primary' checked={props.checked} onChange={props.handleChange} />
           </TableCell>
         )}
-        {window.innerWidth > 770 &&
+        {width > 770 &&
           headCells.map((headCell) => (
             <TableCell
               key={headCell.id}
@@ -74,7 +82,7 @@ function TableHeadTransactions({ ...props }: ITableHeadProps) {
               {headCell.label}
             </TableCell>
           ))}
-        {window.innerWidth <= 770 &&
+        {width <= 770 &&
           headCells
             .filter((headCell) => !['description', 'date'].includes(headCell.id))
             .map((headCell) => (
