@@ -20,4 +20,5 @@ export interface Category {
 
 export interface ExpensesAnalysisProps {
   categories: Category[];
+  period?: [Date, Date];
 }

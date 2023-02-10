@@ -3,6 +3,7 @@
   width: 100%;
   height: 50px;
   background-color: #36404a;
+  z-index: 100;
 
   &__logo {
     width: 150px;
@@ -15,7 +16,8 @@
 }
 
 .bm-burger-button {
-  position: absolute;
+  position: fixed;
+  z-index: 101;
   width: 30px;
   height: 20px;
   top: 15px;

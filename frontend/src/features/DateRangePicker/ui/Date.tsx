@@ -3,14 +3,14 @@ import { DateRange } from 'rsuite/esm/DateRangePicker';
 import predefinedRanges from '../constants/predifinedRanges';
 import '../style/Date.scss';
 
-const allTime = (): DateRange => [new Date(new Date().getFullYear() - 1, 0, 1), new Date()];
-
 function DatePick({
   fetchData,
+  handleDate,
   period,
 }: {
   fetchData: (dates: DateRange | null) => Promise<void> | void;
-  period: DateRange | null;
+  handleDate?: (dates: DateRange | null) => void;
+  period: [Date, Date];
 }) {
   return (
     <DateRangePicker
@@ -23,6 +23,7 @@ function DatePick({
       defaultValue={period}
       onChange={(value) => {
         fetchData(value);
+        handleDate && handleDate(value);
       }}
     />
   );

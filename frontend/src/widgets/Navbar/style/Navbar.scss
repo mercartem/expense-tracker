@@ -6,9 +6,9 @@
   align-items: center;
   gap: 2rem;
   background-color: $wh;
-  box-shadow: 0 2px 4px 1px rgb(0 0 0 / 16%);
-  height: 100vh;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
   width: 200px;
+  min-height: 100vh;
 
   &__logo {
     width: 100%;
