@@ -8,8 +8,8 @@ function DatePick({
   handleDate,
   period,
 }: {
-  fetchData: (dates: DateRange | null) => Promise<void>;
-  handleDate: (dates: DateRange | null) => void;
+  fetchData: (dates: DateRange | null) => Promise<void> | void;
+  handleDate?: (dates: DateRange | null) => void;
   period: [Date, Date];
 }) {
   return (
@@ -23,7 +23,7 @@ function DatePick({
       defaultValue={period}
       onChange={(value) => {
         fetchData(value);
-        handleDate(value);
+        handleDate && handleDate(value);
       }}
     />
   );

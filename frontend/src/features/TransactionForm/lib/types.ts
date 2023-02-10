@@ -1,10 +1,11 @@
-export interface Transaction {
-  _id: string;
+import { DateRange } from 'rsuite/esm/DateRangePicker';
+
+export interface ITransactionFormState {
   category: string;
   description: string;
-  amount: number;
+  amount: string;
   paymentMode: 'cash' | 'credit card' | 'debit card';
   transactionType: 'income' | 'expense';
-  date: string;
+  date: DateRange | null;
   time: string;
 }

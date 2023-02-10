@@ -29,7 +29,9 @@
     "quotes": ["error", "single"],
     "no-duplicate-imports": "error",
     "react/jsx-no-constructed-context-values": "off",
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "no-underscore-dangle": [2, { "allow": ["_id"] }]
   },
   "settings": {
     "import/resolver": {

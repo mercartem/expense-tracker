@@ -1,7 +1,7 @@
 import server from '../../../shared/constants/url';
 import { Transaction } from '../lib/types/transaction';
 
-async function createTransaction(transaction: Transaction, token: string) {
+async function createTransaction(transaction: Partial<Transaction>, token: string) {
   const res = await fetch(`${server}/transactions`, {
     method: 'POST',
     headers: {

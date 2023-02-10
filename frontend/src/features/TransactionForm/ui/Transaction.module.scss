@@ -1,0 +1,32 @@
+.block {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 5%;
+  @media all and (max-width: 770px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.date {
+  min-width: 45%;
+  z-index: 1500 !important;
+}
+
+.formWrapper {
+  width: 100%;
+  display:flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  @media all and (max-width: 770px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
