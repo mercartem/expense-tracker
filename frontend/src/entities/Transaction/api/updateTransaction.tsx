@@ -5,8 +5,8 @@ async function updateTransaction(
   transaction: Partial<Transaction>,
   id: string,
   token: string,
-): Promise<void> {
-  await fetch(`${server}/transactions/${id}`, {
+): Promise<string | { success: boolean }> {
+  const res = await fetch(`${server}/transactions/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -14,6 +14,11 @@ async function updateTransaction(
     },
     body: JSON.stringify(transaction),
   });
+  if (res.status === 500) {
+    return (await res.json()).message;
+  }
+  const result = (await res.json()) as { success: boolean };
+  return result;
 }
 
 export default updateTransaction;
