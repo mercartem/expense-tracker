@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@types/react-burger-menu": "^2.8.3",
+    "@types/recharts": "^1.8.24",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
     "eslint": "^8.2.0",

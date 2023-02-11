@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
 import {
@@ -18,17 +18,24 @@ import Filter from '../../../features/Filter/Filter';
 import TableHeadTransactions from '../../../shared/ui/TableHeadTransactions/TableHeadTransactions';
 import FilterModal from '../../../features/FilterModal/ui/FilterModal';
 import AddTransactionForm from '../../../widgets/AddTransaction/ui/AddTransactionForm';
-import { fetchTransactions, deleteTransactions } from '../model/model';
+import { fetchTransactions, deleteTransactions, getPageTotal } from '../model/model';
 import EditTransactionForm from '../../../widgets/EditTransaction/ui/EditTransactionForm';
 import style from './Transactions.module.scss';
+import BalanceContext from '../../../app/context/BalanceContext';
+import SearchTransaction from '../../../features/SearchTransaction/ui/SearchTransaction';
+
+const ITEMS_PER_PAGE = 10;
+
 
 function Transactions() {
   const [transactionsData, setTransactionsData] = useState<Transaction[]>([]);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const [width, setWidth] = useState(window.innerWidth);
-  const [pageCount, setPageCount] = useState(10)
-
+  const [pageCount, setPageCount] = useState(5);
+  const {updateBalance} = useContext(BalanceContext);
+  const [sortType, setSortType] = useState('')
+ console.log(sortType)
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
@@ -38,7 +45,8 @@ function Transactions() {
   }, []);
 
   useEffect(() => {
-    fetchTransactions(setTransactionsData);
+    fetchTransactions(setTransactionsData, page, ITEMS_PER_PAGE);
+    getPageTotal(ITEMS_PER_PAGE).then((pageTotal) => setPageCount(pageTotal))
   }, []);
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,20 +72,48 @@ function Transactions() {
 
   const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
+    fetchTransactions(setTransactionsData, value, ITEMS_PER_PAGE);
   };
 
   const handleDeleteClick = async () => {
     await deleteTransactions(selectedItems);
-    await fetchTransactions(setTransactionsData, page);
+    updateBalance();
+    getPageTotal(ITEMS_PER_PAGE)
+      .then((pageTotal) => {
+        setPageCount(pageTotal)
+        if (page > pageTotal) {
+          setPage(pageTotal)
+          fetchTransactions(setTransactionsData, pageTotal, ITEMS_PER_PAGE)
+      } else {
+        fetchTransactions(setTransactionsData, page, ITEMS_PER_PAGE)
+      }});
+    setSelectedItems([]);
+  };
+
+  const handleAddClick = async () => {
+    getPageTotal(ITEMS_PER_PAGE)
+      .then((pageTotal) => {
+        setPageCount(pageTotal)
+        if (page < pageTotal) {
+          setPage(pageTotal);
+          fetchTransactions(setTransactionsData, pageTotal, ITEMS_PER_PAGE)
+          updateBalance();
+        } else {
+          fetchTransactions(setTransactionsData, page, ITEMS_PER_PAGE);
+          updateBalance();
+        }
+      });
     setSelectedItems([]);
   };
 
   const handleEditClick = async () => {
-    await fetchTransactions(setTransactionsData, page);
+    await fetchTransactions(setTransactionsData, page, ITEMS_PER_PAGE);
+    updateBalance();
     setSelectedItems([]);
   };
 
   const isSelected = (id: string) => selectedItems.indexOf(id) !== -1;
+  const allSelected = () => selectedItems.length === transactionsData.length;
 
   return (
     <>
@@ -85,19 +121,9 @@ function Transactions() {
         <h2 className={style.title}>All transactions</h2>
         <div className={style.transactionsList}>
           <div className={style.toolbar}>
-            <div className={style.search}>
-              <div className={style.iconWrapper}>
-                <SearchIcon color='primary' />
-              </div>
-              <InputBase
-                className={style.input}
-                placeholder='Search…'
-                type='search'
-                inputProps={{ 'aria-label': 'search' }}
-              />
-            </div>
+          <SearchTransaction updateFilter={setSortType}/>
             <AddTransactionForm
-              updateTransactions={() => fetchTransactions(setTransactionsData, page)}
+              updateTransactions={handleAddClick}
             />
             {width <= 1100 && width >= 770 && <FilterModal />}
           </div>
@@ -122,10 +148,21 @@ function Transactions() {
               <Table sx={{ width: '100%' }} aria-labelledby='tableTitle' size='small'>
                 <TableHeadTransactions
                   checkboxComponent
+                  checked = {allSelected()}
                   handleChange={(e) => handleSelectAllClick(e)}
                 />
                 <TableBody sx={{ minWidth: '100%' }}>
-                  {transactionsData.map((transaction) => {
+                  {transactionsData.filter((transaction) => sortType
+                  ? [
+                        transaction.category, 
+                        transaction.description, 
+                        transaction.paymentMode, 
+                        transaction.amount, 
+                        transaction.transactionType
+                      ].includes(sortType)
+                  :
+                  transaction)
+                  .map((transaction) => {
                     const { _id: id } = transaction;
                     return (
                       <TransactionRow

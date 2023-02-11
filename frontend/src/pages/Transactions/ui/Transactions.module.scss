@@ -3,7 +3,7 @@
 
 .container {
   padding: 20px;
-  width: 100%;
+  flex-grow: 2;
   @media all and (max-width: 771px) {
     margin-top: 50px;
   }
