@@ -67,7 +67,7 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
         </TableCell>
       )}
       <TableCell align='left' style={{ color: transactionType === 'income' ? 'green' : 'red' }}>
-        {amount}
+        {`${amount}₽`}
       </TableCell>
     </TableRow>
   );

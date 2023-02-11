@@ -51,6 +51,7 @@
 
   &__charts {
     display: flex;
+    max-width: 1168px;
     flex-direction: column;
     row-gap: 1rem;
     .two-charts-wrapper {
@@ -68,6 +69,16 @@
           width: 100%;
         }
       }
+    }
+  }
+
+  &__transactions {
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+    border-radius: 6px;
+    p {
+      background-color: white;
+      padding: 1rem;
+      border-bottom: 1px solid rgba(224, 224, 224, 1);
     }
   }
 }

@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DateRange } from 'rsuite/esm/DateRangePicker';
 import getAllUserTransactions from '../../../entities/Transaction/api/getAllUserTransactions';
+import { Transaction } from '../../../entities/Transaction/lib/types/transaction';
 import amounts from '../../../entities/Transaction/model/amount';
-import DatePick from '../../../features/DateRangePicker/ui/Date';
+import TransactionsList from '../../../entities/Transaction/ui/TransactionsList/TransactionsList';
+import { DatePick } from '../../../features/DateRangePicker/ui/Date';
 import {
   getAmountsOfTransactions,
   getCategoriesSummary,
   getMonthlyBalance,
   getToken,
+  sortTransactionsByDate,
 } from '../../../shared/utils/utils';
 import { MonthlyBalance } from '../../../widgets/AreaChart/lib/types';
 import BalanceAnalysis from '../../../widgets/AreaChart/ui/AreaChart';
@@ -23,7 +26,7 @@ function Dashboard() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
 
-  const allTime: [Date, Date] = [new Date(new Date().getFullYear() - 1, 0, 1), new Date()];
+  const allTime: [Date, Date] = [new Date(new Date().getFullYear() - 5, 0, 1), new Date()];
   const dateParams: [Date, Date] | false = queryParams.has('startDate') && [
     new Date(queryParams.get('startDate') as string),
     new Date(queryParams.get('endDate') as string),
@@ -33,6 +36,7 @@ function Dashboard() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [period, setPeriod] = useState(dateParams || allTime);
   const [monthlyBalance, setMonthlyBalance] = useState<MonthlyBalance[]>([]);
+  const [fiveTransactions, setFiveTransactions] = useState<Transaction[]>([]);
 
   function handleDate(dates: DateRange | null) {
     if (dates) {
@@ -54,6 +58,7 @@ function Dashboard() {
       setAmount(getAmountsOfTransactions(transactions));
       setCategories(getCategoriesSummary(transactions));
       setMonthlyBalance(getMonthlyBalance(transactions));
+      setFiveTransactions(sortTransactionsByDate(transactions).slice(0, 5));
     }
   }
 
@@ -85,6 +90,10 @@ function Dashboard() {
           <BalanceAnalysis monthlyBalance={monthlyBalance} />
           <ExpensesIncomeAnalysis monthlyBalance={monthlyBalance} />
         </div>
+      </div>
+      <div className='dashboard__transactions'>
+        <p className='dashboard__title'>Recent Transactions</p>
+        <TransactionsList transactions={fiveTransactions} />
       </div>
     </div>
   );

@@ -151,6 +151,20 @@ function getMonthlyBalance(transactions: Transaction[]) {
     });
 }
 
+function sortTransactionsByDate(transactions: Transaction[]) {
+  return transactions.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    if (dateA < dateB) {
+      return 1;
+    }
+    if (dateA > dateB) {
+      return -1;
+    }
+    return 0;
+  });
+}
+
 export {
   setToken,
   getToken,
@@ -167,4 +181,5 @@ export {
   getAmountsOfTransactions,
   getCategoriesSummary,
   getMonthlyBalance,
+  sortTransactionsByDate,
 };

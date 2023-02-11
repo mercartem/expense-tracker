@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { DateRange } from 'rsuite/esm/DateRangePicker';
 import TuneIcon from '@mui/icons-material/Tune';
-import DatePick from '../DateRangePicker/ui/Date';
+import { DatePick } from '../DateRangePicker/ui/Date';
 import style from './Filter.module.scss';
 import FilterCheckbox from '../../shared/ui/FilterCheckbox/FilterCheckbox';
 import SelectCategory from '../../shared/ui/SelectCategory/SelectCategory';

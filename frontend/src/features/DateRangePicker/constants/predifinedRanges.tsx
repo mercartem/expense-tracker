@@ -56,7 +56,7 @@ const predefinedRanges: Range[] = [
   },
   {
     label: 'All time',
-    value: [new Date(new Date().getFullYear() - 1, 0, 1), new Date()],
+    value: [new Date(new Date().getFullYear() - 5, 0, 1), new Date()],
     placement: 'left',
   },
 ];
