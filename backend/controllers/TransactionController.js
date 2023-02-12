@@ -140,11 +140,11 @@ const getMy = async (req, res) => {
           });
         }
 
-        let filtered = [...doc];
+        let searched = [...doc];
 
         // Фильтр по диапазону дат
         if ('from' in req.query) {
-          filtered = filtered.filter((item) => {
+          searched = searched.filter((item) => {
             if (args.from <= item.date && item.date <= args.to) {
               return item;
             }
@@ -157,7 +157,7 @@ const getMy = async (req, res) => {
         // Поиск по элементам
         if ('search' in req.query) {
           const search = req.query.search;
-          filtered = filtered.filter(
+          searched = searched.filter(
             ({
               category,
               description,
@@ -178,15 +178,36 @@ const getMy = async (req, res) => {
           keys.splice(keys.indexOf('search'), 1);
         }
 
+        let filteredAndSearched = [];
+
         // Фильтр по остальным параметрам
         keys.map((arg) => {
-          filtered = filtered.filter((item) => {
-            return item[arg] === args[arg];
-          });
+          const param = args[arg];
+
+          if (Array.isArray(param)) {
+            param.map((el) => {
+              makeSetByFilter(el);
+            });
+          } else {
+            makeSetByFilter(param);
+          }
+
+          function makeSetByFilter(filter) {
+            const filtered = searched.filter((item) => {
+              return item[arg] === filter;
+            });
+
+            filtered.map((item) => {
+              filteredAndSearched.push(item);
+            });
+          }
         });
 
+        // Убираем дубликаты
+        filteredAndSearched = [...new Set(filteredAndSearched)];
+
         // Сортировка по дате отфильтрованных транзакций
-        filtered = filtered.sort((a, b) => {
+        filteredAndSearched = filteredAndSearched.sort((a, b) => {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
           if (dateA < dateB) {
@@ -199,10 +220,10 @@ const getMy = async (req, res) => {
         });
 
         if (limit === '0') {
-          return res.json(filtered);
+          return res.json(filteredAndSearched);
         }
 
-        res.json(filtered.slice(limit * page, limit * (page + 1)));
+        res.json(filteredAndSearched.slice(limit * page, limit * (page + 1)));
       }
     );
   } catch (err) {
