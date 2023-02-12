@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import multer from 'multer';
 import {
   registerValidation,
   loginValidation,
@@ -22,6 +23,17 @@ mongoose
   .catch((error) => console.log('DB Error', error));
 
 const app = express();
+
+const storage = multer.diskStorage({
+  destination: (_, __, cb) => {
+    cb(null, 'uploads');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${req.userId}.${file.originalname.split('.')[1]}`);
+  }
+});
+
+const upload = multer({ storage });
 
 app.use(express.json());
 app.use(cors());
@@ -46,6 +58,12 @@ app.patch(
   handleValidationErrors,
   UserController.changePassword
 );
+
+app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
+  res.json({
+    url: `/uploads/${req.file.filename}`,
+  });
+});
 
 app.post('/balance/:id', checkAuth, BalanceController.setBalance);
 app.get('/balance', checkAuth, BalanceController.getBalance);

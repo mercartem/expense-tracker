@@ -3,7 +3,6 @@ import {
   countBalance,
   countBalanceReverse,
 } from '../utils/balance/countCurrentBalance.js';
-import { convertToDate } from '../utils/index.js';
 import { increaseBalance } from '../utils/balance/increaseBalance.js';
 import { decreaseBalance } from '../utils/balance/decreaseBalance.js';
 
@@ -142,33 +141,28 @@ const getMy = async (req, res) => {
 
         let searched = [...doc];
 
-        // Фильтр по диапазону дат
-        if ('from' in args && 'to' in args) {
-          searched = searched.filter((item) => {
-            if (args.from <= item.date && item.date <= args.to) {
-              return item;
-            }
-          });
+        function filterByRange(start, finish, sign) {
+          if (start in args && finish in args) {
+            searched = searched.filter((item) => {
+              if (args[start] <= item[sign] && item[sign] <= args[finish]) {
+                return item;
+              }
+            });
 
-          keys.splice(keys.indexOf('from'), 1);
-          keys.splice(keys.indexOf('to'), 1);
+            keys.splice(keys.indexOf(start), 1);
+            keys.splice(keys.indexOf(finish), 1);
+          }
         }
+
+        // Фильтр по диапазону дат
+        filterByRange('from', 'to', 'date');
 
         // Фильтр по диапазону цен
-        if ('min' in args && 'max' in args) {
-          searched = searched.filter((item) => {
-            if (args.min <= item.amount && item.amount <= args.max) {
-              return item;
-            }
-          });
-
-          keys.splice(keys.indexOf('min'), 1);
-          keys.splice(keys.indexOf('max'), 1);
-        }
+        filterByRange('min', 'max', 'amount');
 
         // Поиск по элементам
         if ('search' in args) {
-          const search = args[search];
+          const search = args.search;
           searched = searched.filter(
             ({
               category,
@@ -190,7 +184,12 @@ const getMy = async (req, res) => {
           keys.splice(keys.indexOf('search'), 1);
         }
 
+        // Создание нового массива
         let filteredAndSearched = [];
+
+        if (keys.length === 0) {
+          filteredAndSearched = [...searched];
+        }
 
         // Фильтр по остальным параметрам
         keys.map((arg) => {
@@ -236,7 +235,7 @@ const getMy = async (req, res) => {
           return res.json(filteredAndSearched);
         }
 
-        // Пагинация
+        // С пагинацией
         res.json(filteredAndSearched.slice(limit * page, limit * (page + 1)));
       }
     );
