@@ -28,8 +28,8 @@ function BalanceAnalysis({ monthlyBalance }: { monthlyBalance: MonthlyBalance[] 
           >
             <CartesianGrid strokeDasharray='3 3' />
             <XAxis dataKey='month' />
-            <YAxis tickFormatter={(number) => `${number}₽`} tickCount={7} />
-            <Tooltip formatter={(number) => `${number}₽`} />
+            <YAxis tickFormatter={(number: number) => `${number}₽`} tickCount={7} />
+            <Tooltip formatter={(number: number) => `${number}₽`} />
             <Area type='monotone' dataKey='amount' stroke='#8884d8' fill='#8884d8' />
             <Legend />
           </AreaChart>
