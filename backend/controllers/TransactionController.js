@@ -99,13 +99,13 @@ const getOne = async (req, res) => {
       (err, doc) => {
         if (err) {
           console.log(err);
-          res.status(500).json({
+          return res.status(500).json({
             message: 'Failed to get transaction',
           });
         }
 
         if (!doc) {
-          res.status(400).json({
+          return res.status(400).json({
             message: 'Transaction not found',
           });
         }
@@ -142,6 +142,7 @@ const getMy = async (req, res) => {
 
         let filtered = [...doc];
 
+        // Фильтр по диапазону дат
         if ('from' in req.query) {
           filtered = filtered.filter((item) => {
             if (args.from <= item.date && item.date <= args.to) {
@@ -153,12 +154,38 @@ const getMy = async (req, res) => {
           keys.splice(keys.indexOf('to'), 1);
         }
 
+        // Поиск по элементам
+        if ('search' in req.query) {
+          const search = req.query.search;
+          filtered = filtered.filter(
+            ({
+              category,
+              description,
+              amount,
+              paymentMode,
+              transactionType,
+            }) => {
+              return (
+                category.includes(search) ||
+                description.includes(search) ||
+                amount.toString().includes(search) ||
+                paymentMode.includes(search) ||
+                transactionType.includes(search)
+              );
+            }
+          );
+
+          keys.splice(keys.indexOf('search'), 1);
+        }
+
+        // Фильтр по остальным параметрам
         keys.map((arg) => {
           filtered = filtered.filter((item) => {
             return item[arg] === args[arg];
           });
         });
 
+        // Сортировка по дате отфильтрованных транзакций
         filtered = filtered.sort((a, b) => {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
@@ -197,7 +224,7 @@ const remove = async (req, res) => {
       (err, doc) => {
         if (err) {
           console.log(err);
-          res.status(500).json({
+          return res.status(500).json({
             message: 'Failed to remove my transaction',
           });
         }
@@ -205,7 +232,9 @@ const remove = async (req, res) => {
         countBalanceReverse(doc, req.userId);
 
         if (!doc) {
-          notFoundError(doc, 'Transaction not found');
+          return res.status(500).json({
+            message: 'Transaction not found',
+          });
         }
 
         res.json({
