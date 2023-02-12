@@ -143,7 +143,7 @@ const getMy = async (req, res) => {
         let searched = [...doc];
 
         // Фильтр по диапазону дат
-        if ('from' in req.query) {
+        if ('from' in args && 'to' in args) {
           searched = searched.filter((item) => {
             if (args.from <= item.date && item.date <= args.to) {
               return item;
@@ -154,9 +154,21 @@ const getMy = async (req, res) => {
           keys.splice(keys.indexOf('to'), 1);
         }
 
+        // Фильтр по диапазону цен
+        if ('min' in args && 'max' in args) {
+          searched = searched.filter((item) => {
+            if (args.min <= item.amount && item.amount <= args.max) {
+              return item;
+            }
+          });
+
+          keys.splice(keys.indexOf('min'), 1);
+          keys.splice(keys.indexOf('max'), 1);
+        }
+
         // Поиск по элементам
-        if ('search' in req.query) {
-          const search = req.query.search;
+        if ('search' in args) {
+          const search = args[search];
           searched = searched.filter(
             ({
               category,
@@ -219,10 +231,12 @@ const getMy = async (req, res) => {
           return 0;
         });
 
+        // Без пагинации
         if (limit === '0') {
           return res.json(filteredAndSearched);
         }
 
+        // Пагинация
         res.json(filteredAndSearched.slice(limit * page, limit * (page + 1)));
       }
     );
