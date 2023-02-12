@@ -46,6 +46,10 @@ const headCells: IHeadCell[] = [
   },
 ];
 
+const font = {
+  fontFamily: 'Apple-System, Arial, Helvetica, STXihei, sans-serif', fontSize: '16px', fontWeight: 700 }
+
+
 interface ITableHeadProps {
   checkboxComponent: boolean;
   checked?: boolean;
@@ -77,7 +81,7 @@ function TableHeadTransactions({ ...props }: ITableHeadProps) {
               key={headCell.id}
               align='left'
               padding={headCell.disablePadding ? 'none' : 'normal'}
-              style={{ fontWeight: 700 }}
+              sx = {font}
             >
               {headCell.label}
             </TableCell>
@@ -90,7 +94,7 @@ function TableHeadTransactions({ ...props }: ITableHeadProps) {
                 key={headCell.id}
                 align='left'
                 padding={headCell.disablePadding ? 'none' : 'normal'}
-                style={{ fontWeight: 700 }}
+                sx = {font}
               >
                 {headCell.label}
               </TableCell>

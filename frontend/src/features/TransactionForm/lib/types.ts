@@ -6,6 +6,6 @@ export interface ITransactionFormState {
   amount: string;
   paymentMode: 'cash' | 'credit card' | 'debit card';
   transactionType: 'income' | 'expense';
-  date: DateRange | null;
+  date: Date;
   time: string;
 }

@@ -25,6 +25,7 @@ export default function SearchTransaction({ updateFilter }: ISearchPorps) {
               </div>
               <InputBase
                 className={style.input}
+                sx ={{fontFamily: 'Apple-System, Arial, Helvetica, STXihei, sans-serif'}}
                 placeholder='Search…'
                 type='search'
                 inputProps={{ 'aria-label': 'search' }}

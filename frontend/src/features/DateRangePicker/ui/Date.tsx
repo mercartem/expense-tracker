@@ -29,15 +29,16 @@ export function DatePick(props: {
 }
 
 export function DatePickOne(props: {
-  fetchData: (dates: DateRange | null) => Promise<void> | void;
+  initialDate: Date,
+  fetchData: (dates: Date) => Promise<void> | void;
 }) {
-  const { fetchData } = props;
+  const { fetchData, initialDate } = props;
   return (
     <DatePicker
-      placeholder='Pick date'
-      format='dd-MM-yyyy'
+      placeholder='Pick date and time'
+      format='dd-MM-yyyy HH:mm'
       placement='bottomEnd'
-      calendarDefaultDate={new Date()}
+      calendarDefaultDate={initialDate}
       ranges={[
         {
           label: 'Now',
@@ -46,7 +47,7 @@ export function DatePickOne(props: {
       ]}
       onChange={(value) => {
         if (value) {
-          fetchData([value, value]);
+          fetchData(value);
         }
       }}
     />

@@ -35,7 +35,7 @@ function Transactions() {
   const [pageCount, setPageCount] = useState(5);
   const {updateBalance} = useContext(BalanceContext);
   const [sortType, setSortType] = useState('')
- console.log(sortType)
+
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
@@ -117,8 +117,10 @@ function Transactions() {
 
   return (
     <>
-      <div className={style.container}>
+    <div className={style.transactions}>
         <h2 className={style.title}>All transactions</h2>
+  
+      <div className={style.container}>
         <div className={style.transactionsList}>
           <div className={style.toolbar}>
           <SearchTransaction updateFilter={setSortType}/>
@@ -183,6 +185,8 @@ function Transactions() {
           </Box>
         </div>
       </div>
+
+    </div>
       {width < 770 && <FilterModal />}
       {width >= 1100 && (
         <div className={style.filterContainer}>

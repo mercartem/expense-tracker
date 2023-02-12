@@ -7,7 +7,7 @@ export function transactionValuesAdapter(data: ITransactionFormState) {
   return {
     ...data,
     amount: Number(data.amount),
-    date: data.date ? data.date[0].toISOString() : new Date().toISOString(),
+    date: data.date ? data.date.toISOString() : new Date().toISOString(),
   };
 }
 

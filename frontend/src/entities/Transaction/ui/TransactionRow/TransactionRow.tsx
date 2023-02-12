@@ -14,6 +14,10 @@ interface ITransactionRowProps {
   checkboxComponent: boolean;
 }
 
+const font = {
+  fontFamily: 'Apple-System, Arial, Helvetica, STXihei, sans-serif', fontSize: '16px'}
+
+
 function TransactionRow({ ...props }: ITransactionRowProps) {
   const {
     _id: id,
@@ -43,13 +47,15 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
       tabIndex={-1}
       key={id}
       selected={props.isSelected}
+      sx ={font}
+      className={style.row}
     >
       {props.checkboxComponent && (
         <TableCell padding='checkbox'>
           <Checkbox color='primary' checked={props.isSelected} />
         </TableCell>
       )}
-      <TableCell align='left' style={{ textTransform: 'capitalize' }}>
+      <TableCell align='left' style={{ textTransform: 'capitalize', ...font }}>
         <img
           src={getIconCategory(category, transactionType)}
           className={style.icon}
@@ -58,15 +64,15 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
         {category}
       </TableCell>
       {width >= 770 && <TableCell align='left'>{convertData(date, 'us-US')}</TableCell>}
-      <TableCell align='left' style={{ textTransform: 'capitalize' }}>
+      <TableCell align='left' style={{ textTransform: 'capitalize',  ...font  }}>
         {paymentMode}
       </TableCell>
       {width >= 770 && (
-        <TableCell align='left' style={{ textTransform: 'capitalize' }}>
+        <TableCell align='left' style={{ textTransform: 'capitalize', ...font  }}>
           {description}
         </TableCell>
       )}
-      <TableCell align='left' style={{ color: transactionType === 'income' ? 'green' : 'red' }}>
+      <TableCell align='left' style={{ color: transactionType === 'income' ? 'green' : 'red',  ...font  }}>
         {`${amount}₽`}
       </TableCell>
     </TableRow>

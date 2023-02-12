@@ -1,6 +1,14 @@
+@import '../../../shared/style/variables';
+
 .modal {
   max-width: 600px;
   @media all and (max-width: 770px) {
     max-width: 80%;
   }
+}
+
+.title {
+  @include mainText;
+  font-size: 18px;
+  color:black;
 }
