@@ -3,7 +3,6 @@ import {
   countBalance,
   countBalanceReverse,
 } from '../utils/balance/countCurrentBalance.js';
-import { convertToDate } from '../utils/index.js';
 import { increaseBalance } from '../utils/balance/increaseBalance.js';
 import { decreaseBalance } from '../utils/balance/decreaseBalance.js';
 
@@ -99,13 +98,13 @@ const getOne = async (req, res) => {
       (err, doc) => {
         if (err) {
           console.log(err);
-          res.status(500).json({
+          return res.status(500).json({
             message: 'Failed to get transaction',
           });
         }
 
         if (!doc) {
-          res.status(400).json({
+          return res.status(400).json({
             message: 'Transaction not found',
           });
         }
@@ -140,26 +139,86 @@ const getMy = async (req, res) => {
           });
         }
 
-        let filtered = [...doc];
+        let searched = [...doc];
 
-        if ('from' in req.query) {
-          filtered = filtered.filter((item) => {
-            if (args.from <= item.date && item.date <= args.to) {
-              return item;
-            }
-          });
+        function filterByRange(start, finish, sign) {
+          if (start in args && finish in args) {
+            searched = searched.filter((item) => {
+              if (args[start] <= item[sign] && item[sign] <= args[finish]) {
+                return item;
+              }
+            });
 
-          keys.splice(keys.indexOf('from'), 1);
-          keys.splice(keys.indexOf('to'), 1);
+            keys.splice(keys.indexOf(start), 1);
+            keys.splice(keys.indexOf(finish), 1);
+          }
         }
 
+        // Фильтр по диапазону дат
+        filterByRange('from', 'to', 'date');
+
+        // Фильтр по диапазону цен
+        filterByRange('min', 'max', 'amount');
+
+        // Поиск по элементам
+        if ('search' in args) {
+          const search = args.search;
+          searched = searched.filter(
+            ({
+              category,
+              description,
+              amount,
+              paymentMode,
+              transactionType,
+            }) => {
+              return (
+                category.includes(search) ||
+                description.includes(search) ||
+                amount.toString().includes(search) ||
+                paymentMode.includes(search) ||
+                transactionType.includes(search)
+              );
+            }
+          );
+
+          keys.splice(keys.indexOf('search'), 1);
+        }
+
+        // Создание нового массива
+        let filteredAndSearched = [];
+
+        if (keys.length === 0) {
+          filteredAndSearched = [...searched];
+        }
+
+        // Фильтр по остальным параметрам
         keys.map((arg) => {
-          filtered = filtered.filter((item) => {
-            return item[arg] === args[arg];
-          });
+          const param = args[arg];
+
+          if (Array.isArray(param)) {
+            param.map((el) => {
+              makeSetByFilter(el);
+            });
+          } else {
+            makeSetByFilter(param);
+          }
+
+          function makeSetByFilter(filter) {
+            const filtered = searched.filter((item) => {
+              return item[arg] === filter;
+            });
+
+            filtered.map((item) => {
+              filteredAndSearched.push(item);
+            });
+          }
         });
 
-        filtered = filtered.sort((a, b) => {
+        // Убираем дубликаты
+        filteredAndSearched = [...new Set(filteredAndSearched)];
+
+        // Сортировка по дате отфильтрованных транзакций
+        filteredAndSearched = filteredAndSearched.sort((a, b) => {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
           if (dateA < dateB) {
@@ -171,11 +230,13 @@ const getMy = async (req, res) => {
           return 0;
         });
 
+        // Без пагинации
         if (limit === '0') {
-          return res.json(filtered);
+          return res.json(filteredAndSearched);
         }
 
-        res.json(filtered.slice(limit * page, limit * (page + 1)));
+        // С пагинацией
+        res.json(filteredAndSearched.slice(limit * page, limit * (page + 1)));
       }
     );
   } catch (err) {
@@ -197,7 +258,7 @@ const remove = async (req, res) => {
       (err, doc) => {
         if (err) {
           console.log(err);
-          res.status(500).json({
+          return res.status(500).json({
             message: 'Failed to remove my transaction',
           });
         }
@@ -205,7 +266,9 @@ const remove = async (req, res) => {
         countBalanceReverse(doc, req.userId);
 
         if (!doc) {
-          notFoundError(doc, 'Transaction not found');
+          return res.status(500).json({
+            message: 'Transaction not found',
+          });
         }
 
         res.json({
