@@ -165,6 +165,14 @@ function sortTransactionsByDate(transactions: Transaction[]) {
   });
 }
 
+const removeQueryParams = (key: string, searchParams: URLSearchParams, setParams: (data: URLSearchParams) => void) => {
+  const param = searchParams.get(key);
+  if (param) {
+    searchParams.delete(key);
+    setParams(searchParams);
+  }
+};
+
 export {
   setToken,
   getToken,
@@ -182,4 +190,5 @@ export {
   getCategoriesSummary,
   getMonthlyBalance,
   sortTransactionsByDate,
+  removeQueryParams
 };

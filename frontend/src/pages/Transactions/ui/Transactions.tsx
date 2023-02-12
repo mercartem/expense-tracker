@@ -154,17 +154,7 @@ function Transactions() {
                   handleChange={(e) => handleSelectAllClick(e)}
                 />
                 <TableBody sx={{ minWidth: '100%' }}>
-                  {transactionsData.filter((transaction) => sortType
-                  ? [
-                        transaction.category, 
-                        transaction.description, 
-                        transaction.paymentMode, 
-                        transaction.amount, 
-                        transaction.transactionType
-                      ].includes(sortType)
-                  :
-                  transaction)
-                  .map((transaction) => {
+                  {transactionsData.map((transaction) => {
                     const { _id: id } = transaction;
                     return (
                       <TransactionRow

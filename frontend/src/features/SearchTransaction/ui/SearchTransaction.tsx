@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import {
     InputBase,
 } from '@mui/material';
 import style from './SearchTransaction.module.scss';
+import debounce from '../utils/utils';
+import { removeQueryParams } from '../../../shared/utils/utils';
 
 interface ISearchPorps {
     updateFilter: (value: string) => void;
@@ -11,11 +14,30 @@ interface ISearchPorps {
 
 export default function SearchTransaction({ updateFilter }: ISearchPorps) {
   const [searchValue, setSearchValue] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.has('search')) {
+      const value = searchParams.get('search');
+      if(value) setSearchValue(value);
+    }
+  }, [])
 
   const handleKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
       updateFilter(searchValue)
     }
+}
+
+const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setSearchValue(e.target.value);
+  const debouncedUpdate = debounce(() => updateFilter(e.target.value), 300)
+  debouncedUpdate();
+
+  if (e.target.value) {
+    searchParams.set('search', e.target.value)
+    setSearchParams(searchParams);
+  } else removeQueryParams('search', searchParams, setSearchParams);
 }
 
     return (
@@ -30,7 +52,7 @@ export default function SearchTransaction({ updateFilter }: ISearchPorps) {
                 type='search'
                 inputProps={{ 'aria-label': 'search' }}
                 value={searchValue}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)}
+                onChange={handleInput}
                 onKeyPress={handleKey}
               />
         </div>

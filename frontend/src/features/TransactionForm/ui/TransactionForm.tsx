@@ -112,6 +112,7 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
           <SelectCategory
             error={Boolean(errors.formErrors.category)}
             type={typeSelect}
+            handleQuery= {false}
             initialValue={formState.category}
             updateState={(e) => setFormState({ ...formState, category: e.target.value })}
           />

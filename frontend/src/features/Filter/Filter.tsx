@@ -65,6 +65,7 @@ export default function Filter() {
           <SelectCategory
             initialValue=''
             type=''
+            handleQuery
             updateState={(e) => {
               const cleanValue = e.target.value.replace(' ', '');
               setActiveFilters({ ...filterActive, category: cleanValue });
@@ -89,7 +90,7 @@ export default function Filter() {
             <FilterCheckbox
               label='Expense'
               value='expense'
-              name='cashflow'
+              name='transactionType'
               checked={transactionType.expense}
               updateState={(e) => {
                 setActiveFilters({
