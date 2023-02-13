@@ -157,7 +157,8 @@ function Transactions() {
                 </Button>
               </Toolbar>
               {/* <p style={{height: '1rem', marginBottom: '1rem'}}> {isLoading? 'Loading data...' : ''} </p> */}
-              <TableContainer className={style.table}>
+              { transactionsData.length > 0 && <>
+               <TableContainer className={style.table}>
                 <Table sx={{ width: '100%' }} aria-labelledby='tableTitle' size='small'>
                   <TableHeadTransactions
                     checkboxComponent
@@ -183,6 +184,8 @@ function Transactions() {
               <Stack spacing={2}>
                 <Pagination count={pageCount} page={page} onChange={handleChangePage} />
               </Stack>
+              </>}
+              {(transactionsData.length <= 0) && <p>Transactions not found!</p>}
             </Box>
           </div>
         </div>
