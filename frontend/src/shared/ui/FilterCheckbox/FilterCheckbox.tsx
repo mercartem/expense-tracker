@@ -1,6 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
 import { FormControl, Checkbox } from '@mui/material';
-import { useState, useEffect } from 'react';
 import { ICheckboxProps } from '../../lib/types';
 
 function FilterCheckbox({ ...props }: ICheckboxProps) {

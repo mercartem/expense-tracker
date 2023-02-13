@@ -57,8 +57,8 @@ export default function Filter({ handleApply, handleReset }: IFilterProps) {
           <p className={style.filterTitle}>Payment Mode</p>
           <div className={style.filterItem}>
             <FilterCheckbox label='Cash' value='cash' name='paymentMode' />
-            <FilterCheckbox label='Debit Card' value='debit' name='paymentMode' />
-            <FilterCheckbox label='Credit Card' value='credit' name='paymentMode' />
+            <FilterCheckbox label='Debit Card' value='debit card' name='paymentMode' />
+            <FilterCheckbox label='Credit Card' value='credit card' name='paymentMode' />
           </div>
         </div>
         <div className={style.filterBox}>
