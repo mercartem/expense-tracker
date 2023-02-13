@@ -75,7 +75,9 @@ function validateBalance(value: string) {
   return pattern.test(value.trim());
 }
 
-function getAmountsOfTransactions(transactions: Transaction[]): Amounts {
+function getAmountsOfTransactions(
+  transactions: Pick<Transaction, 'transactionType' | 'amount'>[],
+): Amounts {
   const income = transactions
     .filter((transaction) => transaction.transactionType === 'income')
     .reduce((acc, transaction) => acc + transaction.amount, 0);
@@ -92,7 +94,9 @@ function getAmountsOfTransactions(transactions: Transaction[]): Amounts {
   };
 }
 
-function getCategoriesSummary(transactions: Transaction[]) {
+function getCategoriesSummary(
+  transactions: Pick<Transaction, 'amount' | 'transactionType' | 'category'>[],
+) {
   const result: { [key: string]: number } = {};
   const expensesTransactions = transactions.filter(
     (transaction) => transaction.transactionType === 'expense',
@@ -109,7 +113,9 @@ function getCategoriesSummary(transactions: Transaction[]) {
   return Object.entries(result).map(([name, value]) => ({ name, value }));
 }
 
-function getMonthlyBalance(transactions: Transaction[]) {
+function getMonthlyBalance(
+  transactions: Pick<Transaction, 'amount' | 'transactionType' | 'date'>[],
+) {
   const monthlyBalances: { [key: string]: { month: string; income: number; expense: number } } = {};
 
   transactions.forEach((transaction) => {
@@ -165,7 +171,11 @@ function sortTransactionsByDate(transactions: Transaction[]) {
   });
 }
 
-const removeQueryParams = (key: string, searchParams: URLSearchParams, setParams: (data: URLSearchParams) => void) => {
+const removeQueryParams = (
+  key: string,
+  searchParams: URLSearchParams,
+  setParams: (data: URLSearchParams) => void,
+) => {
   const param = searchParams.get(key);
   if (param) {
     searchParams.delete(key);
@@ -190,5 +200,5 @@ export {
   getCategoriesSummary,
   getMonthlyBalance,
   sortTransactionsByDate,
-  removeQueryParams
+  removeQueryParams,
 };

@@ -27,9 +27,9 @@ function Dashboard() {
   const queryParams = new URLSearchParams(location.search);
 
   const allTime: [Date, Date] = [new Date(new Date().getFullYear() - 5, 0, 1), new Date()];
-  const dateParams: [Date, Date] | false = queryParams.has('startDate') && [
-    new Date(queryParams.get('startDate') as string),
-    new Date(queryParams.get('endDate') as string),
+  const dateParams: [Date, Date] | false = queryParams.has('from') && [
+    new Date(queryParams.get('from') as string),
+    new Date(queryParams.get('to') as string),
   ];
 
   const [amount, setAmount] = useState(amounts);
@@ -44,7 +44,7 @@ function Dashboard() {
         dates[0].toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
         dates[1].toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
       ];
-      navigate(`/user/dashboard?startDate=${startDate}&endDate=${endDate}`);
+      navigate(`/user/dashboard?from=${startDate}&to=${endDate}`);
       setPeriod(dates);
     }
   }
