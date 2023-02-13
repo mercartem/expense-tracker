@@ -21,7 +21,6 @@ export function nowTime() {
   return `${h}:${m}`;
 }
 
-
 export async function editTransaction(data: ITransactionFormState, id: string) {
   const token = getToken();
   const newTransaction = transactionValuesAdapter(data);

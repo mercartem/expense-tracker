@@ -1,8 +1,7 @@
 function debounce<T extends unknown[]>(
   func: (...args: T) => void,
   delay: number,
-): (...args: T) => void
-{
+): (...args: T) => void {
   let timer: ReturnType<typeof setTimeout>;
   return (...args: T) => {
     if (timer) clearTimeout(timer);
@@ -11,6 +10,5 @@ function debounce<T extends unknown[]>(
     }, delay);
   };
 }
-
 
 export default debounce;

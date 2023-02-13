@@ -1,6 +1,6 @@
+import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SearchIcon from '@mui/icons-material/Search';
 import {
   Table,
   TableBody,
@@ -8,7 +8,6 @@ import {
   Box,
   Toolbar,
   Button,
-  InputBase,
   Pagination,
   Stack,
 } from '@mui/material';
@@ -23,9 +22,9 @@ import EditTransactionForm from '../../../widgets/EditTransaction/ui/EditTransac
 import style from './Transactions.module.scss';
 import BalanceContext from '../../../app/context/BalanceContext';
 import SearchTransaction from '../../../features/SearchTransaction/ui/SearchTransaction';
+import { getNewSelectedItems } from '../utils/utils';
 
 const ITEMS_PER_PAGE = 10;
-
 
 function Transactions() {
   const [transactionsData, setTransactionsData] = useState<Transaction[]>([]);
@@ -33,8 +32,10 @@ function Transactions() {
   const [page, setPage] = useState(1);
   const [width, setWidth] = useState(window.innerWidth);
   const [pageCount, setPageCount] = useState(5);
-  const {updateBalance} = useContext(BalanceContext);
-  const [sortType, setSortType] = useState('')
+  const { updateBalance } = useContext(BalanceContext);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [error, setError] = useState(''); // TODO: обработка ошибок
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
@@ -45,10 +46,28 @@ function Transactions() {
   }, []);
 
   useEffect(() => {
-    fetchTransactions(setTransactionsData, page, ITEMS_PER_PAGE);
-    getPageTotal(ITEMS_PER_PAGE).then((pageTotal) => setPageCount(pageTotal))
+    const queryString = searchParams.toString();
+    fetchTransactions(setTransactionsData, setIsLoading, page, ITEMS_PER_PAGE, queryString);
+    getPageTotal(ITEMS_PER_PAGE, queryString).then((pageTotal) => setPageCount(pageTotal));
   }, []);
 
+  const handleApplyFilter = () => {
+    fetchTransactions(setTransactionsData, setIsLoading, 1, ITEMS_PER_PAGE, searchParams.toString());
+    getPageTotal(ITEMS_PER_PAGE, searchParams.toString()).then((pageTotal) =>
+      setPageCount(pageTotal),
+    );
+  };
+
+  const handleResetFilter = () => {
+    fetchTransactions(setTransactionsData, setIsLoading, page, ITEMS_PER_PAGE);
+    getPageTotal(ITEMS_PER_PAGE).then((pageTotal) => setPageCount(pageTotal));
+  };
+
+  const handleItemClick = (event: React.MouseEvent<unknown>, id: string) => {
+    const newSelected = getNewSelectedItems(id, selectedItems);
+    setSelectedItems(newSelected);
+  };
+  
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const newSelected = transactionsData.map((cost) => cost._id);
@@ -58,129 +77,122 @@ function Transactions() {
     setSelectedItems([]);
   };
 
-  const handleItemClick = (event: React.MouseEvent<unknown>, id: string) => {
-    const selectedIndex = selectedItems.indexOf(id);
-    let newSelectedItems: string[] = [];
-
-    if (selectedIndex === -1) {
-      newSelectedItems = [...selectedItems, id];
-    } else {
-      newSelectedItems = selectedItems.filter((item) => item !== id);
-    }
-    setSelectedItems(newSelectedItems);
-  };
+  const isSelected = (id: string) => selectedItems.indexOf(id) !== -1;
+  const allSelected = () => selectedItems.length === transactionsData.length;
 
   const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
+    const queryString = searchParams.toString();
     setPage(value);
-    fetchTransactions(setTransactionsData, value, ITEMS_PER_PAGE);
+    fetchTransactions(setTransactionsData, setIsLoading, value, ITEMS_PER_PAGE, queryString);
   };
 
   const handleDeleteClick = async () => {
     await deleteTransactions(selectedItems);
     updateBalance();
-    getPageTotal(ITEMS_PER_PAGE)
-      .then((pageTotal) => {
-        setPageCount(pageTotal)
-        if (page > pageTotal) {
-          setPage(pageTotal)
-          fetchTransactions(setTransactionsData, pageTotal, ITEMS_PER_PAGE)
+    getPageTotal(ITEMS_PER_PAGE).then((pageTotal) => {
+      setPageCount(pageTotal);
+      if (page > pageTotal) {
+        setPage(pageTotal);
+        fetchTransactions(setTransactionsData, setIsLoading, pageTotal, ITEMS_PER_PAGE, searchParams.toString());
       } else {
-        fetchTransactions(setTransactionsData, page, ITEMS_PER_PAGE)
-      }});
+        fetchTransactions(setTransactionsData, setIsLoading, page, ITEMS_PER_PAGE, searchParams.toString());
+      }
+    });
     setSelectedItems([]);
   };
 
   const handleAddClick = async () => {
-    getPageTotal(ITEMS_PER_PAGE)
-      .then((pageTotal) => {
-        setPageCount(pageTotal)
-        if (page < pageTotal) {
-          setPage(pageTotal);
-          fetchTransactions(setTransactionsData, pageTotal, ITEMS_PER_PAGE)
-          updateBalance();
-        } else {
-          fetchTransactions(setTransactionsData, page, ITEMS_PER_PAGE);
-          updateBalance();
-        }
-      });
+    getPageTotal(ITEMS_PER_PAGE).then((pageTotal) => {
+      setPageCount(pageTotal);
+      if (page < pageTotal) {
+        setPage(pageTotal);
+        fetchTransactions(setTransactionsData, setIsLoading, pageTotal, ITEMS_PER_PAGE, searchParams.toString());
+        updateBalance();
+      } else {
+        fetchTransactions(setTransactionsData, setIsLoading, page, ITEMS_PER_PAGE, searchParams.toString());
+        updateBalance();
+      }
+    });
     setSelectedItems([]);
   };
 
   const handleEditClick = async () => {
-    await fetchTransactions(setTransactionsData, page, ITEMS_PER_PAGE);
+    await fetchTransactions(setTransactionsData, setIsLoading, page, ITEMS_PER_PAGE, searchParams.toString());
     updateBalance();
     setSelectedItems([]);
   };
 
-  const isSelected = (id: string) => selectedItems.indexOf(id) !== -1;
-  const allSelected = () => selectedItems.length === transactionsData.length;
 
   return (
     <>
-    <div className={style.transactions}>
+      <div className={style.transactions}>
         <h2 className={style.title}>All transactions</h2>
-  
-      <div className={style.container}>
-        <div className={style.transactionsList}>
-          <div className={style.toolbar}>
-          <SearchTransaction updateFilter={setSortType}/>
-            <AddTransactionForm
-              updateTransactions={handleAddClick}
-            />
-            {width <= 1100 && width >= 770 && <FilterModal />}
-          </div>
-          <Box sx={{ width: '100%' }}>
-            <Toolbar sx={{ justifyContent: 'flex-end' }}>
-              <EditTransactionForm
-                active={!(selectedItems.length === 1)}
-                id={selectedItems[0]}
-                updateTransactions={handleEditClick}
+        <div className={style.container}>
+          <div className={style.transactionsList}>
+            <div className={style.toolbar}>
+              <SearchTransaction
+                searchFilter={handleApplyFilter}
+                resetSearch={handleResetFilter}
               />
-              <Button
-                variant='text'
-                size='medium'
-                startIcon={<DeleteIcon />}
-                disabled={!(selectedItems.length >= 1)}
-                onClick={handleDeleteClick}
-              >
-                Delete
-              </Button>
-            </Toolbar>
-            <TableContainer className={style.table}>
-              <Table sx={{ width: '100%' }} aria-labelledby='tableTitle' size='small'>
-                <TableHeadTransactions
-                  checkboxComponent
-                  checked = {allSelected()}
-                  handleChange={(e) => handleSelectAllClick(e)}
+              <AddTransactionForm updateTransactions={handleAddClick} />
+              {width <= 1100 && width >= 770 && (
+                <FilterModal handleApply={handleApplyFilter} handleReset={handleResetFilter} />
+              )}
+            </div>
+            <Box sx={{ width: '100%' }}>
+              <Toolbar sx={{ justifyContent: 'flex-end' }}>
+                <EditTransactionForm
+                  active={!(selectedItems.length === 1)}
+                  id={selectedItems[0]}
+                  updateTransactions={handleEditClick}
                 />
-                <TableBody sx={{ minWidth: '100%' }}>
-                  {transactionsData.map((transaction) => {
-                    const { _id: id } = transaction;
-                    return (
-                      <TransactionRow
-                        key={id}
-                        transaction={transaction}
-                        isSelected={isSelected(id)}
-                        checkboxComponent
-                        onClick={(e) => handleItemClick(e, id)}
-                      />
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <Stack spacing={2}>
-              <Pagination count={pageCount} page={page} onChange={handleChangePage} />
-            </Stack>
-          </Box>
+                <Button
+                  variant='text'
+                  size='medium'
+                  startIcon={<DeleteIcon />}
+                  disabled={!(selectedItems.length >= 1)}
+                  onClick={handleDeleteClick}
+                >
+                  Delete
+                </Button>
+              </Toolbar>
+              {/* <p style={{height: '1rem', marginBottom: '1rem'}}> {isLoading? 'Loading data...' : ''} </p> */}
+              <TableContainer className={style.table}>
+                <Table sx={{ width: '100%' }} aria-labelledby='tableTitle' size='small'>
+                  <TableHeadTransactions
+                    checkboxComponent
+                    checked={allSelected()}
+                    handleChange={(e) => handleSelectAllClick(e)}
+                  />
+                  <TableBody sx={{ minWidth: '100%' }}>
+                    {transactionsData.map((transaction) => {
+                      const { _id: id } = transaction;
+                      return (
+                        <TransactionRow
+                          key={id}
+                          transaction={transaction}
+                          isSelected={isSelected(id)}
+                          checkboxComponent
+                          onClick={(e) => handleItemClick(e, id)}
+                        />
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <Stack spacing={2}>
+                <Pagination count={pageCount} page={page} onChange={handleChangePage} />
+              </Stack>
+            </Box>
+          </div>
         </div>
       </div>
-
-    </div>
-      {width < 770 && <FilterModal />}
+      {width < 770 && (
+        <FilterModal handleApply={handleApplyFilter} handleReset={handleResetFilter} />
+      )}
       {width >= 1100 && (
         <div className={style.filterContainer}>
-          <Filter />
+          <Filter handleApply={handleApplyFilter} handleReset={handleResetFilter} />
         </div>
       )}
     </>

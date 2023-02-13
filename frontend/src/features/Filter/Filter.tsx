@@ -1,50 +1,24 @@
-import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import {  useState } from 'react';
 import { DateRange } from 'rsuite/esm/DateRangePicker';
+import { Button } from '@mui/material';
 import TuneIcon from '@mui/icons-material/Tune';
 import { DatePick } from '../DateRangePicker/ui/Date';
 import style from './Filter.module.scss';
 import FilterCheckbox from '../../shared/ui/FilterCheckbox/FilterCheckbox';
 import SelectCategory from '../../shared/ui/SelectCategory/SelectCategory';
 import AmountRange from './AmountRange';
+import { defaultDates, handleDateQuery } from './utils/utils';
 
-interface IFilterActiveProps {
-  date: DateRange | null;
-  category: string;
-  transactionType: {
-    income: boolean;
-    expense: boolean;
-  };
-  paymentMode: {
-    cash: boolean;
-    debit: boolean;
-    credit: boolean;
-  };
-  amount: {
-    min: string;
-    max: string;
-  };
+export interface IFilterProps {
+  handleApply: () => void;
+  handleReset: () => void;
 }
-const defaultFilterState: IFilterActiveProps = {
-  date: [new Date(new Date().getFullYear() - 1, 0, 1), new Date()],
-  category: '',
-  transactionType: {
-    income: false,
-    expense: false,
-  },
-  paymentMode: {
-    cash: false,
-    debit: false,
-    credit: false,
-  },
-  amount: {
-    min: '10',
-    max: '10000',
-  },
-};
 
-export default function Filter() {
-  const [filterActive, setActiveFilters] = useState<IFilterActiveProps>(defaultFilterState);
-  const { transactionType, paymentMode } = filterActive;
+
+export default function Filter({ handleApply, handleReset }: IFilterProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [datesValue, setDatesValue] = useState<DateRange>(handleDateQuery(searchParams));
 
   return (
     <>
@@ -56,101 +30,55 @@ export default function Filter() {
         <div className={style.filterBox}>
           <p className={style.filterTitle}>Select a range</p>
           <DatePick
-            period={filterActive.date}
-            fetchData={(dates) => setActiveFilters({ ...filterActive, date: dates })}
-          />
-        </div>
-        <div className={style.filterBox}>
-          <p className={style.filterTitle}>Category</p>
-          <SelectCategory
-            initialValue=''
-            type=''
-            handleQuery
-            updateState={(e) => {
-              const cleanValue = e.target.value.replace(' ', '');
-              setActiveFilters({ ...filterActive, category: cleanValue });
+            period={datesValue}
+            value={datesValue}
+            fetchData={(dates) => {
+              if (dates) {
+                searchParams.set('from', dates[0].toISOString());
+                searchParams.set('to', dates[1].toISOString());
+                setSearchParams(searchParams);
+                setDatesValue(dates);
+              }
             }}
           />
         </div>
         <div className={style.filterBox}>
+          <p className={style.filterTitle}>Category</p>
+          <SelectCategory initialValue='' type='' handleQuery />
+        </div>
+        <div className={style.filterBox}>
           <p className={style.filterTitle}>Cashflow</p>
           <div className={style.filterItem}>
-            <FilterCheckbox
-              label='Income'
-              value='income'
-              name='transactionType'
-              checked={transactionType.income}
-              updateState={(e) => {
-                setActiveFilters({
-                  ...filterActive,
-                  transactionType: { ...transactionType, income: e.target.checked },
-                });
-              }}
-            />
-            <FilterCheckbox
-              label='Expense'
-              value='expense'
-              name='transactionType'
-              checked={transactionType.expense}
-              updateState={(e) => {
-                setActiveFilters({
-                  ...filterActive,
-                  transactionType: { ...transactionType, expense: e.target.checked },
-                });
-              }}
-            />
+            <FilterCheckbox label='Income' value='income' name='transactionType' />
+            <FilterCheckbox label='Expense' value='expense' name='transactionType' />
           </div>
         </div>
         <div className={style.filterBox}>
           <p className={style.filterTitle}>Payment Mode</p>
           <div className={style.filterItem}>
-            <FilterCheckbox
-              label='Cash'
-              value='cash'
-              name='paymentMode'
-              checked={paymentMode.cash}
-              updateState={(e) => {
-                setActiveFilters({
-                  ...filterActive,
-                  paymentMode: { ...paymentMode, cash: e.target.checked },
-                });
-              }}
-            />
-            <FilterCheckbox
-              label='Debit Card'
-              value='debit'
-              name='paymentMode'
-              checked={paymentMode.debit}
-              updateState={(e) => {
-                setActiveFilters({
-                  ...filterActive,
-                  paymentMode: { ...paymentMode, debit: e.target.checked },
-                });
-              }}
-            />
-            <FilterCheckbox
-              label='Credit Card'
-              value='credit'
-              name='paymentMode'
-              checked={paymentMode.credit}
-              updateState={(e) => {
-                setActiveFilters({
-                  ...filterActive,
-                  paymentMode: { ...paymentMode, credit: e.target.checked },
-                });
-              }}
-            />
+            <FilterCheckbox label='Cash' value='cash' name='paymentMode' />
+            <FilterCheckbox label='Debit Card' value='debit' name='paymentMode' />
+            <FilterCheckbox label='Credit Card' value='credit' name='paymentMode' />
           </div>
         </div>
         <div className={style.filterBox}>
-          <AmountRange
-            initialRange={filterActive.amount}
-            updateState={(e) => {
-              const field = e.target.id;
-              const newAmount = { ...filterActive.amount, [field]: e.target.value };
-              setActiveFilters({ ...filterActive, amount: newAmount });
+          <AmountRange/>
+        </div>
+        <div className={style.buttons}>
+          <Button type='button' variant='outlined' onClick={handleApply}>
+            Apply
+          </Button>
+          <Button
+            type='button'
+            variant='outlined'
+            onClick={() => {
+              setDatesValue(defaultDates);
+              setSearchParams({});
+              handleReset();
             }}
-          />
+          >
+            Reset
+          </Button>
         </div>
       </div>
     </>
