@@ -58,7 +58,7 @@ function PieChartExpenses({ categories }: ExpensesAnalysisProps) {
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip formatter={(number) => `${number}₽`} />
+          <Tooltip formatter={(number: number) => `${number}₽`} />
         </PieChart>
       </ResponsiveContainer>
     </div>

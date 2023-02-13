@@ -7,6 +7,11 @@ import { DatePickOne } from '../../DateRangePicker/ui/Date';
 import SelectCategory from '../../../shared/ui/SelectCategory/SelectCategory';
 import { ITransactionFormState } from '../lib/types';
 import style from './Transaction.module.scss';
+import { getTime } from '../utils/utils';
+
+const font = {
+  fontFamily: 'Apple-System, Arial, Helvetica, STXihei, sans-serif', fontSize: '16px'}
+
 
 interface ITransactionFormProps {
   handleClose: () => void;
@@ -81,6 +86,7 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
       >
         <FormControl>
           <RadioGroup
+            sx = {{input: font, span: font, color: 'rgba(0, 0, 0, 0.87)'}}
             row
             name='transactionType'
             value={formState.transactionType}
@@ -97,34 +103,22 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
         </FormControl>
         <div className={style.block}>
           <div className={style.date}>
-            <DatePickOne fetchData={(dates) => setFormState({ ...formState, date: dates })} />
+            <DatePickOne 
+              initialDate={formState.date}
+              fetchData={(dates) => setFormState({ ...formState, date: dates, time: getTime(dates) })} />
           </div>
-          <FormControl>
-            <TextField
-              id='time'
-              type='time'
-              value={formState.time}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'time')}
-              size='small'
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{
-                step: 300, // 5 min
-              }}
-              sx={{ minWidth: '45%', width: '205px', height: '35px' }}
-            />
-          </FormControl>
         </div>
         <div className={style.block}>
           <SelectCategory
             error={Boolean(errors.formErrors.category)}
             type={typeSelect}
+            handleQuery= {false}
             initialValue={formState.category}
             updateState={(e) => setFormState({ ...formState, category: e.target.value })}
           />
-          <FormControl variant='standard' sx={{ minWidth: '45%' }}>
+          <FormControl variant='standard' sx={{...font, minWidth: '45%' }}>
             <TextField
+              sx = {{input: font, label: font}}
               required
               error={Boolean(errors.formErrors.amount)}
               helperText={errors.formErrors.amount ?? ''}
@@ -148,20 +142,20 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
             variant='standard'
             value={formState.description}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'description')}
-            sx={{ maxWidth: '95%' }}
-          />
+            sx={{ maxWidth: '95%', input: font, label: font}}/>
         </FormControl>
         <FormControl>
-          <FormLabel sx={{ fontWeight: '700', color: 'rgba(0, 0, 0, 0.87)' }}>
+          <FormLabel sx={{ fontWeight: '700', color: 'rgba(0, 0, 0, 0.87)', ...font }}>
             Payment Mode
           </FormLabel>
           <RadioGroup
+            sx = {{input: font, span: font, color: 'rgba(0, 0, 0, 0.87)'}}
             row
             name='paymentMode'
             value={formState.paymentMode}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'paymentMode')}
           >
-            <FormControlLabel value='cash' control={<Radio />} label='Cash' />
+            <FormControlLabel value='cash' control={<Radio />} label='Cash'/>
             <FormControlLabel value='debit card' control={<Radio />} label='Debit Card' />
             <FormControlLabel value='credit card' control={<Radio />} label='Credit Card' />
           </RadioGroup>

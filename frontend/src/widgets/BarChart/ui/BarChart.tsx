@@ -30,8 +30,8 @@ function ExpensesIncomeAnalysis({ monthlyBalance }: { monthlyBalance: MonthlyBal
           >
             <CartesianGrid strokeDasharray='3 3' />
             <XAxis dataKey='month' />
-            <YAxis tickFormatter={(number) => `${number}₽`} tickCount={7} />
-            <Tooltip formatter={(number) => `${number}₽`} />
+            <YAxis tickFormatter={(number:number) => `${number}₽`} tickCount={7} />
+            <Tooltip formatter={(number: number) => `${number}₽`} />
             <Legend />
             <Bar dataKey='income' fill='#8884d8' />
             <Bar dataKey='expense' fill='#82ca9d' />

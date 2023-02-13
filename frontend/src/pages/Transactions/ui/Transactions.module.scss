@@ -1,12 +1,17 @@
 @import '../../../shared/style/variables';
 
-
-.container {
-  padding: 20px;
-  width: 100%;
+.transactions {
+  gap: 1rem;
+  padding: 1rem;
+  flex-grow: 2;
   @media all and (max-width: 771px) {
     margin-top: 50px;
   }
+}
+
+.container {
+  width: 100%;
+
 }
 
 .search {
@@ -53,12 +58,16 @@
 .table {
   background-color: white;
   border-radius: 5px;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+  margin-bottom: 10px;
 }
 
 .title {
   font-size: 1rem;
   line-height: 1.2em;
   padding-bottom: 1em;
+  font-size: 15px;
+  font-weight: 500;
   color: $text-color;
 }
 
@@ -69,6 +78,5 @@
   display: flex;
   flex-direction: column;
   background-color: $wh;
-  margin-left: auto;
 }
 

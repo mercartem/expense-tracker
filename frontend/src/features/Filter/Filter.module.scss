@@ -5,6 +5,9 @@
 }
 .filterHeader {
   padding-left: 10px;
+  @include mainText;
+  color:#485058;
+  font-weight: 800;
 }
 
 .headerWrapper {

@@ -22,6 +22,7 @@ export interface ISelectCategoryProps {
   error?: boolean;
   type: string;
   initialValue: string;
+  handleQuery?: boolean;
 }
 
 export interface ICheckboxProps {

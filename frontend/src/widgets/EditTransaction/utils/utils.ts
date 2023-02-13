@@ -10,7 +10,7 @@ export function transactionValuesAdapter(data: ITransactionFormState) {
   return {
     ...data,
     amount: Number(data.amount),
-    date: data.date ? data.date[0].toISOString() : new Date().toISOString(),
+    date: data.date ? data.date.toISOString() : new Date().toISOString(),
   };
 }
 
@@ -20,6 +20,7 @@ export function nowTime() {
   const m = date.getMinutes() > 9 ? date.getMinutes() : `0${date.getMinutes()}`;
   return `${h}:${m}`;
 }
+
 
 export async function editTransaction(data: ITransactionFormState, id: string) {
   const token = getToken();
@@ -45,7 +46,7 @@ export const getTransactionValues = async (id: string) => {
     amount: '',
     paymentMode: 'cash',
     transactionType: 'expense',
-    date: [new Date(), new Date()],
+    date: new Date(),
     time: nowTime(),
   };
   if (token && id) {
@@ -55,7 +56,7 @@ export const getTransactionValues = async (id: string) => {
         category: response.category,
         description: response.description,
         time: response.time,
-        date: [new Date(response.date), new Date(response.date)],
+        date: new Date(response.date),
         amount: response.amount.toString(),
         paymentMode: response.paymentMode,
         transactionType: response.transactionType,
