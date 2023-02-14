@@ -35,7 +35,7 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
       amount: '',
     },
   });
-  
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>, field: string) {
     setFormState({ ...formState, [field]: e.target.value });
   }
@@ -93,7 +93,7 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
             value={formState.transactionType}
             onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
               if (e.target.value === 'income' || e.target.value === 'expense') {
-                setFormState({ ...formState, transactionType: e.target.value, category: '' });
+                setFormState({ ...formState, transactionType: e.target.value});
                 setTypeSelect(e.target.value);
               }
             }}
