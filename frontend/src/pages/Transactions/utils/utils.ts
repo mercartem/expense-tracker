@@ -1,5 +1,17 @@
-function pageCount (length: number, perPage = 10) {
-  return Math.ceil(length / perPage)
+function pageCount(length: number, perPage = 10) {
+  return Math.ceil(length / perPage);
 }
 
-export default pageCount
+const getNewSelectedItems = (id: string, selected: string[]) => {
+  const selectedIndex = selected.indexOf(id);
+  let newSelectedItems: string[] = [];
+
+  if (selectedIndex === -1) {
+    newSelectedItems = [...selected, id];
+  } else {
+    newSelectedItems = selected.filter((item) => item !== id);
+  }
+  return newSelectedItems;
+};
+
+export { pageCount, getNewSelectedItems };

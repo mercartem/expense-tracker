@@ -3,9 +3,8 @@ import Header from '../widgets/Header/ui/Header';
 import Navbar from '../widgets/Navbar/ui/Navbar';
 import BalanceContext from '../app/context/BalanceContext';
 
-
 function View() {
-  const {balance} = useContext(BalanceContext);
+  const { balance } = useContext(BalanceContext);
 
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -17,7 +16,7 @@ function View() {
     };
   }, []);
 
-  return width > 770 ? <Navbar balance={balance} /> : <Header balance={balance} />
+  return width > 770 ? <Navbar balance={balance} /> : <Header balance={balance} />;
 }
 
 export default View;

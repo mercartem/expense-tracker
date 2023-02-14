@@ -16,25 +16,24 @@ function UserPageLayout() {
 
   const updateBalance = async () => {
     fetchData();
-  }
+  };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  
   return (
     <BalanceContext.Provider
-       value={{
+      value={{
         balance,
-        updateBalance
-      }}>
-        <main className='page'>
-      <View />
-      <Outlet />
-    </main>
+        updateBalance,
+      }}
+    >
+      <main className='page'>
+        <View />
+        <Outlet />
+      </main>
     </BalanceContext.Provider>
-    
   );
 }
 

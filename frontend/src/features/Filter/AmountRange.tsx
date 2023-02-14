@@ -3,41 +3,39 @@ import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { removeQueryParams, validateBalance } from '../../shared/utils/utils';
 import style from './Filter.module.scss';
+import { defaultAmountValues, getRangeValues } from './utils/utils';
 
 interface AmountRangeProps {
-  initialRange: { min: string; max: string };
-  updateState: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  initialRange?: { min: string; max: string };
+  updateState?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function AmountRange({ ...props }: AmountRangeProps) {
-  const [range, setRange] = useState(props.initialRange);
+  const [range, setRange] = useState(defaultAmountValues);
   const [error, setError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  useEffect(() => {
-    if (searchParams.has('min') && searchParams.has('max')) {
-      const min = searchParams.get('min');
-      const max = searchParams.get('max');
-      if(min && max) {
-        setRange({min, max})
-      }
-    }
-  }, [])
-
   
+  useEffect(() => {
+    getRangeValues(searchParams).then((values) => setRange(values))
+     }, [searchParams])
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const field = e.target.id;
     setRange({ ...range, [field]: e.target.value.replace(/\D/g, '') });
     setError(!validateBalance(e.target.value));
-    props.updateState(e);
+
     if (e.target.value) {
-      searchParams.set(field, e.target.value)
+      const newQuery = { ...range, [field]: e.target.value };
+      searchParams.set('min', newQuery.min);
+      searchParams.set('max', newQuery.max);
       setSearchParams(searchParams);
     } else {
-      removeQueryParams('min', searchParams, setSearchParams);
-      removeQueryParams('max', searchParams, setSearchParams);
-  }
-}
+      setError(true);
+      // removeQueryParams('min', searchParams, setSearchParams);
+      // removeQueryParams('max', searchParams, setSearchParams);
+    }
+  };
 
   return (
     <>
@@ -57,9 +55,10 @@ function AmountRange({ ...props }: AmountRangeProps) {
           />
         </div>
         <div className={style.rangeBox}>
-          <span className={style.rangeLabel} id='maxLabel'>Max:</span>
+          <span className={style.rangeLabel} id='maxLabel'>
+            Max:
+          </span>
           <TextField
-           
             value={range.max}
             id='max'
             type='text'

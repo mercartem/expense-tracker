@@ -7,8 +7,9 @@ export function DatePick(props: {
   fetchData: (dates: DateRange | null) => Promise<void> | void;
   handleDate?: (dates: DateRange | null) => void;
   period: DateRange | null;
+  value?: DateRange;
 }) {
-  const { fetchData, handleDate, period } = props;
+  const { fetchData, handleDate, period, value } = props;
   return (
     <DateRangePicker
       ranges={predefinedRanges}
@@ -18,10 +19,11 @@ export function DatePick(props: {
       placement='bottomEnd'
       isoWeek
       defaultValue={period}
-      onChange={(value) => {
-        fetchData(value);
+      value={value}
+      onChange={(values) => {
+        fetchData(values);
         if (handleDate) {
-          handleDate(value);
+          handleDate(values);
         }
       }}
     />
@@ -29,7 +31,7 @@ export function DatePick(props: {
 }
 
 export function DatePickOne(props: {
-  initialDate: Date,
+  initialDate: Date;
   fetchData: (dates: Date) => Promise<void> | void;
 }) {
   const { fetchData, initialDate } = props;

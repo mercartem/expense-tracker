@@ -162,7 +162,7 @@ const getMy = async (req, res) => {
 
         // Поиск по элементам
         if ('search' in args) {
-          const search = args.search;
+          const search = args.search.toLowerCase();
           searched = searched.filter(
             ({
               category,
@@ -172,11 +172,11 @@ const getMy = async (req, res) => {
               transactionType,
             }) => {
               return (
-                category.includes(search) ||
-                description.includes(search) ||
+                category.toLowerCase().includes(search) ||
+                description.toLowerCase().includes(search) ||
                 amount.toString().includes(search) ||
-                paymentMode.includes(search) ||
-                transactionType.includes(search)
+                paymentMode.toLowerCase().includes(search) ||
+                transactionType.toLowerCase().includes(search)
               );
             }
           );

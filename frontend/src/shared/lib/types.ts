@@ -18,7 +18,7 @@ export type CategoriesTyped = {
 };
 
 export interface ISelectCategoryProps {
-  updateState: (e: SelectChangeEvent) => void;
+  updateState?: (e: SelectChangeEvent) => void;
   error?: boolean;
   type: string;
   initialValue: string;
@@ -29,6 +29,6 @@ export interface ICheckboxProps {
   label: string;
   value: string;
   name: string;
-  checked: boolean;
-  updateState: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  checked?: boolean;
+  updateState?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

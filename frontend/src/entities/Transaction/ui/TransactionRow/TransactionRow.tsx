@@ -15,8 +15,9 @@ interface ITransactionRowProps {
 }
 
 const font = {
-  fontFamily: 'Apple-System, Arial, Helvetica, STXihei, sans-serif', fontSize: '16px'}
-
+  fontFamily: 'Apple-System, Arial, Helvetica, STXihei, sans-serif',
+  fontSize: '16px',
+};
 
 function TransactionRow({ ...props }: ITransactionRowProps) {
   const {
@@ -47,7 +48,7 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
       tabIndex={-1}
       key={id}
       selected={props.isSelected}
-      sx ={font}
+      sx={{...font, textOverflow: 'ellipsis'}}
       className={style.row}
     >
       {props.checkboxComponent && (
@@ -55,7 +56,7 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
           <Checkbox color='primary' checked={props.isSelected} />
         </TableCell>
       )}
-      <TableCell align='left' style={{ textTransform: 'capitalize', ...font }}>
+      <TableCell align='left' style={{ textTransform: 'capitalize',  whiteSpace: 'nowrap', ...font }}>
         <img
           src={getIconCategory(category, transactionType)}
           className={style.icon}
@@ -63,16 +64,19 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
         />
         {category}
       </TableCell>
-      {width >= 770 && <TableCell align='left'>{convertData(date, 'us-US')}</TableCell>}
-      <TableCell align='left' style={{ textTransform: 'capitalize',  ...font  }}>
+      {width >= 770 && <TableCell align='left' style={{ maxWidth: '100px', whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', ...font }} >{convertData(date, 'us-US')}</TableCell>}
+      <TableCell align='left' style={{textTransform: 'capitalize',...font }}>
         {paymentMode}
       </TableCell>
       {width >= 770 && (
-        <TableCell align='left' style={{ textTransform: 'capitalize', ...font  }}>
+        <TableCell align='left' style={{ maxWidth: '170px',textTransform: 'capitalize', whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', ...font }}>
           {description}
         </TableCell>
       )}
-      <TableCell align='left' style={{ color: transactionType === 'income' ? 'green' : 'red',  ...font  }}>
+      <TableCell
+        align='left'
+        style={{ color: transactionType === 'income' ? 'green' : 'red', ...font }}
+      >
         {`${amount}₽`}
       </TableCell>
     </TableRow>

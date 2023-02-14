@@ -12,8 +12,8 @@ const defaultBalanceState = {
   async updateBalance() {
     const token = getToken() as string;
     const currentBalance = await getBalance(token);
-  }
-  }
+  },
+};
 
 const BalanceContext = createContext<IBalanceContext>(defaultBalanceState);
 

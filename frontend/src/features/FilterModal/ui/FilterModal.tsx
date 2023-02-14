@@ -1,9 +1,9 @@
 import { Button, Drawer } from '@mui/material';
 import TuneIcon from '@mui/icons-material/Tune';
 import { useState } from 'react';
-import Filter from '../../Filter/Filter';
+import Filter, { IFilterProps } from '../../Filter/Filter';
 
-export default function FilterModal() {
+export default function FilterModal({ handleApply, handleReset }: IFilterProps) {
   const [state, setState] = useState(false);
 
   const toggleDrawer = (isOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -29,8 +29,8 @@ export default function FilterModal() {
         </Button>
       )}
       {window.innerWidth < 770 && (
-        <Button sx={{ position: 'fixed', right: 0, top: 5 }} onClick={toggleDrawer(true)}>
-          <TuneIcon sx={{ color: 'white', width: 30, height: 30 }} />
+        <Button sx={{ position: 'fixed', right: 0, top: 5, zIndex: '101'  }} onClick={toggleDrawer(true)}>
+          <TuneIcon sx={{ color: 'white', width: 30, height: 30}} />
         </Button>
       )}
       <Drawer
@@ -39,7 +39,7 @@ export default function FilterModal() {
         onClose={toggleDrawer(false)}
         transitionDuration={{ enter: 800, exit: 500 }}
       >
-        <Filter />
+        <Filter handleApply={handleApply} handleReset={handleReset} />
       </Drawer>
     </>
   );
