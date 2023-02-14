@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -39,6 +40,7 @@ interface IAddTransactionFormProps {
 }
 
 export default function EditTransactionForm({ ...props }: IAddTransactionFormProps) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -67,12 +69,12 @@ export default function EditTransactionForm({ ...props }: IAddTransactionFormPro
           handleOpen();
         }}
       >
-        Edit
+        {t('button.edit')}
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box className={styles.modal} sx={style}>
           <Typography id='modal-modal-title' variant='h6' component='h2' className={styles.title}>
-            Edit Transaction
+            {t('edit.title')}
           </Typography>
           <CloseIcon
             sx={{

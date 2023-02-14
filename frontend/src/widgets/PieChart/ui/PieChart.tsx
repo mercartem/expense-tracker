@@ -1,9 +1,11 @@
 /* eslint-disable react/no-array-index-key */
+import { useTranslation } from 'react-i18next';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
 import { ExpensesAnalysisProps, LabelProps } from '../lib/types';
 import COLORS from '../../../shared/constants/color';
 
 function PieChartExpenses({ categories }: ExpensesAnalysisProps) {
+  const { t } = useTranslation();
   const renderCustomizedLabel = ({
     cx,
     cy,
@@ -35,7 +37,7 @@ function PieChartExpenses({ categories }: ExpensesAnalysisProps) {
               y={ey}
               textAnchor={textAnchor}
               fill='#333'
-            >{`${name} (${(percent * 100).toFixed()}%)`}</text>
+            >{`${t(`categoriesNames.${name}`)} (${(percent * 100).toFixed()}%)`}</text>
           </>
         )}
       </g>

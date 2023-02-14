@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -36,6 +37,7 @@ interface IAddTransactionFormProps {
 }
 
 export default function AddTransactionForm({ ...props }: IAddTransactionFormProps) {
+  const { t } = useTranslation();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -52,14 +54,14 @@ export default function AddTransactionForm({ ...props }: IAddTransactionFormProp
           onClick={handleOpen}
         >
           {' '}
-          Add Transaction
+          {t('button.add')}
         </Button>
       )}
 
       <Modal open={open} onClose={handleClose}>
         <Box className={styles.modal} sx={style}>
           <Typography id='modal-modal-title' variant='h6' component='h2' className={styles.title}>
-            Add Transaction
+            {t('add.title')}
           </Typography>
           <CloseIcon
             sx={{

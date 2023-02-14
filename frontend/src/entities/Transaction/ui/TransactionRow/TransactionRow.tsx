@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
@@ -20,6 +21,7 @@ const font = {
 };
 
 function TransactionRow({ ...props }: ITransactionRowProps) {
+  const { t } = useTranslation();
   const {
     _id: id,
     category,
@@ -62,11 +64,11 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
           className={style.icon}
           alt={category}
         />
-        {category}
+        {t(`categoriesNames.${category}`)}
       </TableCell>
       {width >= 770 && <TableCell align='left' style={{ maxWidth: '100px', whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', ...font }} >{convertData(date, 'us-US')}</TableCell>}
       <TableCell align='left' style={{textTransform: 'capitalize',...font }}>
-        {paymentMode}
+        {t(`paymentType.${paymentMode}`)}
       </TableCell>
       {width >= 770 && (
         <TableCell align='left' style={{ maxWidth: '170px',textTransform: 'capitalize', whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', ...font }}>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import { FormControl, InputLabel, Select, SelectChangeEvent, MenuItem } from '@mui/material';
 import { useEffect, useState } from 'react';
@@ -10,6 +11,7 @@ const font = {
 };
 
 function SelectCategory({ ...props }: ISelectCategoryProps) {
+  const { t } = useTranslation();
   const [selected, setSelected] = useState(props.initialValue);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -55,7 +57,7 @@ function SelectCategory({ ...props }: ISelectCategoryProps) {
 
   return (
     <FormControl variant='standard' sx={{ m: 2, minWidth: 220, margin: 0 }} error={props.error}>
-      <InputLabel sx={font}>Select category</InputLabel>
+      <InputLabel sx={font}>{t('filters.category.label')}</InputLabel>
       <Select
         value={checkValue()}
         onChange={(e) => {
@@ -64,20 +66,20 @@ function SelectCategory({ ...props }: ISelectCategoryProps) {
             props.updateState(e);
           }
         }}
-        label='Select Category'
+        label={t('filters.category.label')}
         required
         sx={font}
       >
         {props.type &&
           categoriesTyped[props.type].map((category: string) => (
             <MenuItem value={category} key={category} sx={font}>
-              {category}
+              {t(`categoriesNames.${category}`)}
             </MenuItem>
           ))}
         {!props.type &&
           categories.map((category) => (
             <MenuItem value={category} key={category} sx={font}>
-              {category}
+              {t(`categoriesNames.${category}`)}
             </MenuItem>
           ))}
       </Select>

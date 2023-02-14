@@ -1,4 +1,5 @@
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { InputBase } from '@mui/material';
@@ -12,6 +13,7 @@ interface ISearchProps {
 }
 
 export default function SearchTransaction({ searchFilter, resetSearch }: ISearchProps) {
+  const { t } = useTranslation();
   const [searchValue, setSearchValue] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -45,7 +47,7 @@ export default function SearchTransaction({ searchFilter, resetSearch }: ISearch
       <InputBase
         className={style.input}
         sx={{ fontFamily: 'Apple-System, Arial, Helvetica, STXihei, sans-serif' }}
-        placeholder='Search…'
+        placeholder= {`${t('search')}`}
         type='search'
         inputProps={{ 'aria-label': 'search' }}
         value={searchValue}
