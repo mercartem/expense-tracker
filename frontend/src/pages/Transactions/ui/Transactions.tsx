@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -27,6 +28,7 @@ import { getNewSelectedItems } from '../utils/utils';
 const ITEMS_PER_PAGE = 10;
 
 function Transactions() {
+  const { t } = useTranslation();
   const [transactionsData, setTransactionsData] = useState<Transaction[]>([]);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [page, setPage] = useState(1);
@@ -126,7 +128,7 @@ function Transactions() {
   return (
     <>
       <div className={style.transactions}>
-        <h2 className={style.title}>All transactions</h2>
+        <h2 className={style.title}> {t('transactionTitle')}</h2>
         <div className={style.container}>
           <div className={style.transactionsList}>
             <div className={style.toolbar}>
@@ -153,7 +155,7 @@ function Transactions() {
                   disabled={!(selectedItems.length >= 1)}
                   onClick={handleDeleteClick}
                 >
-                  Delete
+                  {t('button.delete')}
                 </Button>
               </Toolbar>
               {/* <p style={{height: '1rem', marginBottom: '1rem'}}> {isLoading? 'Loading data...' : ''} </p> */}

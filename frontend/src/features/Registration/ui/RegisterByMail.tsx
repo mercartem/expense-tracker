@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { FormControl } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -18,6 +19,7 @@ import { IUserAccess } from '../lib/types';
 import SetBalance from '../../SetBalance/ui/SetBalance';
 
 function RegisterByMail() {
+  const { t } = useTranslation();
   const [inputData, setInputData] = useState<Required<Auth>>({
     email: '',
     password: '',
@@ -47,7 +49,7 @@ function RegisterByMail() {
         <SetBalance {...userAccessData} />
       ) : (
         <>
-          <h2 className={style.title}>Enter your data to register</h2>
+          <h2 className={style.title}>{t('register.title')}</h2>
           <form
             name='registerForm'
             className={style.form}
@@ -61,9 +63,11 @@ function RegisterByMail() {
             <FormControl>
               <TextInput
                 {...nameInputProps}
+                label = {t('name.nameLabel')}
+                placeholder= {`${t('name.nameHolder')}`}
                 value={inputData.fullName}
                 onChange={(e) => handleOnchange(e, 'fullName')}
-                helperText={inputErrors.fullName ? '' : 'Name should be more than 4 symbols'}
+                helperText={inputErrors.fullName ? '' :  `${t('name.nameError')}`}
                 error={!inputErrors.fullName}
                 onBlur={(e) => {
                   handleInputError(e, 'fullName');
@@ -73,9 +77,11 @@ function RegisterByMail() {
             <FormControl>
               <TextInput
                 {...mailInputProps}
+                label = {t('email.emailLabel')}
+                placeholder= {`${t('email.emailHolder')}`}
                 value={inputData.email}
                 onChange={(e) => handleOnchange(e, 'email')}
-                helperText={inputErrors.email ? '' : 'Enter a valid Email'}
+                helperText={inputErrors.email ? '' : `${t('email.emailError')}`}
                 error={!inputErrors.email}
                 onBlur={(e) => {
                   handleInputError(e, 'email');
@@ -85,18 +91,20 @@ function RegisterByMail() {
             <FormControl>
               <TextInput
                 {...passwordInputProps}
+                label = {t('password.passLabel')}
+                placeholder= {`${t('password.passHolder')}`}
                 value={inputData.password}
                 onChange={(e) => handleOnchange(e, 'password')}
-                helperText={inputErrors.password ? '' : 'Password should be longer than 5 letters'}
+                helperText={inputErrors.password ? '' : `${t('password.passError')}`}
                 error={!inputErrors.password}
                 onBlur={(e) => {
                   handleInputError(e, 'password');
                 }}
               />
             </FormControl>
-            <ButtonRound text='Sign in' disabled={!formValid} isActive />
+            <ButtonRound text={t('button.sign')} disabled={!formValid} isActive />
             <p className={style.formText}>
-              Have an account? <Link to='/login'>Log in</Link>
+            {t('register.question')} <Link to='/login'>{t('register.login')}</Link>
             </p>
           </form>
         </>

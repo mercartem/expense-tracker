@@ -1,7 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { removeQueryParams, validateBalance } from '../../shared/utils/utils';
+import {  validateBalance } from '../../shared/utils/utils';
 import style from './Filter.module.scss';
 import { defaultAmountValues, getRangeValues } from './utils/utils';
 
@@ -11,6 +12,7 @@ interface AmountRangeProps {
 }
 
 function AmountRange({ ...props }: AmountRangeProps) {
+  const { t } = useTranslation();
   const [range, setRange] = useState(defaultAmountValues);
   const [error, setError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,10 +41,10 @@ function AmountRange({ ...props }: AmountRangeProps) {
 
   return (
     <>
-      <p className={style.filterTitle}>Amount</p>
+      <p className={style.filterTitle}>{t('filters.amount.title')}</p>
       <div className={style.filterItem}>
         <div className={style.rangeBox}>
-          <span className={style.rangeLabel}>Min:</span>
+          <span className={style.rangeLabel}>{t('filters.amount.min')}</span>
           <TextField
             className={style.rangeBox}
             value={range.min}
@@ -56,7 +58,7 @@ function AmountRange({ ...props }: AmountRangeProps) {
         </div>
         <div className={style.rangeBox}>
           <span className={style.rangeLabel} id='maxLabel'>
-            Max:
+          {t('filters.amount.max')}
           </span>
           <TextField
             value={range.max}

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { FormControl } from '@mui/material';
 import { useContext, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
@@ -16,6 +17,7 @@ import { isValidForm } from '../utils/utils';
 import style from './AuthByMail.module.scss';
 
 function AuthByMail() {
+  const { t } = useTranslation();
   const [inputData, setInputData] = useState<Auth>({ email: '', password: '' });
   const [userAccessData, setUserAccessData] = useState<IUserAccess | null>(null);
   const [formValid, setFormValid] = useState(false);
@@ -53,9 +55,11 @@ function AuthByMail() {
         <FormControl>
           <TextInput
             {...mailInputProps}
+            label = {t('email.emailLabel')}
+            placeholder= {`${t('email.emailHolder')}`}
             value={inputData.email}
             onChange={(e) => handleOnchange(e, 'email')}
-            helperText={inputErrors.email ? '' : 'Enter a valid Email'}
+            helperText={inputErrors.email ? '' : `${t('email.emailError')}`}
             error={!inputErrors.email}
             onBlur={(e) => {
               handleInputError(e, 'email');
@@ -65,19 +69,20 @@ function AuthByMail() {
         <FormControl>
           <TextInput
             {...passwordInputProps}
+            label = {t('password.passLabel')}
+            placeholder= {`${t('password.passHolder')}`}
             value={inputData.password}
             onChange={(e) => handleOnchange(e, 'password')}
-            helperText={inputErrors.password ? '' : 'Password should be longer than 5 letters'}
+            helperText={inputErrors.password ? '' : `${t('password.passError')}`}
             error={!inputErrors.password}
             onBlur={(e) => {
               handleInputError(e, 'password');
             }}
           />
         </FormControl>
-        <ButtonRound text='Login' disabled={!formValid} isActive />
-        <p className={style.formText}>Forgot your password?</p>
+        <ButtonRound text={t('button.login')} disabled={!formValid} isActive />
         <p className={style.formText}>
-          Do not have an account? <Link to='/sign'>Register</Link>
+          {t('login.question')} <Link to='/sign'>{t('login.register')}</Link>
         </p>
       </form>
     </div>

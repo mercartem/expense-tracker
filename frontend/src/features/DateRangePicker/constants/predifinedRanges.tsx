@@ -1,4 +1,5 @@
 /* eslint-disable import/no-duplicates */
+import {ruRU, enUS, Locale} from 'rsuite/locales';
 import subDays from 'date-fns/subDays';
 import startOfWeek from 'date-fns/startOfWeek';
 import endOfWeek from 'date-fns/endOfWeek';
@@ -60,5 +61,68 @@ const predefinedRanges: Range[] = [
     placement: 'left',
   },
 ];
+
+const predefinedRangesRu: Range[] = [
+  {
+    label: 'Сегодня',
+    value: [new Date(), new Date()],
+    placement: 'left',
+  },
+  {
+    label: 'Вчера',
+    value: [addDays(new Date(), -1), addDays(new Date(), -1)],
+    placement: 'left',
+  },
+  {
+    label: 'Эта неделя',
+    value: [startOfWeek(new Date()), endOfWeek(new Date())],
+    placement: 'left',
+  },
+  {
+    label: 'Последние 7 дней',
+    value: [subDays(new Date(), 6), new Date()],
+    placement: 'left',
+  },
+  {
+    label: 'Последние 30 дней',
+    value: [subDays(new Date(), 29), new Date()],
+    placement: 'left',
+  },
+  {
+    label: 'Текущий месяц',
+    value: [startOfMonth(new Date()), new Date()],
+    placement: 'left',
+  },
+  {
+    label: 'Прошлый месяц',
+    value: [startOfMonth(addMonths(new Date(), -1)), endOfMonth(addMonths(new Date(), -1))],
+    placement: 'left',
+  },
+  {
+    label: 'Этот год',
+    value: [new Date(new Date().getFullYear(), 0, 1), new Date()],
+    placement: 'left',
+  },
+  {
+    label: 'Прошлый год',
+    value: [new Date(new Date().getFullYear() - 1, 0, 1), new Date(new Date().getFullYear(), 0, 0)],
+    placement: 'left',
+  },
+  {
+    label: 'Все время',
+    value: [new Date(new Date().getFullYear() - 5, 0, 1), new Date()],
+    placement: 'left',
+  },
+];
+
+export const rangesLocale: {[key: string]: Range[] } = {
+  'ru-RU': predefinedRangesRu,
+  'en-US': predefinedRanges,
+}
+
+export const data: {[key: string]: Locale } = {
+  'ru-RU': ruRU,
+  'en-US': enUS
+}
 
 export default predefinedRanges;

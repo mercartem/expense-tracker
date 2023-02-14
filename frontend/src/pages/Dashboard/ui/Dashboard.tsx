@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { DateRange } from 'rsuite/esm/DateRangePicker';
@@ -22,6 +23,7 @@ import ExpensesAnalysis from '../../../widgets/PieChart/ui/ExpensesAnalysis';
 import '../style/Dashboard.scss';
 
 function Dashboard() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -69,7 +71,7 @@ function Dashboard() {
   return (
     <div className='dashboard'>
       <div className='dashboard__header'>
-        <p>Dashboard</p>
+        <p>{t('dashboardTitle')}</p>
         <div className='dashboard__calendar'>
           <DatePick
             fetchData={(dates) => fetchData(dates)}
@@ -79,10 +81,10 @@ function Dashboard() {
         </div>
       </div>
       <div className='dashboard__info'>
-        <InfoCard title='Income' amount={amount.income} color='#4d80f3' />
-        <InfoCard title='Expenses' amount={amount.expenses} color='#fb6d9d' />
-        <InfoCard title='Balance' amount={amount.balance} color='#81c868' />
-        <InfoCard title='Transactions' amount={amount.transactions} color='#34d3eb' />
+        <InfoCard title={t('dashboardPage.cardTitle.income')} amount={amount.income} color='#4d80f3' />
+        <InfoCard title={t('dashboardPage.cardTitle.expenses')} amount={amount.expenses} color='#fb6d9d' />
+        <InfoCard title={t('dashboardPage.cardTitle.balance')} amount={amount.balance} color='#81c868' />
+        <InfoCard title={t('dashboardPage.cardTitle.transactions')} amount={amount.transactions} color='#34d3eb' />
       </div>
       <div className='dashboard__charts'>
         <ExpensesAnalysis categories={categories} period={period} />
@@ -92,7 +94,7 @@ function Dashboard() {
         </div>
       </div>
       <div className='dashboard__transactions'>
-        <p className='dashboard__title'>Recent Transactions</p>
+        <p className='dashboard__title'>{t('dashboardPage.sectionTitle.recent')}</p>
         <TransactionsList transactions={fiveTransactions} />
       </div>
     </div>

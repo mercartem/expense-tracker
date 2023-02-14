@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import '../style/AreaChart.scss';
 import {
   AreaChart,
@@ -12,9 +13,10 @@ import {
 import { MonthlyBalance } from '../lib/types';
 
 function BalanceAnalysis({ monthlyBalance }: { monthlyBalance: MonthlyBalance[] }) {
+  const { t } = useTranslation();
   return (
     <div className='area-chart'>
-      <p className='area-chart__title'>Account - Balance</p>
+      <p className='area-chart__title'>{t('dashboardPage.sectionTitle.balance')}</p>
       <div style={{ width: '100%', height: 350, fontSize: '12px' }}>
         <ResponsiveContainer>
           <AreaChart

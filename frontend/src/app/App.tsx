@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import AppRouter from './router/AppRouter';
 import AuthContext from './context/AuthContext';
 import './style/App.scss';
@@ -14,14 +14,16 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{
-        isAuth,
-        setIsAuth,
-      }}
-    >
-      <AppRouter />
-    </AuthContext.Provider>
+    <Suspense fallback='...is loading'>
+      <AuthContext.Provider
+        value={{
+          isAuth,
+          setIsAuth,
+        }}
+      >
+        <AppRouter />
+      </AuthContext.Provider>
+    </Suspense>
   );
 }
 

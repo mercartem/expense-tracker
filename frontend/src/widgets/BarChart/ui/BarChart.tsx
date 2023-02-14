@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import '../style/BarChart.scss';
 import {
   BarChart,
@@ -12,9 +13,10 @@ import {
 import { MonthlyBalance } from '../../AreaChart/lib/types';
 
 function ExpensesIncomeAnalysis({ monthlyBalance }: { monthlyBalance: MonthlyBalance[] }) {
+  const { t } = useTranslation();
   return (
     <div className='bar-chart'>
-      <p className='bar-chart__title'>Income - Expense</p>
+      <p className='bar-chart__title'>{t('dashboardPage.sectionTitle.account')}</p>
       <div style={{ width: '100%', height: 350, fontSize: '12px' }}>
         <ResponsiveContainer>
           <BarChart

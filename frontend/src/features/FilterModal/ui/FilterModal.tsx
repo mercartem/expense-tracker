@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Button, Drawer } from '@mui/material';
 import TuneIcon from '@mui/icons-material/Tune';
 import { useState } from 'react';
@@ -5,7 +6,7 @@ import Filter, { IFilterProps } from '../../Filter/Filter';
 
 export default function FilterModal({ handleApply, handleReset }: IFilterProps) {
   const [state, setState] = useState(false);
-
+  const { t } = useTranslation();
   const toggleDrawer = (isOpen: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
       event.type === 'keydown' &&
@@ -25,7 +26,7 @@ export default function FilterModal({ handleApply, handleReset }: IFilterProps) 
           sx={{ fontSize: 12, padding: 1, minWidth: 75 }}
           onClick={toggleDrawer(true)}
         >
-          Filter
+          {t('button.filter')}
         </Button>
       )}
       {window.innerWidth < 770 && (
