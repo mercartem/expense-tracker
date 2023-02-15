@@ -122,7 +122,7 @@ function Transactions() {
   return (
     <>
       <div className={style.transactions}>
-        <h2 className={style.title}> {t('transactionTitle')}</h2>
+        <h2 className={style.title}>{t('transactionTitle')}</h2>
         <div className={style.container}>
           <div className={style.transactionsList}>
             <div className={style.toolbar}>
@@ -152,16 +152,15 @@ function Transactions() {
                   {t('button.delete')}
                 </Button>
               </Toolbar>
-              {/* <p style={{height: '1rem', marginBottom: '1rem'}}> {isLoading? 'Loading data...' : ''} </p> */}
               { transactionsData.length > 0 && <>
                <TableContainer className={style.table}>
-                <Table sx={{ width: '100%' }} aria-labelledby='tableTitle' size='small'>
+                <Table sx={{ maxWidth: '100%' }} aria-labelledby='tableTitle' size='small'>
                   <TableHeadTransactions
                     checkboxComponent
                     checked={allSelected()}
                     handleChange={(e) => handleSelectAllClick(e)}
                   />
-                  <TableBody sx={{ minWidth: '100%' }}>
+                  <TableBody>
                     {transactionsData.map((transaction) => {
                       const { _id: id } = transaction;
                       return (
@@ -180,19 +179,20 @@ function Transactions() {
               <Stack spacing={2}>
                 <Pagination count={pageCount} page={page} onChange={handleChangePage} />
               </Stack>
-              </>}
+              </>
+              }
               {(transactionsData.length <= 0) && <p>{t('notFound')}</p>}
             </Box>
           </div>
         </div>
       </div>
-      {width < 770 && (
-        <FilterModal handleApply={handleApplyFilter} handleReset={handleResetFilter} />
-      )}
       {width >= 1100 && (
         <div className={style.filterContainer}>
           <Filter handleApply={handleApplyFilter} handleReset={handleResetFilter} />
         </div>
+      )}
+      {width < 770 && (
+        <FilterModal handleApply={handleApplyFilter} handleReset={handleResetFilter} />
       )}
     </>
   );

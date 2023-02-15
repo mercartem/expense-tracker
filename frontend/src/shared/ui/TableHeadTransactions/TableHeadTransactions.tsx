@@ -75,22 +75,24 @@ function TableHeadTransactions({ ...props }: ITableHeadProps) {
     <TableHead>
       <TableRow>
         {props.checkboxComponent && (
-          <TableCell padding='checkbox'>
-            <Checkbox color='primary' checked={props.checked} onChange={props.handleChange} />
+          <TableCell padding='checkbox' style={{padding: '5px', width:'15px'}}>
+            <Checkbox color='primary' checked={props.checked}  onChange={props.handleChange} />
           </TableCell>
         )}
-        {width > 770 &&
-          headCells.map((headCell) => (
-            <TableCell
-              key={headCell.id}
-              align='left'
-              padding={headCell.disablePadding ? 'none' : 'normal'}
-              sx={font}
-            >
+         {width < 500 &&
+          headCells
+            .filter((headCell) => !['paymentMode', 'description', 'date'].includes(headCell.id))
+            .map((headCell) => (
+              <TableCell
+                key={headCell.id}
+                align='left'
+                padding={headCell.disablePadding ? 'none' : 'normal'}
+                sx={font}
+              >
               {t(`headers.${headCell.label}`)}
-            </TableCell>
-          ))}
-        {width <= 770 &&
+              </TableCell>
+            ))}
+        {(width >= 500 && width <= 770) &&
           headCells
             .filter((headCell) => !['description', 'date'].includes(headCell.id))
             .map((headCell) => (
@@ -103,6 +105,18 @@ function TableHeadTransactions({ ...props }: ITableHeadProps) {
               {t(`headers.${headCell.label}`)}
               </TableCell>
             ))}
+             {width > 770 &&
+          headCells.map((headCell) => (
+            <TableCell
+              key={headCell.id}
+              align='left'
+              padding={headCell.disablePadding ? 'none' : 'normal'}
+              sx={font}
+            >
+              {t(`headers.${headCell.label}`)}
+            </TableCell>
+          ))}
+           
       </TableRow>
     </TableHead>
   );

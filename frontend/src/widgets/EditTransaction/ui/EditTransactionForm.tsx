@@ -21,8 +21,13 @@ const style = {
   bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
+  '@media (max-width: 770px)': {
+    transform: 'translate(10vw, 10%)',
+    top: '0%',
+    left: '0%',
+    p: 3
+  }
 };
-
 const defaultState: ITransactionFormState = {
   category: '',
   description: '',
@@ -71,9 +76,9 @@ export default function EditTransactionForm({ ...props }: IAddTransactionFormPro
       >
         {t('button.edit')}
       </Button>
-      <Modal open={open} onClose={handleClose}>
+      <Modal open={open} onClose={handleClose} style={{ overflow: 'scroll' }}>
         <Box className={styles.modal} sx={style}>
-          <Typography id='modal-modal-title' variant='h6' component='h2' className={styles.title}>
+          <Typography id='modal-modal-title' component='h2' className={styles.title}>
             {t('edit.title')}
           </Typography>
           <CloseIcon

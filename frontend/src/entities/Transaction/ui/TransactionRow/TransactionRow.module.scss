@@ -9,3 +9,7 @@
 .row {
   @include mainText;
 }
+
+.MuiTableCell-root.MuiTableCell-paddingCheckbox {
+  padding: 5px !important;
+}
