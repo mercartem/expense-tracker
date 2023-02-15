@@ -149,6 +149,7 @@
   "error": {
     "emptyInput": "Cannot be empty",
     "emptySelect": "Select any category",
+    "shortDescription": "Description is too short",
     "globalError": "Oops...Something went wrong",
     "try": "Try again?"
   },

@@ -104,18 +104,11 @@ function Transactions() {
     setSelectedItems([]);
   };
 
-
-
   const handleAddClick = async () => {
     getPageTotal(ITEMS_PER_PAGE).then((pageTotal) => {
       setPageCount(pageTotal);
       updateBalance();
-      if (page < pageTotal) {
-        setPage(pageTotal);
-        fetchTransactions(setTransactionsData, setIsLoading, setError, pageTotal, ITEMS_PER_PAGE, searchParams.toString()); 
-      } else {
-        fetchTransactions(setTransactionsData, setIsLoading,setError, page, ITEMS_PER_PAGE, searchParams.toString());
-      }
+      fetchTransactions(setTransactionsData, setIsLoading,setError, page, ITEMS_PER_PAGE, searchParams.toString());
     });
     setSelectedItems([]);
   };

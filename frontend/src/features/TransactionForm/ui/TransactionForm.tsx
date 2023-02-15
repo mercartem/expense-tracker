@@ -43,20 +43,21 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
   }
 
   function handleValidation() {
-    const fields = formState;
+    const {description, category, amount} = formState;
     const formErrors = { description: '', amount: '', category: '' };
     let formIsValid = true;
 
-    if (!fields.description.length) {
+    if (description.length < 3) {
       formIsValid = false;
-      formErrors.description = `${t('error.emptyInput')}`;
+      formErrors.description = (description.length === 0)?  `${t('error.emptyInput')}`:`${t('error.shortDescription')}`;
     }
-    if (!fields.amount.length) {
+
+    if (!amount.length) {
       formIsValid = false;
       formErrors.amount = `${t('error.emptyInput')}`;
     }
 
-    if (!fields.category.length) {
+    if (!category.length) {
       formIsValid = false;
       formErrors.category = `${t('error.emptySelect')}`;
     }
@@ -79,8 +80,6 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
   }
 
   return (
-    <>
-      {errors.globalError && <p>{errors.globalError}</p>}
       <Box
         component='form'
         noValidate
@@ -184,6 +183,5 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
           </Button>
         </div>
       </Box>
-    </>
   );
 }
