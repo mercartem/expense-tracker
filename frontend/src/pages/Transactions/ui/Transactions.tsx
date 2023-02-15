@@ -187,7 +187,7 @@ function Transactions() {
                 <Pagination count={pageCount} page={page} onChange={handleChangePage} />
               </Stack>
               </>}
-              {(transactionsData.length <= 0) && <p>Transactions not found!</p>}
+              {(transactionsData.length <= 0) && <p>{t('notFound')}</p>}
             </Box>
           </div>
         </div>

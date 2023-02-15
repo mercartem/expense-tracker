@@ -33,7 +33,10 @@
   "register": {
     "title": "Enter your data to register",
     "question": "Have an account?",
-    "login": "Login"
+    "login": "Login",
+    "success": "Registration is successful!",
+    "enterBalance":"Enter your balance to start tracking your expenses",
+    "errorBalance": "Enter any sum"
   },
   "avatarTitle": "Upload your photo",
   "languageTitle": "Choose language",
@@ -145,5 +148,7 @@
     "now": "Now",
     "placeholder": "Pick date and time",
     "period": "Pick date range"
-  }
+  },
+  "notFound": "Transactions not found",
+  "loading": "is loading..."
 }

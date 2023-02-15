@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useState, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { FormControl } from '@mui/material';
@@ -15,6 +16,7 @@ import style from './SetBalance.module.scss';
 import AuthContext from '../../../app/context/AuthContext';
 
 function SetBalance(accessData: IUserAccess) {
+  const {t} = useTranslation();
   const [balance, setBalance] = useState('');
   const [isValid, setIsValid] = useState(true);
   const [userApproved, setUserApproved] = useState(false);
@@ -31,8 +33,8 @@ function SetBalance(accessData: IUserAccess) {
           sx={{ width: 150, height: 150 }}
         />
       </div>
-      <p className={style.title}>Registration is successful!</p>
-      <p className={style.title}>Enter your balance to start tracking your expenses</p>
+      <p className={style.title}>{t('register.success')}</p>
+      <p className={style.title}>{t('register.enterBalance')}</p>
       <form
         noValidate
         name='setBalanceForm'
@@ -48,10 +50,10 @@ function SetBalance(accessData: IUserAccess) {
             value={balance}
             onChange={(e) => handleOnChange(e.target.value, setBalance, setIsValid)}
             onBlur={(e) => handleValidationError(e.target.value, setIsValid)}
-            helperText={isValid ? '' : 'Enter any sum'}
+            helperText={isValid ? '' : `${t('register.errorBalance')}`}
           />
         </FormControl>
-        <ButtonRound text='Confirm' isActive disabled={!isValid} />
+        <ButtonRound text={t('button.confirm')} isActive disabled={!isValid} />
       </form>
     </div>
   );
