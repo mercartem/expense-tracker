@@ -1,0 +1,149 @@
+{
+  "dashboardTitle": "Аналитика",
+  "transactionTitle": "Все транзакции",
+  "settingTitle": "Настройки приложения",
+  "navigation": {
+    "dash": "Аналитика",
+    "transactions": "Транзакции",
+    "setting": "Настройки"
+  },
+  "dashboardPage": {
+    "cardTitle": {
+      "income": "Доходы",
+      "expenses": "Расходы",
+      "balance": "Баланс",
+      "transactions": "Транзакции"
+    },
+    "sectionTitle": {
+      "exp": "Все расходы",
+      "balance": "Баланс счетов",
+      "account": "Доходы - расходы",
+      "recent": "Последние транзакции"
+    }
+  },
+  "intro": {
+    "title": "Ваши финансы в одном месте",
+    "subtitle":"Следите за своими расходами легко и с умом"
+  },
+  "login": {
+    "title": "Введите ваши данные",
+    "question": "Еще нет аккаунта?",
+    "register": "Зарегистрироваться"
+  },
+  "register": {
+    "title": "Введите данные для регистрации",
+    "question": "Уже есть аккаунт?",
+    "login": "Войти"
+  },
+  "avatarTitle": "Загрузить фотографию",
+  "languageTitle": "Выберите язык",
+  "langEn": "Английский",
+  "langLabel": "Язык",
+  "langRu": "Русский",
+  "passChangeTitle": "Изменить пароль",
+  "passLabel": "пароль",
+  "passLabelRepeat": "повторите пароль",
+  "button": {
+    "confirm": "Подтвердить",
+    "delete": "Удалить",
+    "edit": "Изменить",
+    "add": "Добавить",
+    "cancel": "Отмена",
+    "ok": "Ок",
+    "apply": "Применить",
+    "reset": "Сброс",
+    "exit": "Выйти",
+    "filter": "Фильтры",
+    "login": "Войти",
+    "sign": "Регистрация"
+  },  
+  "email": {
+    "emailLabel": "Электронная почта",
+    "emailHolder": "Введите адрес электронной почты",
+    "emailError": "Введите верный электронный адрес"
+  },
+  "password": {
+    "passLabel": "Пароль",
+    "passHolder": "Введите пароль",
+    "passError": "Пароль должен быть длиннее 5 символов"
+  },
+  "name": {
+    "nameLabel": "Имя",
+    "nameHolder": "Введите имя",
+    "nameError": "Имя должно быть длиннее 4 символов"
+  },
+  "search": "Поиск...",
+  "edit": {
+    "title": "Изменить транзакцию"
+  },
+  "add": {
+    "title": "Добавить транзакцию"
+  },
+  "filters": {
+    "title": "Фильтры",
+    "date": "Период",
+    "category": {
+      "title": "Категория",
+      "label": "Выберите категорию"
+    },
+    "type": {
+      "title": "Вид транзакции",
+      "income": "Доход",
+      "expense": "Расход"
+    },
+    "mode": {
+      "title": "Тип оплаты",
+      "cash": "Наличные",
+      "debit": "Кредитная карта",
+      "credit": "Дебетовая карта"
+    },
+    "amount": {
+      "title": "Сумма",
+      "min": "мин:",
+      "max": "макс:"
+    }
+  },
+  "categoriesNames": {
+    "Food": "Еда",
+    "Transportation": "Транспорт",
+    "Rent": "Аренда",
+    "Bills": "Счета",
+    "Utilities": "ЖКХ",
+    "Shopping": "Покупки",
+    "Entertainment": "Развлечения",
+    "Health Care": "Медицина",
+    "Housing": "Быт",
+    "Taxes": "Налоги",
+    "Clothing": "Одежда",
+    "Education": "Образование",
+    "Miscellaneous": "Разное",
+    "Personal Care": "Уход за собой",
+    "Salary": "Зарплата",
+    "Interests": "Дивиденды",
+    "Business": "Бизнес",
+    "Extra income": "Дополнительный доход"
+  },
+  "paymentType": {
+    "title": "Тип оплаты",
+    "credit card": "Кредитная карта",
+    "debit card": "Дебетовая карта",
+    "cash": "Наличные"
+  },
+  "description": "Описание",
+  "headers": {
+    "Category": "Категория",
+    "Date": "Дата",
+    "Description": "Описание",
+    "Payment Mode": "Тип оплаты",
+    "Amount": "Сумма"
+  },
+  "error": {
+    "emptyInput": "Поле обязательно",
+    "emptySelect": "Выберете категорию"
+  },
+  "date": {
+    "now": "Сегодня",
+    "placeholder": "Выберите дату и время",
+    "period": "Выберите период"
+  }
+}

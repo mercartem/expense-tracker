@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Box, Button, FormControl, FormControlLabel, FormLabel, TextField } from '@mui/material';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -23,6 +24,7 @@ interface ITransactionFormProps {
 }
 
 export default function TransactionForm({ ...props }: ITransactionFormProps) {
+  const { t } = useTranslation();
   const { initialValues, handleClose, handleApi, buttonName, updateTransactions } = props;
   const [formState, setFormState] = useState<ITransactionFormState>(initialValues);
   const [typeSelect, setTypeSelect] = useState(initialValues.transactionType);
@@ -35,7 +37,7 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
       amount: '',
     },
   });
-  
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>, field: string) {
     setFormState({ ...formState, [field]: e.target.value });
   }
@@ -47,16 +49,16 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
 
     if (!fields.description.length) {
       formIsValid = false;
-      formErrors.description = 'Cannot be empty';
+      formErrors.description = `${t('error.emptyInput')}`;
     }
     if (!fields.amount.length) {
       formIsValid = false;
-      formErrors.amount = 'Cannot be empty';
+      formErrors.amount = `${t('error.emptyInput')}`;
     }
 
     if (!fields.category.length) {
       formIsValid = false;
-      formErrors.category = 'Select any category';
+      formErrors.category = `${t('error.emptySelect')}`;
     }
     setErrors({ ...errors, isValid: formIsValid, formErrors });
     return formIsValid;
@@ -93,13 +95,13 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
             value={formState.transactionType}
             onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
               if (e.target.value === 'income' || e.target.value === 'expense') {
-                setFormState({ ...formState, transactionType: e.target.value, category: '' });
+                setFormState({ ...formState, transactionType: e.target.value});
                 setTypeSelect(e.target.value);
               }
             }}
           >
-            <FormControlLabel value='income' control={<Radio />} label='Income' />
-            <FormControlLabel value='expense' control={<Radio />} label='Expense' />
+            <FormControlLabel value='income' control={<Radio />} label={t('filters.type.income')} />
+            <FormControlLabel value='expense' control={<Radio />} label={t('filters.type.expense')}/>
           </RadioGroup>
         </FormControl>
         <div className={style.block}>
@@ -128,7 +130,7 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
               helperText={errors.formErrors.amount ?? ''}
               variant='standard'
               inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-              label='Amount'
+              label={t('filters.amount.title')}
               value={formState.amount}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setFormState({ ...formState, amount: e.target.value.replace(/\D/g, '') })
@@ -142,7 +144,7 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
             error={Boolean(errors.formErrors.description)}
             helperText={errors.formErrors.description ?? ''}
             id='standard-basic'
-            label='Description'
+            label={t('description')}
             variant='standard'
             value={formState.description}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'description')}
@@ -151,7 +153,7 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
         </FormControl>
         <FormControl>
           <FormLabel sx={{ fontWeight: '700', color: 'rgba(0, 0, 0, 0.87)', ...font }}>
-            Payment Mode
+            {t('paymentType.title')}
           </FormLabel>
           <RadioGroup
             sx={{ input: font, span: font, color: 'rgba(0, 0, 0, 0.87)' }}
@@ -160,9 +162,9 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
             value={formState.paymentMode}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e, 'paymentMode')}
           >
-            <FormControlLabel value='cash' control={<Radio />} label='Cash' />
-            <FormControlLabel value='debit card' control={<Radio />} label='Debit Card' />
-            <FormControlLabel value='credit card' control={<Radio />} label='Credit Card' />
+            <FormControlLabel value='cash' control={<Radio />} label={t('filters.mode.cash')}/>
+            <FormControlLabel value='debit card' control={<Radio />} label={t('filters.mode.debit')} />
+            <FormControlLabel value='credit card' control={<Radio />} label={t('filters.mode.credit')} />
           </RadioGroup>
         </FormControl>
         <div className={style.buttons}>
@@ -171,14 +173,14 @@ export default function TransactionForm({ ...props }: ITransactionFormProps) {
             variant='contained'
             sx={{ fontSize: 12, padding: 1, minWidth: 150, mr: 2 }}
           >
-            {buttonName.toUpperCase()}
+            {t(`button.${buttonName}`)}
           </Button>
           <Button
             variant='outlined'
             onClick={handleClose}
             sx={{ fontSize: 12, padding: 1, minWidth: 150, mr: 2 }}
           >
-            Cancel
+            {t('button.cancel')}
           </Button>
         </div>
       </Box>

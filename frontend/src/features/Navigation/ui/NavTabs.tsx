@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
@@ -5,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import LinkTab from './LinkTab';
 
 function NavTabs() {
+  const { t } = useTranslation();
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -28,9 +30,9 @@ function NavTabs() {
   return (
     <Box sx={{ width: '100%' }}>
       <Tabs className='navbar__nav' value={value} onChange={handleChange} orientation='vertical'>
-        <LinkTab label='Dashboard' href='/user/dashboard' />
-        <LinkTab label='Transactions' href='/user/transactions' />
-        <LinkTab label='Settings' href='/user/settings' />
+        <LinkTab label={t('navigation.dash')} href='/user/dashboard' />
+        <LinkTab label={t('navigation.transactions')} href='/user/transactions' />
+        <LinkTab label={t('navigation.setting')} href='/user/settings' />
       </Tabs>
     </Box>
   );

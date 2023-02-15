@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import {  useState } from 'react';
 import { DateRange } from 'rsuite/esm/DateRangePicker';
@@ -17,6 +18,7 @@ export interface IFilterProps {
 
 
 export default function Filter({ handleApply, handleReset }: IFilterProps) {
+  const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const [datesValue, setDatesValue] = useState<DateRange>(handleDateQuery(searchParams));
 
@@ -24,11 +26,11 @@ export default function Filter({ handleApply, handleReset }: IFilterProps) {
     <>
       <div className={style.headerWrapper}>
         <TuneIcon />
-        <h4 className={style.filterHeader}>Filters</h4>
+        <h4 className={style.filterHeader}>{t('filters.title')}</h4>
       </div>
       <div className={style.filterWrapper}>
         <div className={style.filterBox}>
-          <p className={style.filterTitle}>Select a range</p>
+          <p className={style.filterTitle}>{t('filters.date')}</p>
           <DatePick
             period={datesValue}
             value={datesValue}
@@ -43,22 +45,22 @@ export default function Filter({ handleApply, handleReset }: IFilterProps) {
           />
         </div>
         <div className={style.filterBox}>
-          <p className={style.filterTitle}>Category</p>
+          <p className={style.filterTitle}>{t('filters.category.title')}</p>
           <SelectCategory initialValue='' type='' handleQuery />
         </div>
         <div className={style.filterBox}>
-          <p className={style.filterTitle}>Cashflow</p>
+          <p className={style.filterTitle}>{t('filters.type.title')}</p>
           <div className={style.filterItem}>
-            <FilterCheckbox label='Income' value='income' name='transactionType' />
-            <FilterCheckbox label='Expense' value='expense' name='transactionType' />
+            <FilterCheckbox label={t('filters.type.income')} value='income' name='transactionType' />
+            <FilterCheckbox label={t('filters.type.expense')}value='expense' name='transactionType' />
           </div>
         </div>
         <div className={style.filterBox}>
-          <p className={style.filterTitle}>Payment Mode</p>
+          <p className={style.filterTitle}>{t('filters.mode.title')}</p>
           <div className={style.filterItem}>
-            <FilterCheckbox label='Cash' value='cash' name='paymentMode' />
-            <FilterCheckbox label='Debit Card' value='debit card' name='paymentMode' />
-            <FilterCheckbox label='Credit Card' value='credit card' name='paymentMode' />
+            <FilterCheckbox label={t('filters.mode.cash')} value='cash' name='paymentMode' />
+            <FilterCheckbox label={t('filters.mode.debit')} value='debit card' name='paymentMode' />
+            <FilterCheckbox label={t('filters.mode.credit')} value='credit card' name='paymentMode' />
           </div>
         </div>
         <div className={style.filterBox}>
@@ -66,7 +68,7 @@ export default function Filter({ handleApply, handleReset }: IFilterProps) {
         </div>
         <div className={style.buttons}>
           <Button type='button' variant='outlined' onClick={handleApply}>
-            Apply
+          {t('button.apply')}
           </Button>
           <Button
             type='button'
@@ -77,7 +79,7 @@ export default function Filter({ handleApply, handleReset }: IFilterProps) {
               handleReset();
             }}
           >
-            Reset
+            {t('button.reset')}
           </Button>
         </div>
       </div>

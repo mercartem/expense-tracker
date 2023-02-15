@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { Button } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import style from './ChangePassword.module.scss';
 import { getToken } from '../../shared/utils/utils';
 import changeUserPassword from '../../entities/User/api/changeUserPassword';
@@ -47,6 +48,8 @@ function ChangePassword() {
     }
     return editMessage('Passwords are different', 'rgb(226, 48, 48)');
   };
+  
+  const { t } = useTranslation();
 
   return (
     <div className={style.settings__password}>
@@ -54,14 +57,14 @@ function ChangePassword() {
         <input
           className={style.password__input}
           type='password'
-          placeholder='password'
+          placeholder= {`${t('passLabel')}`}
           style={{ border: `1px solid ${message.color}` }}
           ref={passwordText}
         />
         <input
           className={style.password__input}
           type='password'
-          placeholder='repeat password'
+          placeholder={`${t('passLabelRepeat')}`}
           style={{ border: `1px solid ${message.color}` }}
           ref={passwordRepeatText}
         />
@@ -72,7 +75,7 @@ function ChangePassword() {
         variant='contained'
         sx={{ fontSize: 12, padding: 1, width: 100 }}
       >
-        Confirm
+        {t('button.confirm')}
       </Button>
     </div>
   );

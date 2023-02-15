@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
@@ -59,6 +60,7 @@ interface ITableHeadProps {
 }
 
 function TableHeadTransactions({ ...props }: ITableHeadProps) {
+  const { t } = useTranslation();
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -85,7 +87,7 @@ function TableHeadTransactions({ ...props }: ITableHeadProps) {
               padding={headCell.disablePadding ? 'none' : 'normal'}
               sx={font}
             >
-              {headCell.label}
+              {t(`headers.${headCell.label}`)}
             </TableCell>
           ))}
         {width <= 770 &&
@@ -98,7 +100,7 @@ function TableHeadTransactions({ ...props }: ITableHeadProps) {
                 padding={headCell.disablePadding ? 'none' : 'normal'}
                 sx={font}
               >
-                {headCell.label}
+              {t(`headers.${headCell.label}`)}
               </TableCell>
             ))}
       </TableRow>

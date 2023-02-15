@@ -1,7 +1,9 @@
-import { DatePicker, DateRangePicker } from 'rsuite';
+import { useTranslation } from 'react-i18next';
+import { CustomProvider, DatePicker, DateRangePicker } from 'rsuite';
 import { DateRange } from 'rsuite/esm/DateRangePicker';
-import predefinedRanges from '../constants/predifinedRanges';
+import {rangesLocale, data} from '../constants/predifinedRanges';
 import '../style/Date.scss';
+
 
 export function DatePick(props: {
   fetchData: (dates: DateRange | null) => Promise<void> | void;
@@ -10,10 +12,13 @@ export function DatePick(props: {
   value?: DateRange;
 }) {
   const { fetchData, handleDate, period, value } = props;
+  const {t, i18n} = useTranslation();
+  const locale = data[i18n.language];
   return (
+    <CustomProvider locale={locale}>
     <DateRangePicker
-      ranges={predefinedRanges}
-      placeholder='Pick date range'
+      ranges={rangesLocale[i18n.language]}
+      placeholder={`${t('date.period')}`}
       showOneCalendar
       format='dd-MM-yyyy'
       placement='bottomEnd'
@@ -27,23 +32,29 @@ export function DatePick(props: {
         }
       }}
     />
+       </CustomProvider>
   );
 }
+
 
 export function DatePickOne(props: {
   initialDate: Date;
   fetchData: (dates: Date) => Promise<void> | void;
 }) {
   const { fetchData, initialDate } = props;
+  const {t, i18n} = useTranslation();
+  const locale = data[i18n.language];
+
   return (
-    <DatePicker
-      placeholder='Pick date and time'
+    <CustomProvider locale={locale}>
+       <DatePicker
+      placeholder={`${t('date.placeholder')}`}
       format='dd-MM-yyyy HH:mm'
       placement='bottomEnd'
       calendarDefaultDate={initialDate}
       ranges={[
         {
-          label: 'Now',
+          label: `${t('date.now')}`,
           value: new Date(),
         },
       ]}
@@ -53,5 +64,7 @@ export function DatePickOne(props: {
         }
       }}
     />
+    </CustomProvider>
+   
   );
 }

@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
 import {
   registerValidation,
   loginValidation,
@@ -30,7 +32,7 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     cb(null, `${req.userId}.${file.originalname.split('.')[1]}`);
-  }
+  },
 });
 
 const upload = multer({ storage });
@@ -63,6 +65,17 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
   res.json({
     url: `/uploads/${req.file.filename}`,
   });
+});
+app.get('/upload/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const imagePath = path.resolve('uploads', `${userId}.jpg`);
+
+  // Проверяем, существует ли файл изображения
+  if (fs.existsSync(imagePath)) {
+    res.sendFile(imagePath);
+  } else {
+    res.status(404).send('File not found');
+  }
 });
 
 app.post('/balance/:id', checkAuth, BalanceController.setBalance);
