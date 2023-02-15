@@ -48,6 +48,7 @@ async function getUserData(loginData: Auth) {
     return { id, token, fullName };
   }
 }
+const errorMessages = ['User not found', 'Incorrect login or password', 'failed to login']
 
 async function handleSubmit(
   e: React.FormEvent<HTMLFormElement>,
@@ -69,7 +70,9 @@ async function handleSubmit(
     }
   } catch (err) {
     if (err instanceof Error) {
-      errorHandler(err.message);
+      const msg = err.message;
+      const loginErrorInd = errorMessages.findIndex((item) => item.includes(msg))
+      errorHandler(`loginError.${loginErrorInd}`);
     }
   }
 }

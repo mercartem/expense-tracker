@@ -7,10 +7,11 @@ import SummaryCategory from './Category';
 import COLORS from '../../../shared/constants/color';
 
 function ExpensesAnalysis({ categories, period }: ExpensesAnalysisProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const dateLocale = i18n.language;
   const total: number = categories.reduce((sum, { value }) => sum + value, 0);
-  const startMonth = period && period[0].toLocaleString('en-US', { month: 'short' });
-  const endMonth = period && period[1].toLocaleString('en-US', { month: 'short' });
+  const startMonth = period && period[0].toLocaleString(dateLocale, { month: 'short' });
+  const endMonth = period && period[1].toLocaleString(dateLocale, { month: 'short' });
   return (
     <div className='expenses-analysis'>
       <p className='expenses-analysis__title'>{t('dashboardPage.sectionTitle.exp')}</p>

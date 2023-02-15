@@ -8,6 +8,7 @@ import {pageCount} from '../utils/utils';
 const fetchTransactions = async (
   updateData: ICallback<Transaction[]>,
   updateLoading: ICallback<boolean>,
+  setError: ICallback<string>,
   page = 1,
   limit = 0,
   params = '',
@@ -15,10 +16,16 @@ const fetchTransactions = async (
   updateLoading(true)
   const token = getToken();
   if (token) {
-    const transactions = await getAllUserTransactionsParams(token, page, limit, params);
-    updateData(transactions);
+    try {
+      const transactions = await getAllUserTransactionsParams(token, page, limit, params);
+      updateData(transactions);
+  } catch (error) {
+    if (error instanceof Error) setError(error.message);
   }
-  updateLoading(false)
+  finally {
+    updateLoading(false)
+  }
+}
 };
 
 const getPageTotal = async (limit = 5, params = '') => {
@@ -31,21 +38,20 @@ const getPageTotal = async (limit = 5, params = '') => {
   return pageTotal;
 };
 
-const deleteTransactions = async (data: string[]) => {
+const deleteTransactions = async (data: string[], updateError: ICallback<string>) => {
   const token = getToken();
   if (token && data.length) {
     if (data.length === 1) {
       try {
         await removeTransaction(data[0], token);
       } catch (error) {
-        console.log(error);
-      }
-    } else {
+        if (error instanceof Error) updateError(error.message)
+    }} else {
       const deleteAll = data.map((id) => removeTransaction(id, token));
       try {
         await Promise.all(deleteAll);
       } catch (error) {
-        console.log(error);
+        if (error instanceof Error) updateError(error.message)
       }
     }
   }

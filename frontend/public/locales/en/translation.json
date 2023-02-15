@@ -28,18 +28,27 @@
   "login": {
     "title": "Enter your data to log in",
     "question": "Do not have an account?",
-    "register": "Register"
+    "register": "Register",
+    "loginError": {
+      "0": "User not found",
+      "1": "Incorrect login or password",
+      "2": "Failed to login"
+    }
   },
   "register": {
     "title": "Enter your data to register",
     "question": "Have an account?",
-    "login": "Login"
+    "login": "Login",
+    "success": "Registration is successful!",
+    "enterBalance":"Enter your balance to start tracking your expenses",
+    "errorBalance": "Enter any sum",
+    "errorRegister": "User already exists"
   },
   "avatarTitle": "Upload your photo",
   "languageTitle": "Choose language",
   "langLabel": "Language",
   "langEn": "English",
-  "langRu": "Russian",
+  "langRu": "Русский",
   "passChangeTitle": "Change Password",
   "passLabel": "password",
   "passLabelRepeat": "repeat password",
@@ -139,11 +148,16 @@
   },
   "error": {
     "emptyInput": "Cannot be empty",
-    "emptySelect": "Select any category"
+    "emptySelect": "Select any category",
+    "shortDescription": "Description is too short",
+    "globalError": "Oops...Something went wrong",
+    "try": "Try again?"
   },
   "date": {
     "now": "Now",
     "placeholder": "Pick date and time",
     "period": "Pick date range"
-  }
+  },
+  "notFound": "Transactions not found",
+  "loading": "is loading..."
 }

@@ -20,6 +20,12 @@ const style = {
   bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
+  '@media (max-width: 770px)': {
+    transform: 'translate(10vw, 10%)',
+    top: '0%',
+    left: '0%',
+    p: 3
+  }
 };
 
 const defaultState: ITransactionFormState = {
@@ -45,7 +51,7 @@ export default function AddTransactionForm({ ...props }: IAddTransactionFormProp
   return (
     <div>
       {window.innerWidth < 770 && (
-        <AddBoxIcon sx={{ color: '#6890FB', width: 45, height: 45 }} onClick={handleOpen} />
+        <AddBoxIcon sx={{ color: '#6890FB', width: 45, height: 45, ':hover': { cursor: 'pointer' } }} onClick={handleOpen} />
       )}
       {window.innerWidth >= 770 && (
         <Button
@@ -57,10 +63,9 @@ export default function AddTransactionForm({ ...props }: IAddTransactionFormProp
           {t('button.add')}
         </Button>
       )}
-
-      <Modal open={open} onClose={handleClose}>
+      <Modal open={open} onClose={handleClose} style={{ overflow: 'scroll' }}>
         <Box className={styles.modal} sx={style}>
-          <Typography id='modal-modal-title' variant='h6' component='h2' className={styles.title}>
+          <Typography id='modal-modal-title' component='h2' className={styles.title}>
             {t('add.title')}
           </Typography>
           <CloseIcon
