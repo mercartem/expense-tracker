@@ -28,7 +28,12 @@
   "login": {
     "title": "Enter your data to log in",
     "question": "Do not have an account?",
-    "register": "Register"
+    "register": "Register",
+    "loginError": {
+      "0": "User not found",
+      "1": "Incorrect login or password",
+      "2": "Failed to login"
+    }
   },
   "register": {
     "title": "Enter your data to register",
@@ -36,7 +41,8 @@
     "login": "Login",
     "success": "Registration is successful!",
     "enterBalance":"Enter your balance to start tracking your expenses",
-    "errorBalance": "Enter any sum"
+    "errorBalance": "Enter any sum",
+    "errorRegister": "User already exists"
   },
   "avatarTitle": "Upload your photo",
   "languageTitle": "Choose language",
@@ -142,7 +148,9 @@
   },
   "error": {
     "emptyInput": "Cannot be empty",
-    "emptySelect": "Select any category"
+    "emptySelect": "Select any category",
+    "globalError": "Oops...Something went wrong",
+    "try": "Try again?"
   },
   "date": {
     "now": "Now",

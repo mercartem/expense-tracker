@@ -35,9 +35,10 @@ function Transactions() {
   const [width, setWidth] = useState(window.innerWidth);
   const [pageCount, setPageCount] = useState(5);
   const { updateBalance } = useContext(BalanceContext);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [error, setError] = useState(''); // TODO: обработка ошибок
+  const [searchParams] = useSearchParams();
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false)
+
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
@@ -49,20 +50,20 @@ function Transactions() {
 
   useEffect(() => {
     const queryString = searchParams.toString();
-    fetchTransactions(setTransactionsData, setIsLoading, page, ITEMS_PER_PAGE, queryString);
-    getPageTotal(ITEMS_PER_PAGE, queryString).then((pageTotal) => setPageCount(pageTotal));
-  }, []);
+    fetchTransactions(setTransactionsData, setIsLoading, setError, page, ITEMS_PER_PAGE, queryString);
+    getPageTotal(ITEMS_PER_PAGE, queryString).then((pageTotal) => setPageCount(pageTotal))
+  }, [])
 
   const handleApplyFilter = () => {
-    fetchTransactions(setTransactionsData, setIsLoading, 1, ITEMS_PER_PAGE, searchParams.toString());
+    fetchTransactions(setTransactionsData, setIsLoading, setError, 1, ITEMS_PER_PAGE, searchParams.toString());
     getPageTotal(ITEMS_PER_PAGE, searchParams.toString()).then((pageTotal) =>
       setPageCount(pageTotal),
     );
   };
 
   const handleResetFilter = () => {
-    fetchTransactions(setTransactionsData, setIsLoading, page, ITEMS_PER_PAGE);
-    getPageTotal(ITEMS_PER_PAGE).then((pageTotal) => setPageCount(pageTotal));
+    fetchTransactions(setTransactionsData, setIsLoading, setError, page, ITEMS_PER_PAGE);
+    getPageTotal(ITEMS_PER_PAGE).then((pageTotal) => setPageCount(pageTotal)); 
   };
 
   const handleItemClick = (event: React.MouseEvent<unknown>, id: string) => {
@@ -85,45 +86,45 @@ function Transactions() {
   const handleChangePage = (event: React.ChangeEvent<unknown>, value: number) => {
     const queryString = searchParams.toString();
     setPage(value);
-    fetchTransactions(setTransactionsData, setIsLoading, value, ITEMS_PER_PAGE, queryString);
+    fetchTransactions(setTransactionsData, setIsLoading, setError, value, ITEMS_PER_PAGE, queryString);
   };
 
   const handleDeleteClick = async () => {
-    await deleteTransactions(selectedItems);
+    await deleteTransactions(selectedItems, setError);
     updateBalance();
     getPageTotal(ITEMS_PER_PAGE).then((pageTotal) => {
       setPageCount(pageTotal);
       if (page > pageTotal) {
         setPage(pageTotal);
-        fetchTransactions(setTransactionsData, setIsLoading, pageTotal, ITEMS_PER_PAGE, searchParams.toString());
+        fetchTransactions(setTransactionsData, setIsLoading,setError, pageTotal, ITEMS_PER_PAGE, searchParams.toString());
       } else {
-        fetchTransactions(setTransactionsData, setIsLoading, page, ITEMS_PER_PAGE, searchParams.toString());
+        fetchTransactions(setTransactionsData, setIsLoading,setError, page, ITEMS_PER_PAGE, searchParams.toString());
       }
     });
     setSelectedItems([]);
   };
 
+
+
   const handleAddClick = async () => {
     getPageTotal(ITEMS_PER_PAGE).then((pageTotal) => {
       setPageCount(pageTotal);
+      updateBalance();
       if (page < pageTotal) {
         setPage(pageTotal);
-        fetchTransactions(setTransactionsData, setIsLoading, pageTotal, ITEMS_PER_PAGE, searchParams.toString());
-        updateBalance();
+        fetchTransactions(setTransactionsData, setIsLoading, setError, pageTotal, ITEMS_PER_PAGE, searchParams.toString()); 
       } else {
-        fetchTransactions(setTransactionsData, setIsLoading, page, ITEMS_PER_PAGE, searchParams.toString());
-        updateBalance();
+        fetchTransactions(setTransactionsData, setIsLoading,setError, page, ITEMS_PER_PAGE, searchParams.toString());
       }
     });
     setSelectedItems([]);
   };
 
   const handleEditClick = async () => {
-    await fetchTransactions(setTransactionsData, setIsLoading, page, ITEMS_PER_PAGE, searchParams.toString());
+    await fetchTransactions(setTransactionsData, setIsLoading, setError, page, ITEMS_PER_PAGE, searchParams.toString());
     updateBalance();
     setSelectedItems([]);
   };
-
 
   return (
     <>

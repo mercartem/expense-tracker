@@ -6,13 +6,16 @@ const getRange = async () => {
   const token = getToken();
   const range = { min:'10', max:'10000'};
   if (token) {
-    const transactions = await getAllUserTransactions(token)
-    const sortedTransactions = transactions.sort((a, b) => a.amount - b.amount)
-    range.min = `${sortedTransactions[0].amount}`;
-    range.max = `${sortedTransactions[sortedTransactions.length - 1].amount}`;
+    const transactions = await getAllUserTransactions(token);
+    if (transactions.length) {
+      const sortedTransactions = transactions.sort((a, b) => a.amount - b.amount)
+      range.min = `${sortedTransactions[0].amount}`;
+      range.max = `${sortedTransactions[sortedTransactions.length - 1].amount}`;
+    }
   }
   return range;
 };
+
 const defaultAmountValues = { min:'10', max:'10000'};
 
 

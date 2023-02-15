@@ -59,7 +59,7 @@ function RegisterByMail() {
               setInputData({ email: '', password: '', fullName: '' });
             }}
           >
-            {registerError && <p className={style.error}>{registerError}</p>}
+            {registerError && <p className={style.error}>{t('register.errorRegister')}</p>}
             <FormControl>
               <TextInput
                 {...nameInputProps}

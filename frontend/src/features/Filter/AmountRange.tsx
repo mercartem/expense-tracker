@@ -16,8 +16,8 @@ function AmountRange({ ...props }: AmountRangeProps) {
   const [range, setRange] = useState(defaultAmountValues);
   const [error, setError] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-
-  
+ 
+ 
   useEffect(() => {
     getRangeValues(searchParams).then((values) => setRange(values))
      }, [searchParams])
