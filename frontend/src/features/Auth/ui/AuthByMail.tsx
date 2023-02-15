@@ -42,7 +42,7 @@ function AuthByMail() {
     <Navigate to='/dashboard' replace />
   ) : (
     <div>
-      {loginError && <p className={style.error}>{loginError}</p>}
+      {loginError && <p className={style.error}>{t(`login.${loginError}`)}</p>}
       <form
         name='loginForm'
         className={style.form}

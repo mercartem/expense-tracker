@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Button, Drawer } from '@mui/material';
 import TuneIcon from '@mui/icons-material/Tune';
+import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
 import Filter, { IFilterProps } from '../../Filter/Filter';
 
@@ -40,6 +41,7 @@ export default function FilterModal({ handleApply, handleReset }: IFilterProps) 
         onClose={toggleDrawer(false)}
         transitionDuration={{ enter: 800, exit: 500 }}
       >
+        <CloseIcon sx={{ position: 'fixed', right: 10, top: 10, zIndex: '101', ':hover': { cursor: 'pointer' }}} onClick={toggleDrawer(false)}/>
         <Filter handleApply={handleApply} handleReset={handleReset} />
       </Drawer>
     </>

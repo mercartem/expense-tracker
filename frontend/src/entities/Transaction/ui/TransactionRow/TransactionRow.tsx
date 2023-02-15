@@ -21,7 +21,7 @@ const font = {
 };
 
 function TransactionRow({ ...props }: ITransactionRowProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const {
     _id: id,
     category,
@@ -33,7 +33,7 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
   } = props.transaction;
 
   const [width, setWidth] = useState(window.innerWidth);
-
+  const locale = i18n.language
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
@@ -43,7 +43,7 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
   }, []);
 
   return (
-    <TableRow
+  <TableRow
       hover
       onClick={props.onClick}
       role='checkbox'
@@ -54,11 +54,11 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
       className={style.row}
     >
       {props.checkboxComponent && (
-        <TableCell padding='checkbox'>
-          <Checkbox color='primary' checked={props.isSelected} />
+        <TableCell padding='checkbox' style={{padding: '5px', width:'15px'}} >
+          <Checkbox color='primary' checked={props.isSelected}/>
         </TableCell>
       )}
-      <TableCell align='left' style={{ textTransform: 'capitalize',  whiteSpace: 'nowrap', ...font }}>
+      <TableCell align='left' style={{paddingRight: 1, maxWidth: '180px', textTransform: 'capitalize',  whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', ...font }}>
         <img
           src={getIconCategory(category, transactionType)}
           className={style.icon}
@@ -66,10 +66,10 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
         />
         {t(`categoriesNames.${category}`)}
       </TableCell>
-      {width >= 770 && <TableCell align='left' style={{ maxWidth: '100px', whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', ...font }} >{convertData(date, 'us-US')}</TableCell>}
-      <TableCell align='left' style={{textTransform: 'capitalize',...font }}>
+      {width >= 770 && <TableCell align='left' style={{ maxWidth: '100px', whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', ...font }} >{convertData(date, locale)}</TableCell>}
+      {width > 500 && <TableCell align='left' style={{textTransform: 'capitalize',...font }}>
         {t(`paymentType.${paymentMode}`)}
-      </TableCell>
+      </TableCell>}
       {width >= 770 && (
         <TableCell align='left' style={{ maxWidth: '170px',textTransform: 'capitalize', whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', ...font }}>
           {description}
@@ -77,10 +77,10 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
       )}
       <TableCell
         align='left'
-        style={{ color: transactionType === 'income' ? 'green' : 'red', ...font }}
+        style={{  maxWidth: '100px', color: transactionType === 'income' ? 'green' : 'red', paddingRight: 2,...font }}
       >
-        {`${amount}₽`}
-      </TableCell>
+        {`${amount.toLocaleString()} ₽`}
+      </TableCell>  
     </TableRow>
   );
 }
