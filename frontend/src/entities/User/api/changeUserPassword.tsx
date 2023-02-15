@@ -10,10 +10,10 @@ async function changeUserPassword(password: {password: string | undefined}, toke
     body: JSON.stringify(password),
   });
   if (res.status === 403) {
-    return (await res.json())[0].msg as string;
+    return (await res.json())[0].msg;
   }
   if (res.status === 400) {
-    return (await res.json()).message as string;
+    return (await res.json())[0].msg;
   }
   return password;
 }

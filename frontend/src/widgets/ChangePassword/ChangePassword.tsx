@@ -8,23 +8,35 @@ function ChangePassword() {
   const passwordText = useRef<HTMLInputElement>(null);
   const passwordRepeatText = useRef<HTMLInputElement>(null);
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState({
+    text: '',
+    color: 'rgb(199, 199, 199)',
+  });
 
-  const showInput = () => {
+  function editMessage(text: string, color: string) {
+    const copy = {...message};
+    copy.text = text;
+    copy.color = color;
+    setMessage(copy);
+  }
+
+  const confirmPassword = async () => {
     const password = passwordText.current?.value;
     const repeat = passwordRepeatText.current?.value;
 
     if (password === repeat) {
       const token = getToken();
       const newPassword = {
-        password
+        password,
       };
       if (token && newPassword) {
         try {
-          const response = changeUserPassword(newPassword, token);
-          setMessage('Пароль успешно изменен');
+          const response = await changeUserPassword(newPassword, token);
+
           if (typeof response === 'string') {
-            throw new Error(response);
+            editMessage(response, 'rgb(226, 48, 48)');
+          } else {
+            editMessage('Password changed successfully', 'rgb(44, 148, 44)');
           }
           return response;
         } catch (error) {
@@ -33,29 +45,33 @@ function ChangePassword() {
       }
       return newPassword;
     }
-    return setMessage('Пароли не совпадают');
+    return editMessage('Passwords are different', 'rgb(226, 48, 48)');
   };
 
   return (
     <div className={style.settings__password}>
       <div className={style.password__container}>
-        <div className={style.password__inputs}>
-          <input
-            className={style.password__input}
-            type='password'
-            placeholder='password'
-            ref={passwordText}
-          />
-          <input
-            className={style.password__input}
-            type='password'
-            placeholder='repeat password'
-            ref={passwordRepeatText}
-          />
-        </div>
-        <p className={style.password__message}>{message}</p>
+        <input
+          className={style.password__input}
+          type='password'
+          placeholder='password'
+          style={{ border: `1px solid ${message.color}` }}
+          ref={passwordText}
+        />
+        <input
+          className={style.password__input}
+          type='password'
+          placeholder='repeat password'
+          style={{ border: `1px solid ${message.color}` }}
+          ref={passwordRepeatText}
+        />
+        <p className={style.password__message} style={{ color: message.color }}>{message.text}</p>
       </div>
-      <Button onClick={showInput} variant='contained' sx={{ fontSize: 12, padding: 1, width: 100 }}>
+      <Button
+        onClick={confirmPassword}
+        variant='contained'
+        sx={{ fontSize: 12, padding: 1, width: 100 }}
+      >
         Confirm
       </Button>
     </div>
