@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@mui/material';
 import { ChangeEvent, useContext } from 'react';
@@ -18,7 +17,7 @@ function AddAvatar() {
     if (file) {
       formData.append('image', file, `${userId}.jpg`);
       createAvatarUser(token, formData);
-      updateAvatar();
+      setTimeout(() => updateAvatar(), 1000);
     }
   };
 
