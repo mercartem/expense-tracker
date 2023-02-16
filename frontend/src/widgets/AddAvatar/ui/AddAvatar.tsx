@@ -17,7 +17,7 @@ function AddAvatar() {
     if (file) {
       formData.append('image', file, `${userId}.jpg`);
       createAvatarUser(token, formData);
-      updateAvatar();
+      setTimeout(() => updateAvatar(), 1000);
     }
   };
 
