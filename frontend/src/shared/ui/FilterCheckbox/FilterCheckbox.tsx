@@ -16,7 +16,7 @@ function FilterCheckbox({ ...props }: ICheckboxProps) {
     return isCheckedValue;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = () => {
     if (!isChecked(searchParams)) {
       searchParams.append(name, value);
       setSearchParams(searchParams);

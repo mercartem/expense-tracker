@@ -11,7 +11,7 @@ interface AmountRangeProps {
   updateState?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function AmountRange({ ...props }: AmountRangeProps) {
+function AmountRange() {
   const { t } = useTranslation();
   const [range, setRange] = useState(defaultAmountValues);
   const [error, setError] = useState(false);
@@ -34,8 +34,6 @@ function AmountRange({ ...props }: AmountRangeProps) {
       setSearchParams(searchParams);
     } else {
       setError(true);
-      // removeQueryParams('min', searchParams, setSearchParams);
-      // removeQueryParams('max', searchParams, setSearchParams);
     }
   };
 
