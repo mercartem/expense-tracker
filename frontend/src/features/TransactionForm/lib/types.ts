@@ -1,5 +1,3 @@
-import { DateRange } from 'rsuite/esm/DateRangePicker';
-
 export interface ITransactionFormState {
   category: string;
   description: string;

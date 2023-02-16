@@ -14,8 +14,11 @@
   }
   @media all and (max-width: 740px) {
     min-width: 100px;
+    border: 1px $basic-blue solid;
   }
   @media all and (max-width: 500px) {
+    border: 1px $basic-blue solid;
+    padding: 5px;
     min-width: 60px;
     height: 30px;
     font-size: 0.8rem;

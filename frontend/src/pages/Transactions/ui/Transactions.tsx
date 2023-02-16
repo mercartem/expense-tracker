@@ -24,6 +24,7 @@ import style from './Transactions.module.scss';
 import BalanceContext from '../../../app/context/BalanceContext';
 import SearchTransaction from '../../../features/SearchTransaction/ui/SearchTransaction';
 import { getNewSelectedItems } from '../utils/utils';
+import LoadingSpinner from '../../../shared/ui/LoadingSpinner/LoadingSpinner';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -152,6 +153,8 @@ function Transactions() {
                   {t('button.delete')}
                 </Button>
               </Toolbar>
+              {isLoading? <LoadingSpinner/>:
+              <>
               { transactionsData.length > 0 && <>
                <TableContainer className={style.table}>
                 <Table sx={{ maxWidth: '100%' }} aria-labelledby='tableTitle' size='small'>
@@ -182,6 +185,8 @@ function Transactions() {
               </>
               }
               {(transactionsData.length <= 0) && <p>{t('notFound')}</p>}
+              </> 
+              }
             </Box>
           </div>
         </div>

@@ -159,5 +159,9 @@
     "period": "Pick date range"
   },
   "notFound": "Transactions not found",
-  "loading": "is loading..."
+  "loading": "is loading...",
+  "passwordChange": {
+    "different": "Passwords are different",
+    "successfulChanged": "Password changed successfully"
+  }
 }

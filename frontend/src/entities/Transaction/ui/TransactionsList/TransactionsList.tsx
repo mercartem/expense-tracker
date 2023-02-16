@@ -1,6 +1,4 @@
 import { Table, TableBody, TableContainer } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { fetchTransactions } from '../../../../pages/Transactions/model/model';
 import TableHeadTransactions from '../../../../shared/ui/TableHeadTransactions/TableHeadTransactions';
 import { Transaction } from '../../lib/types/transaction';
 import TransactionRow from '../TransactionRow/TransactionRow';

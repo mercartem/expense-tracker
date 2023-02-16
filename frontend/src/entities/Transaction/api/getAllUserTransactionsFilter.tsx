@@ -17,7 +17,7 @@ async function getAllUserTransactionsParams(
         Authorization: token,
       },
     });
-    if (res.status === 500) {
+    if (res.status === 500 || !res.ok) {
       const error = (await res.json()).message as string;
       throw new Error(error);
     }

@@ -12,6 +12,7 @@
   padding: 10px 20px;
   background-color: $bg-grey;
   @include mainText;
+  color: black;
   font-size: 1rem;
   @media all and (max-width:740px) {
     height: 90px;

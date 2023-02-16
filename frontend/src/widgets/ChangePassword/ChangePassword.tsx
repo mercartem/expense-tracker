@@ -6,6 +6,7 @@ import { getToken } from '../../shared/utils/utils';
 import changeUserPassword from '../../entities/User/api/changeUserPassword';
 
 function ChangePassword() {
+  const { t } = useTranslation();
   const passwordText = useRef<HTMLInputElement>(null);
   const passwordRepeatText = useRef<HTMLInputElement>(null);
 
@@ -37,7 +38,7 @@ function ChangePassword() {
           if (typeof response === 'string') {
             editMessage(response, 'rgb(226, 48, 48)');
           } else {
-            editMessage('Password changed successfully', 'rgb(44, 148, 44)');
+            editMessage(`${t('passwordChange.successfulChanged')}`, 'rgb(44, 148, 44)');
           }
           return response;
         } catch (error) {
@@ -46,10 +47,10 @@ function ChangePassword() {
       }
       return newPassword;
     }
-    return editMessage('Passwords are different', 'rgb(226, 48, 48)');
+    return editMessage(`${t('passwordChange.different')}`, 'rgb(226, 48, 48)');
   };
   
-  const { t } = useTranslation();
+
 
   return (
     <div className={style.settings__password}>

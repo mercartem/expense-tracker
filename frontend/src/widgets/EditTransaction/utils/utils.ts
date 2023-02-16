@@ -1,9 +1,6 @@
-import createTransaction from '../../../entities/Transaction/api/createTransaction';
-import { Transaction } from '../../../entities/Transaction/lib/types/transaction';
 import { getToken } from '../../../shared/utils/utils';
 import { ITransactionFormState } from '../../../features/TransactionForm/lib/types';
 import getTransaction from '../../../entities/Transaction/api/getTransaction';
-import { ICallback } from '../../../shared/lib/types';
 import updateTransaction from '../../../entities/Transaction/api/updateTransaction';
 
 export function transactionValuesAdapter(data: ITransactionFormState) {
@@ -62,7 +59,7 @@ export const getTransactionValues = async (id: string) => {
       };
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message);
+        throw new Error(error.message);
       }
     }
   }

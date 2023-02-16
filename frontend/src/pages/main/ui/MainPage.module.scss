@@ -21,6 +21,10 @@
   @media all and (max-width: 740px) {
     font-size: min(3vw, 28px);
     flex-direction: column;
+  };
+  @media all and (max-width: 500px) {
+    font-size: 20px;
+    padding: 0 0 10px 0;
   }
 }
 
@@ -31,10 +35,18 @@
   line-height: 1.1;
   padding: 20px;
   color: rgb(37, 37, 37);
-  @media all and (max-width: 360px) {
-    padding: 30px 20px;
-    height: 100vh;
+  @media all and (max-width: 500px) {
+    padding: 10px;
+    margin-right: 0;
   }
+}
+
+.title {
+  line-height: 1.5;
+  @media all and (max-width: 500px) {
+    font-size: 24px;
+  }
+
 }
 
 .subtitle {
@@ -42,6 +54,9 @@
   line-height: 1.2em;
   @media all and (max-width: 740px) {
     font-size: max(1em, 20px);
+  }
+  @media all and (max-width: 500px) {
+    font-size: 16px;
   }
 }
 
@@ -55,7 +70,6 @@
   }
   @media all and (max-width: 360px) {
     max-height: 100vh;
-    height: 100vh;
     max-width: 70vw;
   }
 }

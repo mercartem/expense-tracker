@@ -11,7 +11,7 @@ const defaultBalanceState = {
   balance: '',
   async updateBalance() {
     const token = getToken() as string;
-    const currentBalance = await getBalance(token);
+    await getBalance(token);
   },
 };
 
