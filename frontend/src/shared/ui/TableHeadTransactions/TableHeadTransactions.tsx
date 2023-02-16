@@ -3,9 +3,7 @@ import { useEffect, useState } from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-
 import Checkbox from '@mui/material/Checkbox';
-import { Transaction } from '../../../entities/Transaction/lib/types/transaction';
 
 interface IHeadCell {
   disablePadding: boolean;
@@ -92,7 +90,7 @@ function TableHeadTransactions({ ...props }: ITableHeadProps) {
               {t(`headers.${headCell.label}`)}
               </TableCell>
             ))}
-        {(width >= 500 && width <= 770) &&
+        {(width >= 500 && width < 770) &&
           headCells
             .filter((headCell) => !['description', 'date'].includes(headCell.id))
             .map((headCell) => (
@@ -105,7 +103,7 @@ function TableHeadTransactions({ ...props }: ITableHeadProps) {
               {t(`headers.${headCell.label}`)}
               </TableCell>
             ))}
-             {width > 770 &&
+             {width >= 770 &&
           headCells.map((headCell) => (
             <TableCell
               key={headCell.id}

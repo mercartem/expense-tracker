@@ -17,7 +17,7 @@ interface ITransactionRowProps {
 
 const font = {
   fontFamily: 'Apple-System, Arial, Helvetica, STXihei, sans-serif',
-  fontSize: '16px',
+  fontSize: '14px',
 };
 
 function TransactionRow({ ...props }: ITransactionRowProps) {

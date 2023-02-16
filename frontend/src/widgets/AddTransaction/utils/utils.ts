@@ -1,5 +1,4 @@
 import createTransaction from '../../../entities/Transaction/api/createTransaction';
-import { Transaction } from '../../../entities/Transaction/lib/types/transaction';
 import { getToken } from '../../../shared/utils/utils';
 import { ITransactionFormState } from '../../../features/TransactionForm/lib/types';
 
