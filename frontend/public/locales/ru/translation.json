@@ -162,5 +162,6 @@
   "passwordChange": {
     "different": "Пароли не совпадают",
     "successfulChanged": "Пароль успешно изменен"
-  }
+  },
+  "balancePlaceholder": "Ваш баланс"
 }
