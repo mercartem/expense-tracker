@@ -163,5 +163,6 @@
   "passwordChange": {
     "different": "Passwords are different",
     "successfulChanged": "Password changed successfully"
-  }
+  },
+  "balancePlaceholder": "Your balance"
 }

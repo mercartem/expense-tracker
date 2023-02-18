@@ -4,7 +4,6 @@ import { validateBalance } from '../../../shared/utils/utils';
 import { IUserAccess } from '../../Registration/lib/types';
 
 const balanceInputProps = {
-  label: 'Your balance',
   placeholder: '0',
   type: 'text',
   required: true,
@@ -35,7 +34,7 @@ async function handleSubmitBalance(
   e.preventDefault();
   if (isValid) {
     const { token, id } = accessData;
-    const balanceNum = +parseFloat(balance).toFixed(2);
+    const balanceNum = parseInt(balance, 10);
     if (id && token) {
       await createBalance(balanceNum, id, token);
       approveUser(true);

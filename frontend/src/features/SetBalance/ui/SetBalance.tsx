@@ -17,7 +17,7 @@ import AuthContext from '../../../app/context/AuthContext';
 
 function SetBalance(accessData: IUserAccess) {
   const {t} = useTranslation();
-  const [balance, setBalance] = useState('');
+  const [balance, setBalance] = useState('0');
   const [isValid, setIsValid] = useState(true);
   const [userApproved, setUserApproved] = useState(false);
   const { setIsAuth } = useContext(AuthContext);
@@ -46,6 +46,7 @@ function SetBalance(accessData: IUserAccess) {
         <FormControl>
           <TextInput
             {...balanceInputProps}
+            label={t('balancePlaceholder')}
             error={!isValid}
             value={balance}
             onChange={(e) => handleOnChange(e.target.value, setBalance, setIsValid)}
