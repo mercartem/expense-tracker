@@ -1,3 +1,3 @@
-const server = 'http://localhost:4444';
+const server = 'https://rs-expense-tracker.up.railway.app';
 
 export default server;
