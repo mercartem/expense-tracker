@@ -142,10 +142,12 @@ Change user's current password.
 
 * **Headers:**
 
-    {
-      'Content-Type': 'application/json',
-      Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ8,
-    }
+    ```json
+        {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ",
+        }
+    ```
 
 * **Data Params:**
 
@@ -192,10 +194,12 @@ Set user's avatar.
 
 * **Headers:**
 
-    {
-      'Content-Type': 'application/json',
-      Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ8,
-    }
+    ```json
+        {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ",
+        }
+    ```
 
 * **Data Params:**
 
@@ -239,10 +243,12 @@ Set user's initial balance.
 
 * **Headers:**
 
-    {
-      'Content-Type': 'application/json',
-      Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ8,
-    }
+    ```json
+        {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ",
+        }
+    ```
 
 * **Data Params:**
 
@@ -288,10 +294,12 @@ Get user's current balance.
 
 * **Headers:**
 
-    {
-      'Content-Type': 'application/json',
-      Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ8,
-    }
+    ```json
+        {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ",
+        }
+    ```
 
 * **Data Params:**
 
@@ -329,10 +337,12 @@ Get user's current balance.
 
 * **Headers:**
 
-    {
-      'Content-Type': 'application/json',
-      Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ8,
-    }
+    ```json
+        {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ",
+        }
+    ```
 
 * **Data Params:**
 
@@ -395,10 +405,12 @@ Get all user's transactions.
 
 * **Headers:**
 
-    {
-      'Content-Type': 'application/json',
-      Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ8,
-    }
+    ```json
+        {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ",
+        }
+    ```
 
 * **Data Params:**
 
@@ -474,10 +486,12 @@ Get one user's transaction by its id.
 
 * **Headers:**
 
-    {
-      'Content-Type': 'application/json',
-      Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ8,
-    }
+    ```json
+        {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ",
+        }
+    ```
 
 * **Data Params:**
 
@@ -530,10 +544,12 @@ Change user's transaction specifying certain parameters.
 
 * **Headers:**
 
-    {
-      'Content-Type': 'application/json',
-      Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ8,
-    }
+    ```json
+        {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ",
+        }
+    ```
 
 * **Data Params:**
 
@@ -586,10 +602,12 @@ Delete certain user's transaction.
 
 * **Headers:**
 
-    {
-      'Content-Type': 'application/json',
-      Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ8,
-    }
+    ```json
+        {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5NzQxNjllZGVkMGYxNTY3ZjI2NmMiLCJpYXQiOjE2NzU1MTQ0MDksImV4cCI6MTY3ODEwNjQwOX0.wLwSS7A_qTXqHACn4-aXCKn3l8IA72DcOlATZvXulJ",
+        }
+    ```
 
 * **Data Params:**
 
