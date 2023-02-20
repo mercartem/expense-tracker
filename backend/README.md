@@ -125,7 +125,6 @@ Log in to Expense Tracker App.
     ```
 </details>
 
-
 **Change Password**
 ----
 Change user's current password.
