@@ -3,4 +3,7 @@ function convertData(date: string, locale: string) {
   return formattedDate;
 }
 
+export function capitalizeDescription(str: string) {
+  return str[0].toUpperCase() + str.slice(1);
+}
 export default convertData;

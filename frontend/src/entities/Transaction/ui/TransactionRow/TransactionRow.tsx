@@ -6,7 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { Transaction } from '../../lib/types/transaction';
 import { getIconCategory } from '../../model/categories';
 import style from './TransactionRow.module.scss';
-import convertData from '../../utils/utils';
+import convertData, { capitalizeDescription } from '../../utils/utils';
 
 interface ITransactionRowProps {
   transaction: Transaction;
@@ -58,7 +58,7 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
           <Checkbox color='primary' checked={props.isSelected}/>
         </TableCell>
       )}
-      <TableCell align='left' style={{paddingRight: 1, maxWidth: '180px', textTransform: 'capitalize',  whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', ...font }}>
+      <TableCell align='left' style={{paddingRight: 1, maxWidth: '180px', whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', ...font }}>
         <img
           src={getIconCategory(category, transactionType)}
           className={style.icon}
@@ -67,12 +67,12 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
         {t(`categoriesNames.${category}`)}
       </TableCell>
       {width >= 770 && <TableCell align='left' style={{ maxWidth: '100px', whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', ...font }} >{convertData(date, locale)}</TableCell>}
-      {width > 500 && <TableCell align='left' style={{textTransform: 'capitalize',...font }}>
+      {width > 500 && <TableCell align='left' style={{...font }}>
         {t(`paymentType.${paymentMode}`)}
       </TableCell>}
       {width >= 770 && (
-        <TableCell align='left' style={{ maxWidth: '170px',textTransform: 'capitalize', whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', ...font }}>
-          {description}
+        <TableCell align='left' style={{ maxWidth: '170px', whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', ...font }}>
+          {capitalizeDescription(description)}
         </TableCell>
       )}
       <TableCell
