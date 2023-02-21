@@ -164,5 +164,6 @@
     "different": "Пароли не совпадают",
     "successfulChanged": "Пароль успешно изменен"
   },
+  "avatarChange": "Аватар успешно изменен",
   "balancePlaceholder": "Ваш баланс"
 }

@@ -23,7 +23,7 @@
   },
   "intro": {
     "title": "Your Finances in One Place",
-    "subtitle":"Track yor expenses smart and easy"
+    "subtitle": "Track yor expenses smart and easy"
   },
   "login": {
     "title": "Enter your data to log in",
@@ -40,7 +40,7 @@
     "question": "Have an account?",
     "login": "Login",
     "success": "Registration is successful!",
-    "enterBalance":"Enter your balance to start tracking your expenses",
+    "enterBalance": "Enter your balance to start tracking your expenses",
     "errorBalance": "Enter any sum",
     "errorRegister": "User already exists"
   },
@@ -112,7 +112,7 @@
       "max": "max:"
     }
   },
- "categoriesNames": {
+  "categoriesNames": {
     "Food": "Food",
     "Transportation": "Transportation",
     "Rent": "Rent",
@@ -164,5 +164,6 @@
     "different": "Passwords are different",
     "successfulChanged": "Password changed successfully"
   },
+  "avatarChange": "Avatar changed successfully",
   "balancePlaceholder": "Your balance"
 }
