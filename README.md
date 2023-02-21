@@ -2,6 +2,7 @@
 
 Приложение для учета личных финансов.
 
+![Expense](frontend/public/assets/Expense.gif)
 
 ## 📜 Features
 - [x] SPA
