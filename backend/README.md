@@ -428,17 +428,21 @@ Get all user's transactions.
       `_from=[dateISO]`
       `_to=[dateISO]`
 
+      `_min=[integer]`
+      `_max=[integer]`
+
       `_search=[string]`
 
       `_category=[string]`
       `_description=[string]`
-      `_amount=[integer]`
       `_paymentMode=[string]`
       `_transactionType=['income' | 'expense']`
 
     If `_limit` param is equal to 0 you will receive all your transactions.
 
     If you're using `_from` param you should use `_to` and conversely.
+
+    If you're using `_min` param you should use `_max` and conversely.
 
 * **URL Params**
 
