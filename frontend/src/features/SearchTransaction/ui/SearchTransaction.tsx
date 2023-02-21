@@ -24,15 +24,19 @@ export default function SearchTransaction({ searchFilter, resetSearch }: ISearch
     }
   }, []);
 
+  useEffect(() => {
+     const debouncedUpdate = debounce(() => searchFilter(), 100);
+     debouncedUpdate()
+  }, [searchValue]);
+
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
-    const debouncedUpdate = debounce(() => searchFilter(), 300);
-    const debouncedReset = debounce(() => resetSearch(), 300);
+   
+    const debouncedReset = debounce(() => resetSearch(), 100);
 
     if (e.target.value) {
       searchParams.set('search', e.target.value);
       setSearchParams(searchParams);
-      debouncedUpdate();
     } else {
       removeQueryParams('search', searchParams, setSearchParams);
       debouncedReset();
