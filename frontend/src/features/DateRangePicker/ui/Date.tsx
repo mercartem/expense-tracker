@@ -14,6 +14,7 @@ export function DatePick(props: {
   const { fetchData, handleDate, period, value } = props;
   const {t, i18n} = useTranslation();
   const locale = data[i18n.language];
+
   return (
     <CustomProvider locale={locale}>
     <DateRangePicker
@@ -44,7 +45,7 @@ export function DatePickOne(props: {
   const { fetchData, initialDate } = props;
   const {t, i18n} = useTranslation();
   const locale = data[i18n.language];
-
+  
   return (
     <CustomProvider locale={locale}>
        <DatePicker

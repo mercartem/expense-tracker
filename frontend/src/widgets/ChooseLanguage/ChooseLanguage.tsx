@@ -3,9 +3,16 @@ import { Button, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } 
 import { useTranslation } from 'react-i18next';
 import style from './ChooseLanguage.module.scss';
 
+const adaptMobileValue = () => {
+  const value = localStorage.getItem('i18nextLng');
+  if (value && ['ru', 'ru-RU'].includes(value)) return 'ru-RU';
+  if (value && ['en', 'en-US'].includes(value)) return 'en-US';
+  return ''
+}
+
 function ChooseLanguage() {
   const { t, i18n } = useTranslation();
-  const [lang, setLang] = useState(localStorage.getItem('i18nextLng')?? '');
+  const [lang, setLang] = useState(adaptMobileValue());
 
   const handleSelect = (e: SelectChangeEvent) => {
     setLang(e.target.value);

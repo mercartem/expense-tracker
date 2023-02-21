@@ -9,7 +9,7 @@ const registerValidation = [
   body('password', 'Password should not be less than 5 symbols').isLength({
     min: 5,
   }),
-  body('fullName', 'Set your name').isLength({ min: 3 }),
+  body('fullName', 'Set your name').isLength({ min: 2 }),
 ];
 
 const changePasswordValidation = [
