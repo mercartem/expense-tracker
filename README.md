@@ -1,24 +1,24 @@
 # [:money_with_wings: Expense Tracker](https://rs-expense-tracker.netlify.app/)
 
-Приложение для учета личных финансов.
+A personal finance tracking application is a tool that allows users to record their financial transactions, such as income and expenses, and categorize them to provide insights into their spending and earning habits. The app may also provide analytics to help users track their financial goals, such as monitoring their spending in different categories, forecasting their future balance, and analyzing their financial trends over time.
 
 ![Expense](frontend/public/assets/Expense.gif)
 
 ## 📜 Features
 - [x] SPA
-- [x] Регистрация
-- [x] Авторизация
-- [x] Аутентификация
-- [x] Аналитика по заданному периоду
-- [x] Круговая диаграмма
-- [x] Линейная диаграмма
-- [x] Столбчатая диаграмма
-- [x] Добавление, удаление, редактирование транзакций
-- [x] Фильтр транзакций
-- [x] Поиск транзакций
-- [x] Изменение пароля
-- [x] Добавление аватарки пользователя
-- [x] Изменение языка интерфейса
+- [x] Registration
+- [x] Authorization
+- [x] Authentication
+- [x] Analytics for a specified period
+- [x] Pie chart
+- [x] Area chart
+- [x] Bar chart
+- [x] Adding, deleting, editing transactions
+- [x] Transaction filter
+- [x] Transaction search
+- [x] Password change
+- [x] Adding user avatar
+- [x] Interface language change
 
 ## ⚙️ Tech Stack
 
@@ -38,6 +38,6 @@
 
 ## 👀 Authors
 
-- [@mercartem](https://github.com/mercartem)
-- [@marerma](https://github.com/marerma)
-- [@criphood](https://github.com/criphood)
+- [@mercartem](https://github.com/mercartem) - Team Lead
+- [@marerma](https://github.com/marerma) - Frontend
+- [@criphood](https://github.com/criphood) - Backend
