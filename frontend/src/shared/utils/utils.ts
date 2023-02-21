@@ -67,7 +67,7 @@ function validatePassword(password: string) {
 }
 
 function validateName(name: string) {
-  return name.length >= 4;
+  return name.length >= 2;
 }
 
 function validateBalance(value: string) {
