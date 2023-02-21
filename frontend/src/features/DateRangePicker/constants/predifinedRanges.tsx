@@ -117,14 +117,18 @@ const predefinedRangesRu: Range[] = [
   },
 ];
 
-export const rangesLocale: { [key: string]: Range[] } = {
+export const rangesLocale: {[key: string]: Range[] } = {
+  'ru': predefinedRangesRu,
+  'en': predefinedRanges,
   'ru-RU': predefinedRangesRu,
-  'en-US': predefinedRanges,
+  'en-US': predefinedRanges
 };
 
-export const data: { [key: string]: Locale } = {
+export const data: {[key: string]: Locale } = {
+  'ru': ruRU,
+  'en': enUS,
   'ru-RU': ruRU,
-  'en-US': enUS,
+  'en-US': enUS
 };
 
 export default predefinedRanges;

@@ -79,7 +79,7 @@
   "name": {
     "nameLabel": "Name",
     "nameHolder": "Enter name",
-    "nameError": "Name should be longer than 4 letters"
+    "nameError": "Name should be longer than 2 letters"
   },
   "search": "Search...",
   "edit": {
