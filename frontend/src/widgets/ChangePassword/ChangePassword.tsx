@@ -25,7 +25,8 @@ function ChangePassword() {
   const confirmPassword = async () => {
     const password = passwordText.current?.value;
     const repeat = passwordRepeatText.current?.value;
-
+    const errorMessages = ['Password should not be less than 5 symbols', 'Auth token error']
+    
     if (password === repeat) {
       const token = getToken();
       const newPassword = {
@@ -36,7 +37,8 @@ function ChangePassword() {
           const response = await changeUserPassword(newPassword, token);
 
           if (typeof response === 'string') {
-            editMessage(response, 'rgb(226, 48, 48)');
+            const passErrorInd = errorMessages.findIndex((item) => item.includes(response))
+            editMessage(`${t(`passwordChange.error.${passErrorInd}`)}`, 'rgb(226, 48, 48)');
           } else {
             editMessage(`${t('passwordChange.successfulChanged')}`, 'rgb(44, 148, 44)');
           }

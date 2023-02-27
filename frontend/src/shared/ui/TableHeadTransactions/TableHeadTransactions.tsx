@@ -77,7 +77,7 @@ function TableHeadTransactions({ ...props }: ITableHeadProps) {
             <Checkbox color='primary' checked={props.checked}  onChange={props.handleChange} />
           </TableCell>
         )}
-         {width < 500 &&
+         {width <= 500 &&
           headCells
             .filter((headCell) => !['paymentMode', 'description', 'date'].includes(headCell.id))
             .map((headCell) => (
@@ -90,7 +90,7 @@ function TableHeadTransactions({ ...props }: ITableHeadProps) {
               {t(`headers.${headCell.label}`)}
               </TableCell>
             ))}
-        {(width >= 500 && width < 770) &&
+        {(width > 500 && width < 770) &&
           headCells
             .filter((headCell) => !['description', 'date'].includes(headCell.id))
             .map((headCell) => (

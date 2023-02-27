@@ -77,7 +77,7 @@ function TransactionRow({ ...props }: ITransactionRowProps) {
       )}
       <TableCell
         align='left'
-        style={{  maxWidth: '100px', color: transactionType === 'income' ? 'green' : 'red', paddingRight: 2,...font }}
+        style={{  maxWidth: '100px', color: transactionType === 'income' ? 'green' : 'red', whiteSpace: 'nowrap', overflow:'hidden', textOverflow: 'ellipsis', paddingRight: 2,...font }}
       >
         {`${amount.toLocaleString()} ₽`}
       </TableCell>  
