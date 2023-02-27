@@ -162,7 +162,11 @@
   "loading": "is loading...",
   "passwordChange": {
     "different": "Passwords are different",
-    "successfulChanged": "Password changed successfully"
+    "successfulChanged": "Password changed successfully",
+    "error": {
+      "0": "Password should be longer than 5 letters",
+      "1": "Auth token error"
+    }
   },
   "avatarChange": "Avatar changed successfully",
   "balancePlaceholder": "Your balance"

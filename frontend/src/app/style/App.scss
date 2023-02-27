@@ -30,3 +30,21 @@ body {
 .rs-picker {
   min-width: 200px;
 }
+
+
+.MuiTableContainer-root {
+  overflow-x: auto;
+  &::-webkit-scrollbar, & *::-webkit-scrollbar {
+    width: thin;
+    height: 5px;
+    background-color: white;
+  }
+  &::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb {
+    background-color: #e2dfdf;
+    height: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    height: 5px;
+    background-color: white;
+  }
+}
