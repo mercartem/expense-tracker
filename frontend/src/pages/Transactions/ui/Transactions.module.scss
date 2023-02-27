@@ -1,0 +1,105 @@
+@import '../../../shared/style/variables';
+
+.transactions {
+  gap: 1rem;
+  padding: 1rem;
+  flex-grow: 1;
+  flex-shrink: 2;
+  @media all and (max-width: 771px) {
+    padding: 10px;
+    margin-top: 50px;
+    width: 100%;
+  }
+  @media all and (max-width: 400px) {
+    padding: 10px;
+    width: 100%;
+  }
+}
+
+.container {
+  width: 100%;
+}
+
+.mainContent {
+  max-width: 100%;
+}
+.search {
+  position: relative;
+  border-radius: 2px;
+  background-color:rgb(255, 255, 255);
+  width: 80%;
+  border: 1px solid rgb(214, 214, 214);
+  border-radius: 5px;
+  @media all and (max-width: 771px) {
+    width: 100%;
+  }
+}
+
+.iconWrapper {
+  padding: 0 10px;
+  height: 40px;
+  position: absolute;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input {
+  @include mainText;
+  border-color: rgba(0, 0, 0, 0.42);
+  background: none;
+  min-height: 22px;
+  font-size: 15px;
+  width: 93%;
+  margin-left: 40px;
+  padding: 5px;
+}
+
+.toolbar {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.table {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+  margin-bottom: 10px;
+  max-width: 1100px;
+ font-size: 14px !important;
+}
+
+.title {
+  font-size: 1rem;
+  line-height: 1.2em;
+  padding-bottom: 1em;
+  font-size: 15px;
+  font-weight: 500;
+  color: $text-color;
+}
+
+
+.filterContainer {
+  height: 100vh;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  background-color: $wh;
+  box-shadow: 0 2px 4px 1px rgb(0 0 0 / 16%);
+}
+
+
+.cell {
+  font-family: Apple-System, Arial, Helvetica, STXihei, sans-serif;
+  font-size: 16px;
+  padding-left: 1;
+  max-width: 200px;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

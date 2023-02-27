@@ -1,0 +1,49 @@
+@import '../../style/variables';
+
+.roundBtn {
+  min-width: 120px;
+  height: 40px;
+  border-radius: 25px;
+  background-color: $wh;
+  border: 2px $basic-blue solid;
+  font-size: 1rem;
+  color: $basic-blue;
+  cursor: pointer;
+  &:hover{
+    text-decoration: underline;
+  }
+  @media all and (max-width: 740px) {
+    min-width: 100px;
+    border: 1px $basic-blue solid;
+  }
+  @media all and (max-width: 500px) {
+    border: 1px $basic-blue solid;
+    padding: 5px;
+    min-width: 60px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+}
+
+.roundBtnActive {
+  min-width: 120px;
+  height: 40px;
+  border-radius: 25px;
+  background-color: $basic-blue;
+  border: 2px $basic-blue solid;
+  font-size: 1rem;
+  color: $wh;
+  cursor: pointer;
+  @media all and (max-width: 740px) {
+    min-width: 100px;
+  }
+  @media all and (max-width: 500px) {
+    min-width: 60px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+  &:disabled {
+    background-color:$bg-grey;
+    border: 1px $basic-blue solid;
+  }
+}

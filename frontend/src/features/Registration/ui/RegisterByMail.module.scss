@@ -1,0 +1,45 @@
+@import '../../../shared/style/variables';
+
+.form {
+  width: 80%;
+  margin: 0 auto;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+  @media all and (max-width:740px) {
+    margin: max(5vw, 40px) auto;
+    padding: 10px;
+   }
+   @media all and (max-width:500px) {
+    width: 90%;
+    margin: max(2vw, 20px) auto;
+    padding: 10px;
+   }
+}
+
+.formText {
+  font-size: 0.8em;
+}
+
+.error {
+  text-align: center;
+  color: red;
+  padding: 1em;
+}
+
+.title {
+  font-size: max(1.5vw, 24px);
+  text-align: center;
+  padding: 2em 0 0 0;
+  color:  rgba(0, 0, 0, 0.87);
+  @media all and (max-width:740px) {
+    padding: 2em 0 0 0;
+   }
+   @media all and (max-width:500px) {
+    font-size: 20px;
+    padding: 1em 0 0 0;
+    line-height: 1.1;
+   }
+}

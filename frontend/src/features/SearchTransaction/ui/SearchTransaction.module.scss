@@ -1,0 +1,47 @@
+@import '../../../shared/style/variables';
+
+.search {
+    position: relative;
+    border-radius: 2px;
+    background-color:rgb(255, 255, 255);
+    width: 80%;
+    border: 1px solid rgb(214, 214, 214);
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+    max-height: 40px;
+    @media all and (max-width: 771px) {
+      width: 100%;
+    }
+  }
+  
+  .iconWrapper {
+    padding: 0 10px;
+    height: 40px;
+    position: absolute;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .input {
+    @include mainText;
+    border-color: rgba(0, 0, 0, 0.42);
+    background: none;
+    min-height: 25px;
+    font-size: 15px;
+    width: 98%;
+    padding-left: 45px;
+    @media all and (max-width: 771px) {
+      padding-left: 40px;
+    }
+  }
+  
+  .toolbar {
+    height: 40px;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  

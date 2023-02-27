@@ -1,0 +1,173 @@
+{
+  "dashboardTitle": "Аналитика",
+  "transactionTitle": "Все транзакции",
+  "settingTitle": "Настройки приложения",
+  "navigation": {
+    "dash": "Аналитика",
+    "transactions": "Транзакции",
+    "setting": "Настройки"
+  },
+  "dashboardPage": {
+    "cardTitle": {
+      "income": "Доходы",
+      "expenses": "Расходы",
+      "balance": "Баланс",
+      "transactions": "Транзакции"
+    },
+    "sectionTitle": {
+      "exp": "Все расходы",
+      "balance": "Баланс счетов",
+      "account": "Доходы - расходы",
+      "recent": "Последние транзакции"
+    }
+  },
+  "intro": {
+    "title": "Ваши финансы в одном месте",
+    "subtitle": "Следите за своими расходами легко и с умом"
+  },
+  "login": {
+    "title": "Введите ваши данные",
+    "question": "Еще нет аккаунта?",
+    "register": "Зарегистрироваться",
+    "loginError": {
+      "0": "Пользователь не найден",
+      "1": "Неверный логин или пароль",
+      "2": "Не удалось войти в аккаунт"
+    }
+  },
+  "register": {
+    "title": "Введите данные для регистрации",
+    "question": "Уже есть аккаунт?",
+    "login": "Войти",
+    "success": "Регистрация прошла успешно!",
+    "enterBalance": "Введите ваш баланс, чтобы начать следить за расходами",
+    "errorBalance": "Введите любую сумму",
+    "errorRegister": "Пользователь уже существует"
+  },
+  "avatarTitle": "Загрузить фотографию",
+  "languageTitle": "Выберите язык",
+  "langEn": "English",
+  "langLabel": "Язык",
+  "langRu": "Русский",
+  "passChangeTitle": "Изменить пароль",
+  "passLabel": "пароль",
+  "passLabelRepeat": "повторите пароль",
+  "button": {
+    "confirm": "Подтвердить",
+    "delete": "Удалить",
+    "edit": "Изменить",
+    "add": "Добавить",
+    "cancel": "Отмена",
+    "ok": "Ок",
+    "apply": "Применить",
+    "reset": "Сброс",
+    "exit": "Выйти",
+    "filter": "Фильтры",
+    "login": "Войти",
+    "sign": "Регистрация"
+  },
+  "email": {
+    "emailLabel": "Электронная почта",
+    "emailHolder": "Введите адрес электронной почты",
+    "emailError": "Введите верный электронный адрес"
+  },
+  "password": {
+    "passLabel": "Пароль",
+    "passHolder": "Введите пароль",
+    "passError": "Пароль должен быть длиннее 5 символов"
+  },
+  "name": {
+    "nameLabel": "Имя",
+    "nameHolder": "Введите имя",
+    "nameError": "Имя должно быть длиннее 2 символов"
+  },
+  "search": "Поиск...",
+  "edit": {
+    "title": "Изменить транзакцию"
+  },
+  "add": {
+    "title": "Добавить транзакцию"
+  },
+  "filters": {
+    "title": "Фильтры",
+    "date": "Период",
+    "category": {
+      "title": "Категория",
+      "label": "Выберите категорию"
+    },
+    "type": {
+      "title": "Вид транзакции",
+      "income": "Доход",
+      "expense": "Расход"
+    },
+    "mode": {
+      "title": "Тип оплаты",
+      "cash": "Наличные",
+      "debit": "Дебетовая карта",
+      "credit": "Кредитная карта"
+    },
+    "amount": {
+      "title": "Сумма",
+      "min": "мин:",
+      "max": "макс:"
+    }
+  },
+  "categoriesNames": {
+    "Food": "Еда",
+    "Transportation": "Транспорт",
+    "Rent": "Аренда",
+    "Bills": "Счета",
+    "Utilities": "ЖКХ",
+    "Shopping": "Покупки",
+    "Entertainment": "Развлечения",
+    "Health Care": "Медицина",
+    "Housing": "Быт",
+    "Taxes": "Налоги",
+    "Clothing": "Одежда",
+    "Education": "Образование",
+    "Miscellaneous": "Разное",
+    "Personal Care": "Уход за собой",
+    "Salary": "Зарплата",
+    "Interests": "Дивиденды",
+    "Business": "Бизнес",
+    "Extra income": "Дополнительный доход"
+  },
+  "paymentType": {
+    "title": "Тип оплаты",
+    "credit card": "Кредитная карта",
+    "debit card": "Дебетовая карта",
+    "cash": "Наличные"
+  },
+  "description": "Описание",
+  "headers": {
+    "Category": "Категория",
+    "Date": "Дата",
+    "Description": "Описание",
+    "Payment Mode": "Тип оплаты",
+    "Amount": "Сумма"
+  },
+  "error": {
+    "emptyInput": "Поле обязательно",
+    "emptySelect": "Выберете категорию",
+    "shortDescription": "Описание слишком короткое",
+    "globalError": "Ой...что-то пошло не так",
+    "try": "Попробовать еще?"
+  },
+  "date": {
+    "now": "Сегодня",
+    "placeholder": "Выберите дату и время",
+    "period": "Выберите период"
+  },
+  "notFound": "Транзацкии не найдены!",
+  "loading": "идет загрузка...",
+  "passwordChange": {
+    "different": "Пароли не совпадают",
+    "successfulChanged": "Пароль успешно изменен",
+    "error": {
+      "0": "Пароль должен быть длиннее 5 символов",
+      "1": "Ошибка авторизации токена"
+    }
+  },
+  "avatarChange": "Аватар успешно изменен",
+  "balancePlaceholder": "Ваш баланс"
+}
