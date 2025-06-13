@@ -19,7 +19,7 @@ import { handleValidationErrors, checkAuth } from "./utils/index.js";
 
 mongoose
   .connect(
-    "mongodb+srv://admin:wwwwww@cluster0.rgvqzgq.mongodb.net/tracker?retryWrites=true&w=majority"
+    "mongodb+srv://mercartem:wwwwww@cluster0.0d47yhl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => console.log("DB ok"))
   .catch((error) => console.log("DB Error", error));
