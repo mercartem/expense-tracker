@@ -38,7 +38,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000', // для разработки
+    'https://rs-expense-tracker.netlify.app', // ваш Netlify домен
+  ],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.post(
   "/auth/login",
