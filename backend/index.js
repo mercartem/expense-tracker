@@ -94,10 +94,12 @@ app.post(
 app.delete("/transactions/:id", checkAuth, TransactionController.remove);
 app.patch("/transactions/:id", checkAuth, TransactionController.update);
 
-app.listen(process.env.PORT || 3000, (err) => {
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, (err) => {
   if (err) {
     return console.log(err);
   }
 
-  console.log("server OK");
+  console.log("server OK on port ", PORT);
 });
