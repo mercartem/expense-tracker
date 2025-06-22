@@ -39,6 +39,7 @@ const upload = multer({ storage });
 
 app.use(express.json());
 app.use(cors());
+app.options('*', cors());
 
 app.post(
   "/auth/login",
