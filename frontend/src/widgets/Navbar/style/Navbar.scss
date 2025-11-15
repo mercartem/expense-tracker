@@ -1,0 +1,68 @@
+@import '../../../shared/style/variables';
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  background-color: $wh;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+  width: 200px;
+  min-height: 100vh;
+
+  &__logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background: #f7f7f7;
+  }
+
+  &__user {
+    text-align: center;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__balance {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    background: #f9f9f9;
+    height: 33px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    img {
+      width: 23px;
+      height: 27px;
+    }
+  }
+
+  &__nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  &__nav::after,
+  &__nav::before {
+    content: '';
+    display: block;
+    background-image: linear-gradient(-90deg, #ffffff 3%, #b8cbcc 51%, #ffffff 95%);
+    height: 1px;
+    width: 100%;
+  }
+}
+
+a:focus,
+a:hover {
+  color: rgba(0, 0, 0, 0.6);
+}

@@ -1,0 +1,16 @@
+.area-chart {
+  border: 1px solid transparent;
+  background: #ffffff;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 10%);
+  border-radius: 6px;
+  padding: 1rem;
+
+  &__title {
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 16px;
+    font-size: 16px;
+    color: #545454;
+    margin-bottom: 1rem;
+  }
+}

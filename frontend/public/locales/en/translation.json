@@ -1,0 +1,173 @@
+{
+  "dashboardTitle": "Dashboard",
+  "transactionTitle": "Transactions",
+  "settingTitle": "Settings",
+  "navigation": {
+    "dash": "Dashboard",
+    "transactions": "Transactions",
+    "setting": "Settings"
+  },
+  "dashboardPage": {
+    "cardTitle": {
+      "income": "Income",
+      "expenses": "Expenses",
+      "balance": "Balance",
+      "transactions": "Transactions"
+    },
+    "sectionTitle": {
+      "exp": "Total Expenses",
+      "balance": "Account - Balance",
+      "account": "Income - Expense",
+      "recent": "Recent Transactions"
+    }
+  },
+  "intro": {
+    "title": "Your Finances in One Place",
+    "subtitle": "Track yor expenses smart and easy"
+  },
+  "login": {
+    "title": "Enter your data to log in",
+    "question": "Do not have an account?",
+    "register": "Register",
+    "loginError": {
+      "0": "User not found",
+      "1": "Incorrect login or password",
+      "2": "Failed to login"
+    }
+  },
+  "register": {
+    "title": "Enter your data to register",
+    "question": "Have an account?",
+    "login": "Login",
+    "success": "Registration is successful!",
+    "enterBalance": "Enter your balance to start tracking your expenses",
+    "errorBalance": "Enter any sum",
+    "errorRegister": "User already exists"
+  },
+  "avatarTitle": "Upload your photo",
+  "languageTitle": "Choose language",
+  "langLabel": "Language",
+  "langEn": "English",
+  "langRu": "Русский",
+  "passChangeTitle": "Change Password",
+  "passLabel": "password",
+  "passLabelRepeat": "repeat password",
+  "button": {
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add transaction",
+    "cancel": "Cancel",
+    "ok": "Ok",
+    "apply": "Apply",
+    "reset": "Reset",
+    "exit": "Exit",
+    "filter": "Filter",
+    "login": "Log In",
+    "sign": "Sign In"
+  },
+  "email": {
+    "emailLabel": "Email",
+    "emailHolder": "Enter Email",
+    "emailError": "Enter a valid Email"
+  },
+  "password": {
+    "passLabel": "Password",
+    "passHolder": "Enter password",
+    "passError": "Password should be longer than 5 letters"
+  },
+  "name": {
+    "nameLabel": "Name",
+    "nameHolder": "Enter name",
+    "nameError": "Name should be longer than 2 letters"
+  },
+  "search": "Search...",
+  "edit": {
+    "title": "Edit Transaction"
+  },
+  "add": {
+    "title": "Add transaction"
+  },
+  "filters": {
+    "title": "Filters",
+    "date": "Select period",
+    "category": {
+      "title": "Category",
+      "label": "Select category"
+    },
+    "type": {
+      "title": "Cashflow",
+      "income": "Income",
+      "expense": "Expense"
+    },
+    "mode": {
+      "title": "Payment Mode",
+      "cash": "Cash",
+      "debit": "Debit Card",
+      "credit": "Credit Card"
+    },
+    "amount": {
+      "title": "Amount",
+      "min": "min:",
+      "max": "max:"
+    }
+  },
+  "categoriesNames": {
+    "Food": "Food",
+    "Transportation": "Transportation",
+    "Rent": "Rent",
+    "Bills": "Bills",
+    "Utilities": "Utilities",
+    "Shopping": "Shopping",
+    "Entertainment": "Entertainment",
+    "Health Care": "Health Care",
+    "Housing": "Housing",
+    "Taxes": "Taxes",
+    "Clothing": "Clothing",
+    "Education": "Education",
+    "Miscellaneous": "Miscellaneous",
+    "Personal Care": "Personal Care",
+    "Salary": "Salary",
+    "Interests": "Interests",
+    "Business": "Business",
+    "Extra income": "Extra income"
+  },
+  "paymentType": {
+    "title": "Payment Type",
+    "credit card": "Credit Card",
+    "debit card": "Debit Card",
+    "cash": "Cash"
+  },
+  "description": "Description",
+  "headers": {
+    "Category": "Category",
+    "Date": "Date",
+    "Description": "Description",
+    "Payment Mode": "Payment Mode",
+    "Amount": "Amount"
+  },
+  "error": {
+    "emptyInput": "Cannot be empty",
+    "emptySelect": "Select any category",
+    "shortDescription": "Description is too short",
+    "globalError": "Oops...Something went wrong",
+    "try": "Try again?"
+  },
+  "date": {
+    "now": "Now",
+    "placeholder": "Pick date and time",
+    "period": "Pick date range"
+  },
+  "notFound": "Transactions not found",
+  "loading": "is loading...",
+  "passwordChange": {
+    "different": "Passwords are different",
+    "successfulChanged": "Password changed successfully",
+    "error": {
+      "0": "Password should be longer than 5 letters",
+      "1": "Auth token error"
+    }
+  },
+  "avatarChange": "Avatar changed successfully",
+  "balancePlaceholder": "Your balance"
+}

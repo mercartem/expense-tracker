@@ -1,0 +1,75 @@
+@import '../../../shared/style/variables';
+
+.mainContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.intro {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 6vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: space-between;
+  font-size: min(3vw, 38px);
+  @media all and (max-width: 740px) {
+    font-size: min(3vw, 28px);
+    flex-direction: column;
+  };
+  @media all and (max-width: 500px) {
+    font-size: 20px;
+    padding: 0 0 10px 0;
+  }
+}
+
+.introText {
+  @include mainText;
+  margin-right: 2em;
+  font-size: 1em;
+  line-height: 1.1;
+  padding: 20px;
+  color: rgb(37, 37, 37);
+  @media all and (max-width: 500px) {
+    padding: 10px;
+    margin-right: 0;
+  }
+}
+
+.title {
+  line-height: 1.5;
+  @media all and (max-width: 500px) {
+    font-size: 24px;
+  }
+
+}
+
+.subtitle {
+  font-size: 0.9em;
+  line-height: 1.2em;
+  @media all and (max-width: 740px) {
+    font-size: max(1em, 20px);
+  }
+  @media all and (max-width: 500px) {
+    font-size: 16px;
+  }
+}
+
+.screenshot {
+  display: block;
+  max-width: 50vw;
+  max-height: 60vh;
+  object-fit: contain;
+  @media all and (max-width: 960px) {
+    max-width: 40vw;
+  }
+  @media all and (max-width: 360px) {
+    max-height: 100vh;
+    max-width: 70vw;
+  }
+}

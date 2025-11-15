@@ -1,0 +1,39 @@
+@import '../../shared/style/variables';
+
+.wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.textWrapper {
+  width: 80vw;
+  height: 50%;
+  margin: 10vh auto;
+  padding: min(100px, 2em);
+  text-align: center;
+  font-size: 16px;
+}
+
+.title,
+.subtitle,
+.text {
+  @include mainText;
+  font-weight: 800;
+  font-size: max(7vw, 38px);
+  color: $basic-blue;
+}
+
+.subtitle {
+  font-size: max(3vw, 18px);
+}
+.text {
+  font-size:max(2vw, 16px);
+  margin-bottom: 10px;
+}
+
+.button {
+  margin-top: 10px;
+}
+
